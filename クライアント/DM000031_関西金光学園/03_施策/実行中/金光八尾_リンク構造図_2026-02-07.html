@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金光八尾 リンク構造図</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; background: #0a0e27; color: #e0e0e0; overflow: hidden; }
+#app { width: 100vw; height: 100vh; position: relative; }
+svg { width: 100%; height: 100%; }
+
+/* ヘッダー */
+#header {
+  position: absolute; top: 0; left: 0; right: 0;
+  background: rgba(10,14,39,0.92); backdrop-filter: blur(8px);
+  padding: 12px 24px; display: flex; align-items: center; gap: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 10;
+}
+#header h1 { font-size: 16px; font-weight: 600; white-space: nowrap; }
+#header .stats { font-size: 12px; color: #888; white-space: nowrap; }
+
+/* フィルターパネル */
+#filters {
+  position: absolute; top: 56px; left: 16px;
+  background: rgba(10,14,39,0.92); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+  padding: 16px; width: 220px; z-index: 10;
+}
+#filters h3 { font-size: 13px; margin-bottom: 10px; color: #aaa; }
+.filter-section { margin-bottom: 14px; }
+.filter-section h4 { font-size: 11px; color: #666; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+.filter-item { display: flex; align-items: center; gap: 8px; padding: 3px 0; cursor: pointer; font-size: 12px; }
+.filter-item:hover { color: #fff; }
+.filter-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.filter-item input { display: none; }
+.filter-item.unchecked { opacity: 0.35; }
+.filter-item.unchecked .filter-dot { opacity: 0.3; }
+
+/* ツールチップ */
+#tooltip {
+  position: absolute; display: none; pointer-events: none;
+  background: rgba(20,24,50,0.95); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 8px;
+  padding: 12px 16px; font-size: 12px; max-width: 320px; z-index: 20;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+#tooltip .tt-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+#tooltip .tt-path { font-size: 11px; color: #888; margin-bottom: 8px; }
+#tooltip .tt-stat { display: flex; gap: 16px; }
+#tooltip .tt-stat span { color: #aaa; }
+#tooltip .tt-stat strong { color: #fff; }
+
+/* 凡例 */
+#legend {
+  position: absolute; bottom: 16px; left: 16px;
+  background: rgba(10,14,39,0.92); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+  padding: 12px 16px; z-index: 10; font-size: 11px;
+}
+#legend h4 { font-size: 11px; color: #666; margin-bottom: 6px; }
+.legend-row { display: flex; align-items: center; gap: 8px; padding: 2px 0; }
+.legend-line { width: 24px; height: 2px; flex-shrink: 0; }
+
+/* 操作説明 */
+#help {
+  position: absolute; bottom: 16px; right: 16px;
+  background: rgba(10,14,39,0.92); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+  padding: 12px 16px; z-index: 10; font-size: 11px; color: #888;
+}
+#help div { padding: 2px 0; }
+#help kbd { background: rgba(255,255,255,0.1); padding: 1px 5px; border-radius: 3px; font-size: 10px; }
+
+/* 検索 */
+#search-box {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px; padding: 6px 10px; color: #e0e0e0; font-size: 12px;
+  width: 200px; outline: none;
+}
+#search-box::placeholder { color: #555; }
+#search-box:focus { border-color: rgba(255,255,255,0.3); }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="header">
+    <h1>金光八尾 リンク構造図（全72ページ）</h1>
+    <input type="text" id="search-box" placeholder="ページ名で検索...">
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <div id="filters">
+    <h3>表示フィルター</h3>
+    <div class="filter-section">
+      <h4>セクション</h4>
+      <div id="group-filters"></div>
+    </div>
+    <div class="filter-section">
+      <h4>リンク種別</h4>
+      <div id="link-filters"></div>
+    </div>
+  </div>
+
+  <div id="tooltip">
+    <div class="tt-title"></div>
+    <div class="tt-path"></div>
+    <div class="tt-stat"></div>
+  </div>
+
+  <div id="legend">
+    <h4>リンク種別</h4>
+    <div class="legend-row"><div class="legend-line" style="background:#4a9eff"></div> 内部リンク</div>
+    <div class="legend-row"><div class="legend-line" style="background:#ff4757"></div> CTA（資料請求・予約等）</div>
+  </div>
+
+  <div id="help">
+    <div><kbd>ドラッグ</kbd> ノードを移動</div>
+    <div><kbd>スクロール</kbd> ズーム</div>
+    <div><kbd>クリック</kbd> 接続先をハイライト</div>
+    <div><kbd>背景クリック</kbd> ハイライト解除</div>
+  </div>
+
+  <svg id="graph"></svg>
+</div>
+
+<script>
+// ===== データ定義 =====
+
+const groupConfig = {
+  top:       { label: "TOP",          color: "#ffd700" },
+  junior:    { label: "中学校",       color: "#4a9eff" },
+  senior:    { label: "高等学校",     color: "#00d2ff" },
+  about:     { label: "学校紹介",     color: "#ff9f43" },
+  career:    { label: "進路・実績",   color: "#ee5a24" },
+  admission: { label: "入試情報",     color: "#a55eea" },
+  article:   { label: "記事・ブログ", color: "#26de81" },
+  students:  { label: "在校生・卒業生", color: "#778ca3" },
+  cta:       { label: "CTA・フォーム", color: "#ff4757" },
+  common:    { label: "共通ページ",   color: "#636e72" }
+};
+
+const linkTypeConfig = {
+  internal: { label: "内部リンク", color: "#4a9eff" },
+  cta:      { label: "CTA",       color: "#ff4757" }
+};
+
+const nodes = [
+  { id: "/", label: "総合TOP", group: "top" },
+  { id: "/junior/", label: "中学校TOP", group: "top" },
+  { id: "/senior/", label: "高等学校TOP", group: "top" },
+  { id: "/junior/feature/", label: "中学 学びの特色", group: "junior" },
+  { id: "/junior/course/", label: "中学 コースTOP", group: "junior" },
+  { id: "/junior/course/s-tokushin/", label: "中学 S特進", group: "junior" },
+  { id: "/junior/course/tokushin/", label: "中学 特進", group: "junior" },
+  { id: "/junior/schoollife/", label: "中学 学校生活", group: "junior" },
+  { id: "/junior/schoollife/daily/", label: "中学 一日の流れ", group: "junior" },
+  { id: "/junior/schoollife/events/", label: "中学 年間行事", group: "junior" },
+  { id: "/junior/schoollife/club/", label: "中学 クラブ活動", group: "junior" },
+  { id: "/junior/examination/", label: "中学 入試情報", group: "junior" },
+  { id: "/junior/examination/event/", label: "中学 説明会", group: "junior" },
+  { id: "/junior/examination/application/", label: "中学 募集要項", group: "junior" },
+  { id: "/junior/examination/tuition/", label: "中学 学費", group: "junior" },
+  { id: "/senior/feature/", label: "高校 学びの特色", group: "senior" },
+  { id: "/senior/course/", label: "高校 コースTOP", group: "senior" },
+  { id: "/senior/course/s-tokushin/", label: "高校 S特進", group: "senior" },
+  { id: "/senior/course/tokushin/", label: "高校 特進", group: "senior" },
+  { id: "/senior/course/shingaku/", label: "高校 総合進学", group: "senior" },
+  { id: "/senior/course/art/", label: "高校 美術", group: "senior" },
+  { id: "/senior/schoollife/", label: "高校 学校生活", group: "senior" },
+  { id: "/senior/schoollife/daily/", label: "高校 一日の流れ", group: "senior" },
+  { id: "/senior/schoollife/events/", label: "高校 年間行事", group: "senior" },
+  { id: "/senior/schoollife/club/", label: "高校 クラブ活動", group: "senior" },
+  { id: "/senior/examination/", label: "高校 入試情報", group: "senior" },
+  { id: "/senior/examination/event/", label: "高校 説明会", group: "senior" },
+  { id: "/senior/examination/application/", label: "高校 募集要項", group: "senior" },
+  { id: "/senior/examination/tuition/", label: "高校 学費", group: "senior" },
+  { id: "/about/", label: "学校紹介TOP", group: "about" },
+  { id: "/about/greeting/", label: "校長挨拶", group: "about" },
+  { id: "/about/spirit/", label: "建学精神", group: "about" },
+  { id: "/about/roadmap/", label: "6年間の学び", group: "about" },
+  { id: "/about/history/", label: "沿革", group: "about" },
+  { id: "/about/uniform/", label: "制服", group: "about" },
+  { id: "/about/facility/", label: "教育環境・施設", group: "about" },
+  { id: "/about/pamphlet/", label: "パンフレット", group: "about" },
+  { id: "/about/gallery/", label: "ギャラリー", group: "about" },
+  { id: "/career/", label: "進路・実績TOP", group: "career" },
+  { id: "/career/results/", label: "合格実績", group: "career" },
+  { id: "/career/voice/", label: "合格体験記", group: "career" },
+  { id: "/career/students/", label: "在校生の声", group: "career" },
+  { id: "/career/alumni/", label: "卒業生メッセージ", group: "career" },
+  { id: "/admission/", label: "入試情報TOP(統合)", group: "admission" },
+  { id: "/admission/junior/", label: "統合 中学入試", group: "admission" },
+  { id: "/admission/senior/", label: "統合 高校入試", group: "admission" },
+  { id: "/admission/event/", label: "説明会一覧(統合)", group: "admission" },
+  { id: "/admission/tuition/", label: "学費(統合)", group: "admission" },
+  { id: "/admission/faq/", label: "FAQ", group: "admission" },
+  { id: "/news/", label: "お知らせ一覧", group: "article" },
+  { id: "/topics/", label: "トピックス一覧", group: "article" },
+  { id: "article-detail", label: "記事詳細", group: "article" },
+  { id: "/clubblog/", label: "クラブブログ", group: "article" },
+  { id: "blog-detail", label: "ブログ記事詳細", group: "article" },
+  { id: "/students/", label: "在校生TOP", group: "students" },
+  { id: "/students/schoolbus/", label: "スクールバス", group: "students" },
+  { id: "/students/event/", label: "行事予定", group: "students" },
+  { id: "/students/warning/", label: "気象警報", group: "students" },
+  { id: "/students/certificate/", label: "在校生 証明書", group: "students" },
+  { id: "/graduates/", label: "卒業生TOP", group: "students" },
+  { id: "/graduates/certificate/", label: "卒業生 証明書", group: "students" },
+  { id: "/request/", label: "資料請求", group: "cta" },
+  { id: "/contact/", label: "お問い合わせ", group: "cta" },
+  { id: "reservation-form", label: "説明会予約フォーム", group: "cta" },
+  { id: "form-confirm", label: "確認・完了画面", group: "cta" },
+  { id: "/access/", label: "アクセス", group: "common" },
+  { id: "/evaluation/", label: "学校評価", group: "common" },
+  { id: "/recruit/", label: "採用情報", group: "common" },
+  { id: "/privacy/", label: "個人情報保護", group: "common" },
+  { id: "/sitepolicy/", label: "サイトポリシー", group: "common" },
+  { id: "/schoolpolicy/", label: "スクールポリシー", group: "common" }
+];
+
+const links = [
+  // ── 総合TOP ──
+  { source: "/", target: "article-detail", type: "internal" },
+  { source: "/", target: "/news/", type: "internal" },
+  { source: "/", target: "/topics/", type: "internal" },
+  { source: "/", target: "/junior/", type: "internal" },
+  { source: "/", target: "/senior/", type: "internal" },
+  { source: "/", target: "/junior/course/s-tokushin/", type: "internal" },
+  { source: "/", target: "/junior/course/tokushin/", type: "internal" },
+  { source: "/", target: "/senior/course/s-tokushin/", type: "internal" },
+  { source: "/", target: "/senior/course/tokushin/", type: "internal" },
+  { source: "/", target: "/senior/course/shingaku/", type: "internal" },
+  { source: "/", target: "/senior/course/art/", type: "internal" },
+  { source: "/", target: "/career/voice/", type: "internal" },
+  { source: "/", target: "/career/students/", type: "internal" },
+  { source: "/", target: "/career/results/", type: "internal" },
+  { source: "/", target: "/admission/event/", type: "internal" },
+  { source: "/", target: "/about/", type: "internal" },
+  { source: "/", target: "/about/greeting/", type: "internal" },
+  { source: "/", target: "/access/", type: "internal" },
+  { source: "/", target: "/request/", type: "cta" },
+  { source: "/", target: "reservation-form", type: "cta" },
+  { source: "/", target: "/contact/", type: "cta" },
+  // ── 中学校TOP ──
+  { source: "/junior/", target: "/junior/feature/", type: "internal" },
+  { source: "/junior/", target: "/junior/course/s-tokushin/", type: "internal" },
+  { source: "/junior/", target: "/junior/course/tokushin/", type: "internal" },
+  { source: "/junior/", target: "/career/students/", type: "internal" },
+  { source: "/junior/", target: "/junior/schoollife/", type: "internal" },
+  { source: "/junior/", target: "/clubblog/", type: "internal" },
+  { source: "/junior/", target: "/junior/examination/event/", type: "internal" },
+  { source: "/junior/", target: "/junior/examination/application/", type: "internal" },
+  { source: "/junior/", target: "/junior/examination/tuition/", type: "internal" },
+  { source: "/junior/", target: "reservation-form", type: "cta" },
+  // ── 高等学校TOP ──
+  { source: "/senior/", target: "/senior/feature/", type: "internal" },
+  { source: "/senior/", target: "/senior/course/s-tokushin/", type: "internal" },
+  { source: "/senior/", target: "/senior/course/tokushin/", type: "internal" },
+  { source: "/senior/", target: "/senior/course/shingaku/", type: "internal" },
+  { source: "/senior/", target: "/senior/course/art/", type: "internal" },
+  { source: "/senior/", target: "/career/results/", type: "internal" },
+  { source: "/senior/", target: "/career/voice/", type: "internal" },
+  { source: "/senior/", target: "/career/students/", type: "internal" },
+  { source: "/senior/", target: "/senior/schoollife/", type: "internal" },
+  { source: "/senior/", target: "/clubblog/", type: "internal" },
+  { source: "/senior/", target: "/senior/examination/event/", type: "internal" },
+  { source: "/senior/", target: "/senior/examination/application/", type: "internal" },
+  { source: "/senior/", target: "/senior/examination/tuition/", type: "internal" },
+  { source: "/senior/", target: "reservation-form", type: "cta" },
+  // ── 中学 コース紹介TOP ──
+  { source: "/junior/course/", target: "/junior/course/s-tokushin/", type: "internal" },
+  { source: "/junior/course/", target: "/junior/course/tokushin/", type: "internal" },
+  { source: "/junior/course/", target: "/senior/course/s-tokushin/", type: "internal" },
+  { source: "/junior/course/", target: "/senior/course/tokushin/", type: "internal" },
+  { source: "/junior/course/", target: "reservation-form", type: "cta" },
+  { source: "/junior/course/", target: "/request/", type: "cta" },
+  // ── 高校 コース紹介TOP ──
+  { source: "/senior/course/", target: "/senior/course/s-tokushin/", type: "internal" },
+  { source: "/senior/course/", target: "/senior/course/tokushin/", type: "internal" },
+  { source: "/senior/course/", target: "/senior/course/shingaku/", type: "internal" },
+  { source: "/senior/course/", target: "/senior/course/art/", type: "internal" },
+  { source: "/senior/course/", target: "reservation-form", type: "cta" },
+  { source: "/senior/course/", target: "/request/", type: "cta" },
+  // ── 中学 学校生活 ──
+  { source: "/junior/schoollife/", target: "/junior/schoollife/daily/", type: "internal" },
+  { source: "/junior/schoollife/", target: "/junior/schoollife/events/", type: "internal" },
+  { source: "/junior/schoollife/", target: "/junior/schoollife/club/", type: "internal" },
+  { source: "/junior/schoollife/", target: "/clubblog/", type: "internal" },
+  // ── 高校 学校生活 ──
+  { source: "/senior/schoollife/", target: "/senior/schoollife/daily/", type: "internal" },
+  { source: "/senior/schoollife/", target: "/senior/schoollife/events/", type: "internal" },
+  { source: "/senior/schoollife/", target: "/senior/schoollife/club/", type: "internal" },
+  { source: "/senior/schoollife/", target: "/clubblog/", type: "internal" },
+  // ── 中学 入試情報 ──
+  { source: "/junior/examination/", target: "/junior/examination/event/", type: "internal" },
+  { source: "/junior/examination/", target: "/junior/examination/application/", type: "internal" },
+  { source: "/junior/examination/", target: "/junior/examination/tuition/", type: "internal" },
+  { source: "/junior/examination/", target: "/career/students/", type: "internal" },
+  { source: "/junior/examination/", target: "reservation-form", type: "cta" },
+  { source: "/junior/examination/", target: "/request/", type: "cta" },
+  { source: "/junior/examination/", target: "/contact/", type: "cta" },
+  // ── 高校 入試情報 ──
+  { source: "/senior/examination/", target: "/senior/examination/event/", type: "internal" },
+  { source: "/senior/examination/", target: "/senior/examination/application/", type: "internal" },
+  { source: "/senior/examination/", target: "/senior/examination/tuition/", type: "internal" },
+  { source: "/senior/examination/", target: "/career/students/", type: "internal" },
+  { source: "/senior/examination/", target: "reservation-form", type: "cta" },
+  { source: "/senior/examination/", target: "/request/", type: "cta" },
+  { source: "/senior/examination/", target: "/contact/", type: "cta" },
+  // ── 学校紹介TOP ──
+  { source: "/about/", target: "/about/greeting/", type: "internal" },
+  { source: "/about/", target: "/about/spirit/", type: "internal" },
+  { source: "/about/", target: "/about/roadmap/", type: "internal" },
+  { source: "/about/", target: "/about/history/", type: "internal" },
+  { source: "/about/", target: "/about/uniform/", type: "internal" },
+  { source: "/about/", target: "/about/facility/", type: "internal" },
+  { source: "/about/", target: "/about/pamphlet/", type: "internal" },
+  { source: "/about/", target: "/about/gallery/", type: "internal" },
+  { source: "/about/", target: "/request/", type: "cta" },
+  { source: "/about/", target: "reservation-form", type: "cta" },
+  // ── 進路・実績TOP ──
+  { source: "/career/", target: "/career/results/", type: "internal" },
+  { source: "/career/", target: "/career/voice/", type: "internal" },
+  { source: "/career/", target: "/career/students/", type: "internal" },
+  { source: "/career/", target: "/career/alumni/", type: "internal" },
+  { source: "/career/", target: "reservation-form", type: "cta" },
+  { source: "/career/", target: "/request/", type: "cta" },
+  // ── 入試情報(統合)TOP ──
+  { source: "/admission/", target: "/admission/junior/", type: "internal" },
+  { source: "/admission/", target: "/admission/senior/", type: "internal" },
+  { source: "/admission/", target: "/admission/event/", type: "internal" },
+  { source: "/admission/", target: "/admission/tuition/", type: "internal" },
+  { source: "/admission/", target: "/admission/faq/", type: "internal" },
+  { source: "/admission/", target: "reservation-form", type: "cta" },
+  { source: "/admission/", target: "/request/", type: "cta" },
+  { source: "/admission/", target: "/contact/", type: "cta" },
+  // ── 在校生TOP ──
+  { source: "/students/", target: "/students/schoolbus/", type: "internal" },
+  { source: "/students/", target: "/students/event/", type: "internal" },
+  { source: "/students/", target: "/students/warning/", type: "internal" },
+  { source: "/students/", target: "/students/certificate/", type: "internal" },
+  { source: "/students/", target: "/junior/schoollife/", type: "internal" },
+  { source: "/students/", target: "/clubblog/", type: "internal" },
+  // ── 卒業生TOP ──
+  { source: "/graduates/", target: "/graduates/certificate/", type: "internal" },
+  { source: "/graduates/", target: "/recruit/", type: "internal" },
+  { source: "/graduates/", target: "/career/alumni/", type: "internal" },
+  // ── 中学 学びの特色 ──
+  { source: "/junior/feature/", target: "/junior/course/", type: "internal" },
+  { source: "/junior/feature/", target: "/career/results/", type: "internal" },
+  { source: "/junior/feature/", target: "reservation-form", type: "cta" },
+  { source: "/junior/feature/", target: "/request/", type: "cta" },
+  // ── 高校 学びの特色 ──
+  { source: "/senior/feature/", target: "/senior/course/", type: "internal" },
+  { source: "/senior/feature/", target: "/career/voice/", type: "internal" },
+  { source: "/senior/feature/", target: "reservation-form", type: "cta" },
+  { source: "/senior/feature/", target: "/request/", type: "cta" },
+  // ── 中学 S特進 ──
+  { source: "/junior/course/s-tokushin/", target: "/senior/course/s-tokushin/", type: "internal" },
+  { source: "/junior/course/s-tokushin/", target: "/career/students/", type: "internal" },
+  { source: "/junior/course/s-tokushin/", target: "/career/voice/", type: "internal" },
+  { source: "/junior/course/s-tokushin/", target: "/junior/course/tokushin/", type: "internal" },
+  { source: "/junior/course/s-tokushin/", target: "/contact/", type: "cta" },
+  { source: "/junior/course/s-tokushin/", target: "reservation-form", type: "cta" },
+  // ── 中学 特進 ──
+  { source: "/junior/course/tokushin/", target: "/senior/course/tokushin/", type: "internal" },
+  { source: "/junior/course/tokushin/", target: "/career/students/", type: "internal" },
+  { source: "/junior/course/tokushin/", target: "/career/voice/", type: "internal" },
+  { source: "/junior/course/tokushin/", target: "/junior/course/s-tokushin/", type: "internal" },
+  { source: "/junior/course/tokushin/", target: "/contact/", type: "cta" },
+  { source: "/junior/course/tokushin/", target: "reservation-form", type: "cta" },
+  // ── 高校 S特進 ──
+  { source: "/senior/course/s-tokushin/", target: "/career/results/", type: "internal" },
+  { source: "/senior/course/s-tokushin/", target: "/career/students/", type: "internal" },
+  { source: "/senior/course/s-tokushin/", target: "/career/voice/", type: "internal" },
+  { source: "/senior/course/s-tokushin/", target: "/senior/course/tokushin/", type: "internal" },
+  { source: "/senior/course/s-tokushin/", target: "/senior/course/shingaku/", type: "internal" },
+  { source: "/senior/course/s-tokushin/", target: "/senior/course/art/", type: "internal" },
+  { source: "/senior/course/s-tokushin/", target: "reservation-form", type: "cta" },
+  { source: "/senior/course/s-tokushin/", target: "/request/", type: "cta" },
+  // ── 高校 特進 ──
+  { source: "/senior/course/tokushin/", target: "/career/results/", type: "internal" },
+  { source: "/senior/course/tokushin/", target: "/career/students/", type: "internal" },
+  { source: "/senior/course/tokushin/", target: "/career/voice/", type: "internal" },
+  { source: "/senior/course/tokushin/", target: "/senior/course/s-tokushin/", type: "internal" },
+  { source: "/senior/course/tokushin/", target: "/senior/course/shingaku/", type: "internal" },
+  { source: "/senior/course/tokushin/", target: "/senior/course/art/", type: "internal" },
+  { source: "/senior/course/tokushin/", target: "reservation-form", type: "cta" },
+  { source: "/senior/course/tokushin/", target: "/request/", type: "cta" },
+  // ── 高校 総合進学 ──
+  { source: "/senior/course/shingaku/", target: "/career/results/", type: "internal" },
+  { source: "/senior/course/shingaku/", target: "/career/students/", type: "internal" },
+  { source: "/senior/course/shingaku/", target: "/career/voice/", type: "internal" },
+  { source: "/senior/course/shingaku/", target: "/senior/course/s-tokushin/", type: "internal" },
+  { source: "/senior/course/shingaku/", target: "/senior/course/tokushin/", type: "internal" },
+  { source: "/senior/course/shingaku/", target: "/senior/course/art/", type: "internal" },
+  { source: "/senior/course/shingaku/", target: "reservation-form", type: "cta" },
+  { source: "/senior/course/shingaku/", target: "/request/", type: "cta" },
+  // ── 高校 美術 ──
+  { source: "/senior/course/art/", target: "/career/students/", type: "internal" },
+  { source: "/senior/course/art/", target: "/career/voice/", type: "internal" },
+  { source: "/senior/course/art/", target: "/about/gallery/", type: "internal" },
+  { source: "/senior/course/art/", target: "/senior/course/s-tokushin/", type: "internal" },
+  { source: "/senior/course/art/", target: "/senior/course/tokushin/", type: "internal" },
+  { source: "/senior/course/art/", target: "/senior/course/shingaku/", type: "internal" },
+  { source: "/senior/course/art/", target: "reservation-form", type: "cta" },
+  { source: "/senior/course/art/", target: "/request/", type: "cta" },
+  // ── 中学 一日の流れ ──
+  { source: "/junior/schoollife/daily/", target: "/junior/schoollife/events/", type: "internal" },
+  { source: "/junior/schoollife/daily/", target: "/junior/schoollife/club/", type: "internal" },
+  // ── 高校 一日の流れ ──
+  { source: "/senior/schoollife/daily/", target: "/senior/schoollife/events/", type: "internal" },
+  { source: "/senior/schoollife/daily/", target: "/senior/schoollife/club/", type: "internal" },
+  // ── 中学 年間行事 ──
+  { source: "/junior/schoollife/events/", target: "/topics/", type: "internal" },
+  { source: "/junior/schoollife/events/", target: "/junior/schoollife/", type: "internal" },
+  // ── 高校 年間行事 ──
+  { source: "/senior/schoollife/events/", target: "/topics/", type: "internal" },
+  { source: "/senior/schoollife/events/", target: "/senior/schoollife/", type: "internal" },
+  // ── 中学 クラブ活動 ──
+  { source: "/junior/schoollife/club/", target: "/clubblog/", type: "internal" },
+  { source: "/junior/schoollife/club/", target: "reservation-form", type: "cta" },
+  // ── 高校 クラブ活動 ──
+  { source: "/senior/schoollife/club/", target: "/clubblog/", type: "internal" },
+  { source: "/senior/schoollife/club/", target: "reservation-form", type: "cta" },
+  // ── 校長挨拶 ──
+  { source: "/about/greeting/", target: "/about/spirit/", type: "internal" },
+  { source: "/about/greeting/", target: "/about/", type: "internal" },
+  // ── 建学精神 ──
+  { source: "/about/spirit/", target: "/about/history/", type: "internal" },
+  { source: "/about/spirit/", target: "/about/greeting/", type: "internal" },
+  // ── 6年間の学び ──
+  { source: "/about/roadmap/", target: "/junior/course/s-tokushin/", type: "internal" },
+  { source: "/about/roadmap/", target: "/junior/course/tokushin/", type: "internal" },
+  { source: "/about/roadmap/", target: "/senior/course/s-tokushin/", type: "internal" },
+  { source: "/about/roadmap/", target: "/senior/course/tokushin/", type: "internal" },
+  { source: "/about/roadmap/", target: "/senior/course/shingaku/", type: "internal" },
+  { source: "/about/roadmap/", target: "reservation-form", type: "cta" },
+  { source: "/about/roadmap/", target: "/request/", type: "cta" },
+  // ── 沿革 ──
+  { source: "/about/history/", target: "/about/spirit/", type: "internal" },
+  { source: "/about/history/", target: "/about/", type: "internal" },
+  // ── パンフレット ──
+  { source: "/about/pamphlet/", target: "/request/", type: "cta" },
+  // ── 合格実績 ──
+  { source: "/career/results/", target: "/career/voice/", type: "internal" },
+  { source: "/career/results/", target: "reservation-form", type: "cta" },
+  // ── 中学 募集要項 ──
+  { source: "/junior/examination/application/", target: "reservation-form", type: "cta" },
+  { source: "/junior/examination/application/", target: "/contact/", type: "cta" },
+  // ── 高校 募集要項 ──
+  { source: "/senior/examination/application/", target: "reservation-form", type: "cta" },
+  { source: "/senior/examination/application/", target: "/contact/", type: "cta" },
+  // ── 統合版 中学入試 ──
+  { source: "/admission/junior/", target: "/admission/event/", type: "internal" },
+  { source: "/admission/junior/", target: "/junior/examination/application/", type: "internal" },
+  { source: "/admission/junior/", target: "/admission/tuition/", type: "internal" },
+  { source: "/admission/junior/", target: "reservation-form", type: "cta" },
+  { source: "/admission/junior/", target: "/request/", type: "cta" },
+  // ── 統合版 高校入試 ──
+  { source: "/admission/senior/", target: "/admission/event/", type: "internal" },
+  { source: "/admission/senior/", target: "/senior/examination/application/", type: "internal" },
+  { source: "/admission/senior/", target: "/admission/tuition/", type: "internal" },
+  { source: "/admission/senior/", target: "reservation-form", type: "cta" },
+  { source: "/admission/senior/", target: "/request/", type: "cta" },
+  // ── 中学 学費 ──
+  { source: "/junior/examination/tuition/", target: "/contact/", type: "cta" },
+  { source: "/junior/examination/tuition/", target: "/request/", type: "cta" },
+  // ── 高校 学費 ──
+  { source: "/senior/examination/tuition/", target: "/contact/", type: "cta" },
+  { source: "/senior/examination/tuition/", target: "/request/", type: "cta" },
+  // ── 教育環境・施設 ──
+  { source: "/about/facility/", target: "/request/", type: "cta" },
+  { source: "/about/facility/", target: "reservation-form", type: "cta" },
+  // ── お知らせ一覧 ──
+  { source: "/news/", target: "article-detail", type: "internal" },
+  // ── トピックス一覧 ──
+  { source: "/topics/", target: "article-detail", type: "internal" },
+  // ── 記事詳細 ──
+  { source: "article-detail", target: "/", type: "internal" },
+  { source: "article-detail", target: "/news/", type: "internal" },
+  { source: "article-detail", target: "/topics/", type: "internal" },
+  // ── クラブブログ ──
+  { source: "/clubblog/", target: "blog-detail", type: "internal" },
+  // ── ブログ記事詳細 ──
+  { source: "blog-detail", target: "/", type: "internal" },
+  { source: "blog-detail", target: "/clubblog/", type: "internal" },
+  // ── 合格体験記 ──
+  { source: "/career/voice/", target: "reservation-form", type: "cta" },
+  { source: "/career/voice/", target: "/request/", type: "cta" },
+  // ── 在校生の声 ──
+  { source: "/career/students/", target: "reservation-form", type: "cta" },
+  { source: "/career/students/", target: "/request/", type: "cta" },
+  // ── 卒業生メッセージ ──
+  { source: "/career/alumni/", target: "reservation-form", type: "cta" },
+  { source: "/career/alumni/", target: "/request/", type: "cta" },
+  // ── FAQ ──
+  { source: "/admission/faq/", target: "/contact/", type: "cta" },
+  { source: "/admission/faq/", target: "reservation-form", type: "cta" },
+  // ── 説明会一覧(統合) ──
+  { source: "/admission/event/", target: "reservation-form", type: "cta" },
+  { source: "/admission/event/", target: "/request/", type: "cta" },
+  { source: "/admission/event/", target: "/contact/", type: "cta" },
+  // ── 中学 説明会 ──
+  { source: "/junior/examination/event/", target: "reservation-form", type: "cta" },
+  { source: "/junior/examination/event/", target: "/request/", type: "cta" },
+  { source: "/junior/examination/event/", target: "/contact/", type: "cta" },
+  // ── 高校 説明会 ──
+  { source: "/senior/examination/event/", target: "reservation-form", type: "cta" },
+  { source: "/senior/examination/event/", target: "/request/", type: "cta" },
+  { source: "/senior/examination/event/", target: "/contact/", type: "cta" },
+  // ── 学費(統合) ──
+  { source: "/admission/tuition/", target: "/contact/", type: "cta" },
+  { source: "/admission/tuition/", target: "/request/", type: "cta" },
+  // ── 資料請求 ──
+  { source: "/request/", target: "/privacy/", type: "internal" },
+  // ── お問い合わせ ──
+  { source: "/contact/", target: "/privacy/", type: "internal" },
+  // ── 説明会予約フォーム ──
+  { source: "reservation-form", target: "/privacy/", type: "internal" },
+  // ── 確認・完了画面 ──
+  { source: "form-confirm", target: "/", type: "internal" },
+  // ── アクセス ──
+  { source: "/access/", target: "/students/schoolbus/", type: "internal" },
+  { source: "/access/", target: "/request/", type: "cta" },
+  { source: "/access/", target: "reservation-form", type: "cta" }
+];
+
+
+// ===== 被リンク数を計算 =====
+const incomingCount = {};
+const outgoingCount = {};
+nodes.forEach(n => { incomingCount[n.id] = 0; outgoingCount[n.id] = 0; });
+links.forEach(l => {
+  incomingCount[l.target] = (incomingCount[l.target] || 0) + 1;
+  outgoingCount[l.source] = (outgoingCount[l.source] || 0) + 1;
+});
+
+// ===== SVG & シミュレーション構築 =====
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+const svg = d3.select("#graph")
+  .attr("width", width)
+  .attr("height", height);
+
+const defs = svg.append("defs");
+// 矢印マーカー
+Object.entries(linkTypeConfig).forEach(([key, cfg]) => {
+  defs.append("marker")
+    .attr("id", `arrow-${key}`)
+    .attr("viewBox", "0 -4 8 8")
+    .attr("refX", 20)
+    .attr("refY", 0)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+    .append("path")
+    .attr("d", "M0,-3L7,0L0,3")
+    .attr("fill", cfg.color)
+    .attr("opacity", 0.6);
+});
+
+const container = svg.append("g");
+
+const zoom = d3.zoom()
+  .scaleExtent([0.15, 4])
+  .on("zoom", (event) => container.attr("transform", event.transform));
+svg.call(zoom);
+
+// リンク描画
+const linkG = container.append("g").attr("class", "links");
+const linkElements = linkG.selectAll("line")
+  .data(links)
+  .join("line")
+  .attr("stroke", d => linkTypeConfig[d.type].color)
+  .attr("stroke-opacity", 0.25)
+  .attr("stroke-width", 1)
+  .attr("marker-end", d => `url(#arrow-${d.type})`);
+
+// ノード描画
+const nodeG = container.append("g").attr("class", "nodes");
+const nodeElements = nodeG.selectAll("g")
+  .data(nodes)
+  .join("g")
+  .attr("cursor", "pointer")
+  .call(d3.drag()
+    .on("start", dragStarted)
+    .on("drag", dragged)
+    .on("end", dragEnded));
+
+nodeElements.append("circle")
+  .attr("r", d => {
+    const inc = incomingCount[d.id] || 0;
+    if (d.id === "/") return 18;
+    if (inc >= 15) return 15;
+    if (inc >= 8) return 12;
+    if (inc >= 4) return 9;
+    return 6;
+  })
+  .attr("fill", d => groupConfig[d.group].color)
+  .attr("stroke", d => d3.color(groupConfig[d.group].color).brighter(0.5))
+  .attr("stroke-width", 1.5)
+  .attr("opacity", 0.9);
+
+// グロー効果
+nodeElements.append("circle")
+  .attr("r", d => {
+    const inc = incomingCount[d.id] || 0;
+    if (d.id === "/") return 28;
+    if (inc >= 15) return 24;
+    if (inc >= 8) return 18;
+    return 0;
+  })
+  .attr("fill", "none")
+  .attr("stroke", d => groupConfig[d.group].color)
+  .attr("stroke-width", 1)
+  .attr("opacity", 0.15);
+
+// ラベル
+nodeElements.append("text")
+  .text(d => d.label)
+  .attr("x", d => {
+    const inc = incomingCount[d.id] || 0;
+    if (d.id === "/") return 22;
+    if (inc >= 15) return 19;
+    if (inc >= 8) return 16;
+    if (inc >= 4) return 13;
+    return 10;
+  })
+  .attr("y", 4)
+  .attr("font-size", d => {
+    const inc = incomingCount[d.id] || 0;
+    if (d.id === "/") return "13px";
+    if (inc >= 8) return "11px";
+    return "10px";
+  })
+  .attr("fill", "#ccc")
+  .attr("font-weight", d => (incomingCount[d.id] || 0) >= 8 ? "600" : "400");
+
+// シミュレーション
+const simulation = d3.forceSimulation(nodes)
+  .force("link", d3.forceLink(links).id(d => d.id).distance(80).strength(0.3))
+  .force("charge", d3.forceManyBody().strength(-300).distanceMax(500))
+  .force("center", d3.forceCenter(width / 2, height / 2))
+  .force("collision", d3.forceCollide().radius(30))
+  .force("x", d3.forceX(width / 2).strength(0.03))
+  .force("y", d3.forceY(height / 2).strength(0.03))
+  .on("tick", ticked);
+
+function ticked() {
+  linkElements
+    .attr("x1", d => d.source.x)
+    .attr("y1", d => d.source.y)
+    .attr("x2", d => d.target.x)
+    .attr("y2", d => d.target.y);
+  nodeElements.attr("transform", d => `translate(${d.x},${d.y})`);
+}
+
+function dragStarted(event, d) {
+  if (!event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x; d.fy = d.y;
+}
+function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
+function dragEnded(event, d) {
+  if (!event.active) simulation.alphaTarget(0);
+  d.fx = null; d.fy = null;
+}
+
+// ===== インタラクション =====
+
+// ツールチップ
+const tooltip = d3.select("#tooltip");
+
+nodeElements
+  .on("mouseover", (event, d) => {
+    const inc = incomingCount[d.id] || 0;
+    const out = outgoingCount[d.id] || 0;
+    tooltip.style("display", "block");
+    tooltip.select(".tt-title").text(d.label);
+    tooltip.select(".tt-path").text(d.id);
+    tooltip.select(".tt-stat").html(
+      `<span>被リンク: <strong>${inc}</strong></span>` +
+      `<span>発リンク: <strong>${out}</strong></span>` +
+      `<span>セクション: <strong>${groupConfig[d.group].label}</strong></span>`
+    );
+  })
+  .on("mousemove", (event) => {
+    tooltip
+      .style("left", (event.pageX + 16) + "px")
+      .style("top", (event.pageY - 16) + "px");
+  })
+  .on("mouseout", () => tooltip.style("display", "none"));
+
+// クリックでハイライト
+let selectedNode = null;
+
+nodeElements.on("click", (event, d) => {
+  event.stopPropagation();
+  selectedNode = d;
+  highlightConnections(d);
+});
+
+svg.on("click", () => {
+  selectedNode = null;
+  resetHighlight();
+});
+
+function highlightConnections(d) {
+  const connectedIds = new Set([d.id]);
+  links.forEach(l => {
+    const sid = typeof l.source === "object" ? l.source.id : l.source;
+    const tid = typeof l.target === "object" ? l.target.id : l.target;
+    if (sid === d.id) connectedIds.add(tid);
+    if (tid === d.id) connectedIds.add(sid);
+  });
+
+  nodeElements.select("circle:first-child")
+    .attr("opacity", n => connectedIds.has(n.id) ? 1 : 0.08);
+  nodeElements.select("text")
+    .attr("opacity", n => connectedIds.has(n.id) ? 1 : 0.08);
+
+  linkElements
+    .attr("stroke-opacity", l => {
+      const sid = typeof l.source === "object" ? l.source.id : l.source;
+      const tid = typeof l.target === "object" ? l.target.id : l.target;
+      return (sid === d.id || tid === d.id) ? 0.7 : 0.03;
+    })
+    .attr("stroke-width", l => {
+      const sid = typeof l.source === "object" ? l.source.id : l.source;
+      const tid = typeof l.target === "object" ? l.target.id : l.target;
+      return (sid === d.id || tid === d.id) ? 2.5 : 1;
+    });
+}
+
+function resetHighlight() {
+  nodeElements.select("circle:first-child").attr("opacity", 0.9);
+  nodeElements.select("text").attr("opacity", 1);
+  linkElements.attr("stroke-opacity", 0.25).attr("stroke-width", 1);
+}
+
+// ===== 検索 =====
+d3.select("#search-box").on("input", function() {
+  const query = this.value.toLowerCase();
+  if (!query) { resetHighlight(); return; }
+  const matchIds = new Set();
+  nodes.forEach(n => {
+    if (n.label.toLowerCase().includes(query) || n.id.toLowerCase().includes(query)) {
+      matchIds.add(n.id);
+    }
+  });
+  nodeElements.select("circle:first-child")
+    .attr("opacity", n => matchIds.has(n.id) ? 1 : 0.08);
+  nodeElements.select("text")
+    .attr("opacity", n => matchIds.has(n.id) ? 1 : 0.08);
+  linkElements.attr("stroke-opacity", 0.05);
+});
+
+// ===== フィルターUI構築 =====
+
+// グループフィルター
+const groupFilterContainer = d3.select("#group-filters");
+Object.entries(groupConfig).forEach(([key, cfg]) => {
+  const count = nodes.filter(n => n.group === key).length;
+  const item = groupFilterContainer.append("div")
+    .attr("class", "filter-item")
+    .attr("data-group", key)
+    .on("click", function() {
+      this.classList.toggle("unchecked");
+      applyFilters();
+    });
+  item.append("div").attr("class", "filter-dot").style("background", cfg.color);
+  item.append("span").text(`${cfg.label} (${count})`);
+});
+
+// リンク種別フィルター
+const linkFilterContainer = d3.select("#link-filters");
+Object.entries(linkTypeConfig).forEach(([key, cfg]) => {
+  const count = links.filter(l => l.type === key).length;
+  const item = linkFilterContainer.append("div")
+    .attr("class", "filter-item")
+    .attr("data-linktype", key)
+    .on("click", function() {
+      this.classList.toggle("unchecked");
+      applyFilters();
+    });
+  item.append("div").attr("class", "filter-dot").style("background", cfg.color);
+  item.append("span").text(`${cfg.label} (${count})`);
+});
+
+function applyFilters() {
+  const hiddenGroups = new Set();
+  document.querySelectorAll("#group-filters .filter-item.unchecked").forEach(el => {
+    hiddenGroups.add(el.dataset.group);
+  });
+  const hiddenLinkTypes = new Set();
+  document.querySelectorAll("#link-filters .filter-item.unchecked").forEach(el => {
+    hiddenLinkTypes.add(el.dataset.linktype);
+  });
+
+  nodeElements.style("display", d => hiddenGroups.has(d.group) ? "none" : null);
+
+  linkElements.style("display", l => {
+    const sid = typeof l.source === "object" ? l.source.id : l.source;
+    const tid = typeof l.target === "object" ? l.target.id : l.target;
+    const sNode = nodes.find(n => n.id === sid);
+    const tNode = nodes.find(n => n.id === tid);
+    if (hiddenGroups.has(sNode?.group) || hiddenGroups.has(tNode?.group)) return "none";
+    if (hiddenLinkTypes.has(l.type)) return "none";
+    return null;
+  });
+}
+
+// ===== 統計表示 =====
+d3.select("#stats").text(
+  `${nodes.length} ページ / ${links.length} リンク（グローバルナビ・フッター除く）`
+);
+
+// 初期ズーム
+svg.call(zoom.transform, d3.zoomIdentity.translate(width * 0.1, height * 0.05).scale(0.85));
+</script>
+</body>
+</html>

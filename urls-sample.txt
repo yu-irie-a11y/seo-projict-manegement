@@ -1,0 +1,5 @@
+# テスト用 - example.com（Wikipedia）
+# 実際に使うときは、解析したいサイトのURLを1行ずつ書いてください
+https://ja.wikipedia.org/wiki/%E6%A4%9C%E7%B4%A2%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3%E6%9C%80%E9%81%A9%E5%8C%96
+https://ja.wikipedia.org/wiki/Google
+https://ja.wikipedia.org/wiki/World_Wide_Web
