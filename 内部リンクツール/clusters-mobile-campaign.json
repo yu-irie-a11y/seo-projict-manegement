@@ -1,0 +1,420 @@
+{
+  "clusters": [
+    {
+      "name": "従業員紹介キャンペーン（メイン）",
+      "killerPage": "https://www.mobile-campaign.site/main/",
+      "members": [
+        "https://www.mobile-campaign.site/main/",
+        "https://www.mobile-campaign.site/campaign-comparison/",
+        "https://www.mobile-campaign.site/introduce/",
+        "https://www.mobile-campaign.site/employee/",
+        "https://www.mobile-campaign.site/rakuten-mobile-employee-referral-campaign/",
+        "https://www.mobile-campaign.site/fake-referral/",
+        "https://www.mobile-campaign.site/reason/",
+        "https://www.mobile-campaign.site/ranking/",
+        "https://www.mobile-campaign.site/research-mmd/",
+        "https://www.mobile-campaign.site/research-2506/"
+      ]
+    },
+    {
+      "name": "三木谷キャンペーン",
+      "killerPage": "https://www.mobile-campaign.site/mikitani/",
+      "members": [
+        "https://www.mobile-campaign.site/mikitani/",
+        "https://www.mobile-campaign.site/mikitani-campaign/",
+        "https://www.mobile-campaign.site/mikitani-point/",
+        "https://www.mobile-campaign.site/mikitani-reapply/",
+        "https://www.mobile-campaign.site/mikitani-shop/",
+        "https://www.mobile-campaign.site/1yen-mikitani/",
+        "https://www.mobile-campaign.site/error-mikiani/"
+      ]
+    },
+    {
+      "name": "キャンペーン併用・エントリー",
+      "killerPage": "https://www.mobile-campaign.site/combination/",
+      "members": [
+        "https://www.mobile-campaign.site/combination/",
+        "https://www.mobile-campaign.site/campaign-entry/",
+        "https://www.mobile-campaign.site/check-entry/",
+        "https://www.mobile-campaign.site/entry-again/",
+        "https://www.mobile-campaign.site/entry-monthly/",
+        "https://www.mobile-campaign.site/campaign-newcontract/",
+        "https://www.mobile-campaign.site/campaign-secondline/",
+        "https://www.mobile-campaign.site/caution/"
+      ]
+    },
+    {
+      "name": "MNP・乗り換え",
+      "killerPage": "https://www.mobile-campaign.site/mnp/",
+      "members": [
+        "https://www.mobile-campaign.site/mnp/",
+        "https://www.mobile-campaign.site/mnp-campaign/",
+        "https://www.mobile-campaign.site/mnp-inquiry/",
+        "https://www.mobile-campaign.site/comeback/",
+        "https://www.mobile-campaign.site/esim/"
+      ]
+    },
+    {
+      "name": "ポイント関連",
+      "killerPage": "https://www.mobile-campaign.site/point/",
+      "members": [
+        "https://www.mobile-campaign.site/point/",
+        "https://www.mobile-campaign.site/rakuten-point/",
+        "https://www.mobile-campaign.site/get-point/",
+        "https://www.mobile-campaign.site/point-entry/",
+        "https://www.mobile-campaign.site/payment-point/",
+        "https://www.mobile-campaign.site/previous-point/",
+        "https://www.mobile-campaign.site/overpoint/",
+        "https://www.mobile-campaign.site/point20/"
+      ]
+    },
+    {
+      "name": "楽天ペイ",
+      "killerPage": "https://www.mobile-campaign.site/rakuten-pay/",
+      "members": [
+        "https://www.mobile-campaign.site/rakuten-pay/",
+        "https://www.mobile-campaign.site/rakuten-pay-2504/",
+        "https://www.mobile-campaign.site/rakuten-pay-2507/",
+        "https://www.mobile-campaign.site/rakuten-pay-2511/",
+        "https://www.mobile-campaign.site/rakuten-pay-2512/",
+        "https://www.mobile-campaign.site/rakuten-pay-referral/",
+        "https://www.mobile-campaign.site/rakuenpay-seveneleven/",
+        "https://www.mobile-campaign.site/mac-pay-mobile/"
+      ]
+    },
+    {
+      "name": "楽天経済圏・セール・カード",
+      "killerPage": "https://www.mobile-campaign.site/cardpayment/",
+      "members": [
+        "https://www.mobile-campaign.site/cardpayment/",
+        "https://www.mobile-campaign.site/ichiba-debut/",
+        "https://www.mobile-campaign.site/ichiba-1000off/",
+        "https://www.mobile-campaign.site/ichiba-3000off/",
+        "https://www.mobile-campaign.site/ichiba-5bai/",
+        "https://www.mobile-campaign.site/rakutengoldcard-campaign-2025dec25/",
+        "https://www.mobile-campaign.site/rakuten-super-sale/",
+        "https://www.mobile-campaign.site/rakuten-super-sale-2509/",
+        "https://www.mobile-campaign.site/rakuten-super-sale-2506/",
+        "https://www.mobile-campaign.site/chorakutensai-feb/",
+        "https://www.mobile-campaign.site/shoken/",
+        "https://www.mobile-campaign.site/bank/",
+        "https://www.mobile-campaign.site/shareholder/",
+        "https://www.mobile-campaign.site/yutai-2025dec/",
+        "https://www.mobile-campaign.site/campaign-kobo/",
+        "https://www.mobile-campaign.site/card-gb-2506/"
+      ]
+    },
+    {
+      "name": "店舗キャンペーン",
+      "killerPage": "https://www.mobile-campaign.site/rakuten-shop-campaign/",
+      "members": [
+        "https://www.mobile-campaign.site/rakuten-shop-campaign/",
+        "https://www.mobile-campaign.site/rakuten-mobile-shop/",
+        "https://www.mobile-campaign.site/shop-asagaya/",
+        "https://www.mobile-campaign.site/shop-mitakacoral/",
+        "https://www.mobile-campaign.site/shop-higashinakano/",
+        "https://www.mobile-campaign.site/shop-sunbeach/",
+        "https://www.mobile-campaign.site/shop-patriahigashiomiya/",
+        "https://www.mobile-campaign.site/shop-1000-2509/",
+        "https://www.mobile-campaign.site/shop-1000pt/",
+        "https://www.mobile-campaign.site/shop-500pt/",
+        "https://www.mobile-campaign.site/shop-2000pt-2506/",
+        "https://www.mobile-campaign.site/shop-go/",
+        "https://www.mobile-campaign.site/shop-gr/"
+      ]
+    },
+    {
+      "name": "新規オープン店舗",
+      "killerPage": "https://www.mobile-campaign.site/new-open/",
+      "members": [
+        "https://www.mobile-campaign.site/new-open/",
+        "https://www.mobile-campaign.site/new-shop-oscshonancity/",
+        "https://www.mobile-campaign.site/new-shop-takamatsumarugamecho/",
+        "https://www.mobile-campaign.site/new-shop-escardushiku/",
+        "https://www.mobile-campaign.site/new-shop-monashinurayasu/",
+        "https://www.mobile-campaign.site/new-shop-ariakegarden/",
+        "https://www.mobile-campaign.site/new-shop-carinotamana/",
+        "https://www.mobile-campaign.site/new-shop-tokyoeast21/",
+        "https://www.mobile-campaign.site/new-shop-fussa/",
+        "https://www.mobile-campaign.site/new-shop-kotonijo/",
+        "https://www.mobile-campaign.site/new-shop-aioimachi/",
+        "https://www.mobile-campaign.site/new-shop-moroyama/",
+        "https://www.mobile-campaign.site/new-shop-motomachi/",
+        "https://www.mobile-campaign.site/new-shop-sapporo/",
+        "https://www.mobile-campaign.site/new-shop-fujioka/",
+        "https://www.mobile-campaign.site/new-shop-ebetsu/",
+        "https://www.mobile-campaign.site/new-shop-ayagawa/",
+        "https://www.mobile-campaign.site/new-shop-nagaoka/",
+        "https://www.mobile-campaign.site/new-shop-shigenobu/",
+        "https://www.mobile-campaign.site/new-shop-takasaki/",
+        "https://www.mobile-campaign.site/new-shop-tsukuba/",
+        "https://www.mobile-campaign.site/new-shop-kyotanabe/",
+        "https://www.mobile-campaign.site/new-shop-goto/",
+        "https://www.mobile-campaign.site/new-shop-yaizu/",
+        "https://www.mobile-campaign.site/new-tenpo-tface/",
+        "https://www.mobile-campaign.site/new-shop-ise/",
+        "https://www.mobile-campaign.site/new-open-aeon-kyoto/",
+        "https://www.mobile-campaign.site/new-open-futtu/",
+        "https://www.mobile-campaign.site/new-shop-miyakonojo/",
+        "https://www.mobile-campaign.site/new-shop-izumisano/",
+        "https://www.mobile-campaign.site/new-open-asahi/",
+        "https://www.mobile-campaign.site/new-open-kainan/",
+        "https://www.mobile-campaign.site/new-shop-yamatotakada/",
+        "https://www.mobile-campaign.site/new-shop-okegawa/",
+        "https://www.mobile-campaign.site/new-shop-noritake/",
+        "https://www.mobile-campaign.site/new-shop-tsurumi/",
+        "https://www.mobile-campaign.site/yumetown-takamatsu/"
+      ]
+    },
+    {
+      "name": "端末キャンペーン",
+      "killerPage": "https://www.mobile-campaign.site/android-discount/",
+      "members": [
+        "https://www.mobile-campaign.site/android-discount/",
+        "https://www.mobile-campaign.site/galaxya255g-1yen/",
+        "https://www.mobile-campaign.site/zte-nubia-s2r-1yen/",
+        "https://www.mobile-campaign.site/arrows-alpha-campaign/",
+        "https://www.mobile-campaign.site/arrows-1en/",
+        "https://www.mobile-campaign.site/a35g-1en/",
+        "https://www.mobile-campaign.site/aquos-sense10-campaign/",
+        "https://www.mobile-campaign.site/aquos-wish4/",
+        "https://www.mobile-campaign.site/google-pixel-10/",
+        "https://www.mobile-campaign.site/google-pixel-9a/",
+        "https://www.mobile-campaign.site/nothing-ear-a/",
+        "https://www.mobile-campaign.site/product-byod/",
+        "https://www.mobile-campaign.site/rakuten-ninteichuko/"
+      ]
+    },
+    {
+      "name": "海外利用",
+      "killerPage": "https://www.mobile-campaign.site/oversea/",
+      "members": [
+        "https://www.mobile-campaign.site/oversea/",
+        "https://www.mobile-campaign.site/abroad/",
+        "https://www.mobile-campaign.site/overseas-rakutenlink/",
+        "https://www.mobile-campaign.site/overseasroaming-howto/",
+        "https://www.mobile-campaign.site/foreign-resident/",
+        "https://www.mobile-campaign.site/travel-koria/"
+      ]
+    },
+    {
+      "name": "回線・電波・通信品質",
+      "killerPage": "https://www.mobile-campaign.site/denpa/",
+      "members": [
+        "https://www.mobile-campaign.site/denpa/",
+        "https://www.mobile-campaign.site/platinum/",
+        "https://www.mobile-campaign.site/4g5g6g/",
+        "https://www.mobile-campaign.site/speedtest/",
+        "https://www.mobile-campaign.site/tethering/",
+        "https://www.mobile-campaign.site/connect/",
+        "https://www.mobile-campaign.site/disaster/",
+        "https://www.mobile-campaign.site/rakuten-eisei/",
+        "https://www.mobile-campaign.site/rakuten-kagawa-denpa-takamatsu/",
+        "https://www.mobile-campaign.site/rakuten-kagawa-denpa-other/",
+        "https://www.mobile-campaign.site/rakuten-mobile-kagawa/"
+      ]
+    },
+    {
+      "name": "Rakuten Link・LINE",
+      "killerPage": "https://www.mobile-campaign.site/rakuten-link/",
+      "members": [
+        "https://www.mobile-campaign.site/rakuten-link/",
+        "https://www.mobile-campaign.site/rakuten-link-ai/",
+        "https://www.mobile-campaign.site/line10/",
+        "https://www.mobile-campaign.site/line-10million/",
+        "https://www.mobile-campaign.site/line-800/",
+        "https://www.mobile-campaign.site/line-900/"
+      ]
+    },
+    {
+      "name": "Turbo・ホームルーター・WiFi",
+      "killerPage": "https://www.mobile-campaign.site/rakuten-turbo/",
+      "members": [
+        "https://www.mobile-campaign.site/rakuten-turbo/",
+        "https://www.mobile-campaign.site/rakuten-turbo-campaign/",
+        "https://www.mobile-campaign.site/rakuten-turbo-5g/",
+        "https://www.mobile-campaign.site/homerouter/",
+        "https://www.mobile-campaign.site/wifi-pocket-platinum/",
+        "https://www.mobile-campaign.site/wifi-202504/",
+        "https://www.mobile-campaign.site/wifi-202505/",
+        "https://www.mobile-campaign.site/fujisoft-fs050w/",
+        "https://www.mobile-campaign.site/fujisoft-fs050w-sapporo/",
+        "https://www.mobile-campaign.site/fujisoft-fs050w-asahikawa/"
+      ]
+    },
+    {
+      "name": "スポーツ観戦",
+      "killerPage": "https://www.mobile-campaign.site/baseball/",
+      "members": [
+        "https://www.mobile-campaign.site/baseball/",
+        "https://www.mobile-campaign.site/baseball-2025/",
+        "https://www.mobile-campaign.site/eagles/",
+        "https://www.mobile-campaign.site/eagles-202505/",
+        "https://www.mobile-campaign.site/eagles-referral/",
+        "https://www.mobile-campaign.site/vissel-2506/",
+        "https://www.mobile-campaign.site/vissel-referral/",
+        "https://www.mobile-campaign.site/nba-rakuten/",
+        "https://www.mobile-campaign.site/dazn/",
+        "https://www.mobile-campaign.site/rakuten-gora/",
+        "https://www.mobile-campaign.site/gora-yamawake/",
+        "https://www.mobile-campaign.site/golf-club/",
+        "https://www.mobile-campaign.site/rakuten-eagles-20off/"
+      ]
+    },
+    {
+      "name": "動画・音楽・コンテンツ配信",
+      "killerPage": "https://www.mobile-campaign.site/youtube/",
+      "members": [
+        "https://www.mobile-campaign.site/youtube/",
+        "https://www.mobile-campaign.site/hulu/",
+        "https://www.mobile-campaign.site/hulu-26feb/",
+        "https://www.mobile-campaign.site/wowow/",
+        "https://www.mobile-campaign.site/wowow-campaign/",
+        "https://www.mobile-campaign.site/dmmpremium/",
+        "https://www.mobile-campaign.site/pococha/",
+        "https://www.mobile-campaign.site/asia-drama/",
+        "https://www.mobile-campaign.site/manga/",
+        "https://www.mobile-campaign.site/r-channel/",
+        "https://www.mobile-campaign.site/rakuten-music/",
+        "https://www.mobile-campaign.site/rakuten-music-2506/",
+        "https://www.mobile-campaign.site/rakuten-magazine/",
+        "https://www.mobile-campaign.site/rakuten-magazine-2506/",
+        "https://www.mobile-campaign.site/u-next-2506/",
+        "https://www.mobile-campaign.site/vaundy-2026tour/",
+        "https://www.mobile-campaign.site/panda-dvd/",
+        "https://www.mobile-campaign.site/takarazuka-2511/",
+        "https://www.mobile-campaign.site/takarazuka-may2025/"
+      ]
+    },
+    {
+      "name": "家族・子供・学生・シニア",
+      "killerPage": "https://www.mobile-campaign.site/family/",
+      "members": [
+        "https://www.mobile-campaign.site/family/",
+        "https://www.mobile-campaign.site/kazoku/",
+        "https://www.mobile-campaign.site/kodomo/",
+        "https://www.mobile-campaign.site/senior/",
+        "https://www.mobile-campaign.site/senior-2506/",
+        "https://www.mobile-campaign.site/gakusei-ouen-campaign/",
+        "https://www.mobile-campaign.site/ouen-gakusei/",
+        "https://www.mobile-campaign.site/ouen-shinseikatsu/",
+        "https://www.mobile-campaign.site/newlife-cpn/"
+      ]
+    },
+    {
+      "name": "楽天サービス（トラベル・ライフ）",
+      "killerPage": "https://www.mobile-campaign.site/travel/",
+      "members": [
+        "https://www.mobile-campaign.site/travel/",
+        "https://www.mobile-campaign.site/travel-26feb/",
+        "https://www.mobile-campaign.site/rakuten-stay/",
+        "https://www.mobile-campaign.site/rakuten-stay-10000off/",
+        "https://www.mobile-campaign.site/beauty/",
+        "https://www.mobile-campaign.site/rakutn-beauty-1500off/",
+        "https://www.mobile-campaign.site/rakuten-fashion/",
+        "https://www.mobile-campaign.site/rakuten-books/",
+        "https://www.mobile-campaign.site/rakuten-car/",
+        "https://www.mobile-campaign.site/rakuten-healthcare/",
+        "https://www.mobile-campaign.site/healthcare-100pt/",
+        "https://www.mobile-campaign.site/gurunavi-2506/",
+        "https://www.mobile-campaign.site/rakuma-2505/",
+        "https://www.mobile-campaign.site/couponaire/",
+        "https://www.mobile-campaign.site/keiba-kdreams/"
+      ]
+    },
+    {
+      "name": "最強プラン",
+      "killerPage": "https://www.mobile-campaign.site/rakutensaikyounext/",
+      "members": [
+        "https://www.mobile-campaign.site/rakutensaikyounext/",
+        "https://www.mobile-campaign.site/saikyokun/",
+        "https://www.mobile-campaign.site/rakuten-mobile-saikyo-2025-spring/",
+        "https://www.mobile-campaign.site/rakuten-mobile-saikyo-2025-summer/",
+        "https://www.mobile-campaign.site/rakuten-mobile-saikyo-2025-autumn/",
+        "https://www.mobile-campaign.site/rakuten-mobile-saikyo-2025-winter/",
+        "https://www.mobile-campaign.site/saikyo-kanshasai/"
+      ]
+    },
+    {
+      "name": "楽天でんき・ひかり",
+      "killerPage": "https://www.mobile-campaign.site/rakuten-denki/",
+      "members": [
+        "https://www.mobile-campaign.site/rakuten-denki/",
+        "https://www.mobile-campaign.site/rakuten-denki-2507/",
+        "https://www.mobile-campaign.site/rakuten-hikari/",
+        "https://www.mobile-campaign.site/ouchi-program/"
+      ]
+    },
+    {
+      "name": "料金プラン・契約手続き",
+      "killerPage": "https://www.mobile-campaign.site/faq/",
+      "members": [
+        "https://www.mobile-campaign.site/faq/",
+        "https://www.mobile-campaign.site/plan-career/",
+        "https://www.mobile-campaign.site/pricechange-1119/",
+        "https://www.mobile-campaign.site/cancel/",
+        "https://www.mobile-campaign.site/cancel-fee/",
+        "https://www.mobile-campaign.site/timing/",
+        "https://www.mobile-campaign.site/contract-buisiness/",
+        "https://www.mobile-campaign.site/data-type/",
+        "https://www.mobile-campaign.site/double/"
+      ]
+    },
+    {
+      "name": "セキュリティ・サポート・オプション",
+      "killerPage": "https://www.mobile-campaign.site/support-page/",
+      "members": [
+        "https://www.mobile-campaign.site/support-page/",
+        "https://www.mobile-campaign.site/security/",
+        "https://www.mobile-campaign.site/anshin-control/",
+        "https://www.mobile-campaign.site/application-support/",
+        "https://www.mobile-campaign.site/hosho/",
+        "https://www.mobile-campaign.site/free-hoken/",
+        "https://www.mobile-campaign.site/free-option/",
+        "https://www.mobile-campaign.site/error/",
+        "https://www.mobile-campaign.site/code/",
+        "https://www.mobile-campaign.site/check-fee/",
+        "https://www.mobile-campaign.site/ininjo/",
+        "https://www.mobile-campaign.site/language/",
+        "https://www.mobile-campaign.site/ai-assistant/",
+        "https://www.mobile-campaign.site/storage/",
+        "https://www.mobile-campaign.site/excel-word/",
+        "https://www.mobile-campaign.site/rakuten-drive-mobile/"
+      ]
+    },
+    {
+      "name": "マジ得・GOGOキャンペーン",
+      "killerPage": "https://www.mobile-campaign.site/majitoku/",
+      "members": [
+        "https://www.mobile-campaign.site/majitoku/",
+        "https://www.mobile-campaign.site/majitoku-2506/",
+        "https://www.mobile-campaign.site/majitoku-2509/",
+        "https://www.mobile-campaign.site/majitoku-2511/",
+        "https://www.mobile-campaign.site/gogo-cpn-1st/",
+        "https://www.mobile-campaign.site/gogo-cpn-2nd/",
+        "https://www.mobile-campaign.site/gogo-cpn-3rd/",
+        "https://www.mobile-campaign.site/gogo-cpn-4th/",
+        "https://www.mobile-campaign.site/gogo-cpn-5th/"
+      ]
+    },
+    {
+      "name": "その他キャンペーン・プロモーション",
+      "killerPage": "https://www.mobile-campaign.site/otoku-2505/",
+      "members": [
+        "https://www.mobile-campaign.site/otoku-2505/",
+        "https://www.mobile-campaign.site/campaign-900/",
+        "https://www.mobile-campaign.site/datasim-campaign/",
+        "https://www.mobile-campaign.site/pizzala-2026/",
+        "https://www.mobile-campaign.site/fujimoricampaign/",
+        "https://www.mobile-campaign.site/charge-spot/",
+        "https://www.mobile-campaign.site/green-charity/",
+        "https://www.mobile-campaign.site/quiz/",
+        "https://www.mobile-campaign.site/shien-20250808/",
+        "https://www.mobile-campaign.site/shien-20250913/",
+        "https://www.mobile-campaign.site/shiensochi/",
+        "https://www.mobile-campaign.site/project-251129/",
+        "https://www.mobile-campaign.site/project-251212/"
+      ]
+    }
+  ]
+}

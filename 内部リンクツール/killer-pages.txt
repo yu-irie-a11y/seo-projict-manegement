@@ -1,0 +1,20 @@
+# キラーページ設定ファイル
+# 各クラスターで「評価を集中させたいページ（キラーページ）」を指定します。
+#
+# 書式: クラスター名: キラーページURL
+# ※ クラスター名はcluster-strategy.jsが自動検出した名前と一致させてください
+# ※ 指定しなかったクラスターは自動検出モードになります
+# ※ #で始まる行はコメント、空行は無視されます
+#
+# まず自動検出モード（-k オプションなし）で実行し、
+# レポートのクラスター名を確認してから、このファイルを編集してください。
+#
+# 使い方:
+#   node cluster-strategy.js crawl-data.json -k killer-pages.txt
+#
+# ===== 以下にキラーページを記載 =====
+
+# 例:
+# SEO基礎: https://www.extage-marketing.co.jp/web-school/what-is-seo/
+# 内部対策: https://www.extage-marketing.co.jp/web-school/seo-internal-measures/
+# オウンドメディア: https://www.extage-marketing.co.jp/web-school/ownedmedia/

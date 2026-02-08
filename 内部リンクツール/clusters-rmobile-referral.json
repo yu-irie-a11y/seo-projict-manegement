@@ -1,0 +1,24 @@
+{
+  "clusters": [
+    {
+      "name": "従業員紹介キャンペーン",
+      "killerPage": "https://rmobile-referral.com/blog/1021",
+      "members": [
+        "https://rmobile-referral.com/blog/1021",
+        "https://rmobile-referral.com/blog/2233",
+        "https://rmobile-referral.com/blog/2274",
+        "https://rmobile-referral.com/"
+      ]
+    },
+    {
+      "name": "楽天モバイル比較・ガイド",
+      "killerPage": "https://rmobile-referral.com/blog/1184",
+      "members": [
+        "https://rmobile-referral.com/blog/1184",
+        "https://rmobile-referral.com/blog/2338",
+        "https://rmobile-referral.com/blog/2380",
+        "https://rmobile-referral.com/blog"
+      ]
+    }
+  ]
+}

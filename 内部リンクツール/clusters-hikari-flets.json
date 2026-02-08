@@ -1,0 +1,432 @@
+{
+  "clusters": [
+    {
+      "name": "楽天モバイル",
+      "killerPage": "https://hikari-flets.jp/net/rakuten-mobile-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/rakuten-mobile-reputation/",
+        "https://hikari-flets.jp/net/rakuten-mobile-satellite/",
+        "https://hikari-flets.jp/net/rakuten-link/",
+        "https://hikari-flets.jp/net/rakuten-mobile-1yen-smart-phone/",
+        "https://hikari-flets.jp/net/rakuten-mobile-mineo-hikaku/",
+        "https://hikari-flets.jp/net/rakuten-mobile-tethering/",
+        "https://hikari-flets.jp/net/rakuten-pocket-wifi-reputation/",
+        "https://hikari-flets.jp/net/rakuten-hikari-setwari/",
+        "https://hikari-flets.jp/net/rakuten-hikari-reputation/",
+        "https://hikari-flets.jp/net/rakuten-mobile-2kaisen/",
+        "https://hikari-flets.jp/net/rakuten-mobile-card/",
+        "https://hikari-flets.jp/net/rakuten-mobile-sim-only/",
+        "https://hikari-flets.jp/net/rakuten-mobile-mnp/",
+        "https://hikari-flets.jp/net/rakuten-mobile-ahamo-compare/",
+        "https://hikari-flets.jp/net/rakuten-mobile-jcom-mobile-compare/",
+        "https://hikari-flets.jp/net/rakuten-mobile-model-change/",
+        "https://hikari-flets.jp/net/rakuten-mobile-iphone/",
+        "https://hikari-flets.jp/net/rakuten-mobile-instead-of-home-wifi/",
+        "https://hikari-flets.jp/net/rakuten-mobile-pocket-wifi-toha/",
+        "https://hikari-flets.jp/net/rakuten-mobile-senior-wari-toha/",
+        "https://hikari-flets.jp/net/rakuten-mobile-point-katsuyouhou/",
+        "https://hikari-flets.jp/net/rakuten-mobile-family/",
+        "https://hikari-flets.jp/net/rakuten-mobile-gakuwari/",
+        "https://hikari-flets.jp/net/rakuten-mobile-apple-watch/",
+        "https://hikari-flets.jp/net/rakutenmobile-speed/",
+        "https://hikari-flets.jp/net/rakuten-mobile-campaign/",
+        "https://hikari-flets.jp/net/rakuten-mobile-area/",
+        "https://hikari-flets.jp/net/rakuten-mobile-cancel/",
+        "https://hikari-flets.jp/net/compare-rakuten-mobile-with-linemo/"
+      ]
+    },
+    {
+      "name": "ahamo",
+      "killerPage": "https://hikari-flets.jp/net/ahamo-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/ahamo-reputation/",
+        "https://hikari-flets.jp/net/ahamo-tethering/",
+        "https://hikari-flets.jp/net/ahamo-cancel/",
+        "https://hikari-flets.jp/net/ahamo-model-change/",
+        "https://hikari-flets.jp/net/ahamo-campaign/",
+        "https://hikari-flets.jp/net/ahamo-speed/"
+      ]
+    },
+    {
+      "name": "LINEMO",
+      "killerPage": "https://hikari-flets.jp/net/linemo-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/linemo-reputation/",
+        "https://hikari-flets.jp/net/linemo-tethering/",
+        "https://hikari-flets.jp/net/linemo-cancel/",
+        "https://hikari-flets.jp/net/linemo-campaign/",
+        "https://hikari-flets.jp/net/linemo-commission/"
+      ]
+    },
+    {
+      "name": "UQモバイル",
+      "killerPage": "https://hikari-flets.jp/net/uq-mobile-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/uq-mobile-reputation/",
+        "https://hikari-flets.jp/net/uq-mobile-tethering/",
+        "https://hikari-flets.jp/net/uq-mobile-cancel-timing/",
+        "https://hikari-flets.jp/net/uq-mobile-1yen-smart-phone/",
+        "https://hikari-flets.jp/net/uq-mobile-campaign/",
+        "https://hikari-flets.jp/net/uq-mobile-speed/",
+        "https://hikari-flets.jp/net/uq-mobile-smartphone-purchase/",
+        "https://hikari-flets.jp/net/uqmobile-jcommobile-hikaku/"
+      ]
+    },
+    {
+      "name": "ワイモバイル",
+      "killerPage": "https://hikari-flets.jp/net/ymobile-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/ymobile-reputation/",
+        "https://hikari-flets.jp/net/ymobile-tethering/",
+        "https://hikari-flets.jp/net/ymobile-camcel/",
+        "https://hikari-flets.jp/net/ymobile-campaign/",
+        "https://hikari-flets.jp/net/ymobile-speed/"
+      ]
+    },
+    {
+      "name": "povo",
+      "killerPage": "https://hikari-flets.jp/net/povo-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/povo-reputation/",
+        "https://hikari-flets.jp/net/povo-esim-butsuri-sim-docci/"
+      ]
+    },
+    {
+      "name": "irumo",
+      "killerPage": "https://hikari-flets.jp/net/irumo-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/irumo-reputation/",
+        "https://hikari-flets.jp/net/irumo-dcard/",
+        "https://hikari-flets.jp/net/irumo-campaign/",
+        "https://hikari-flets.jp/net/transfer-to-irumo/",
+        "https://hikari-flets.jp/net/irumo-model-change/",
+        "https://hikari-flets.jp/net/irumo-ahamo-hikaku/",
+        "https://hikari-flets.jp/net/irumo-actual/",
+        "https://hikari-flets.jp/net/irumo-speed-slow/"
+      ]
+    },
+    {
+      "name": "eximo",
+      "killerPage": "https://hikari-flets.jp/net/eximo-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/eximo-reputation/",
+        "https://hikari-flets.jp/net/eximo-campaign/",
+        "https://hikari-flets.jp/net/eximo-speed/",
+        "https://hikari-flets.jp/net/eximo-ahamo-irumo/"
+      ]
+    },
+    {
+      "name": "mineo",
+      "killerPage": "https://hikari-flets.jp/net/mineo-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/mineo-reputation/",
+        "https://hikari-flets.jp/net/mineo-campaign/",
+        "https://hikari-flets.jp/net/mineo-new-service/",
+        "https://hikari-flets.jp/net/mineo-norikae/",
+        "https://hikari-flets.jp/net/mineo-option/",
+        "https://hikari-flets.jp/net/mineo-tesuuryou/",
+        "https://hikari-flets.jp/net/mineo-mysoku-tethering/",
+        "https://hikari-flets.jp/net/mineo-speed/",
+        "https://hikari-flets.jp/net/mineo-packet-unlimited-use/"
+      ]
+    },
+    {
+      "name": "IIJmio",
+      "killerPage": "https://hikari-flets.jp/net/iijmio-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/iijmio-reputation/",
+        "https://hikari-flets.jp/net/iijmio-speed/",
+        "https://hikari-flets.jp/net/iijmio-smartphone-terminal/"
+      ]
+    },
+    {
+      "name": "J:COM（ネット・テレビ）",
+      "killerPage": "https://hikari-flets.jp/net/jcom-net-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/jcom-net-reputation/",
+        "https://hikari-flets.jp/net/jcom-net-wifi7/",
+        "https://hikari-flets.jp/net/jcom-10g/",
+        "https://hikari-flets.jp/net/jcom-nhk/",
+        "https://hikari-flets.jp/net/jcom-320m-1g-change/",
+        "https://hikari-flets.jp/net/jcom-hindrance/",
+        "https://hikari-flets.jp/net/jcom-shop-dekirukoto/",
+        "https://hikari-flets.jp/net/jcom-net-slow/",
+        "https://hikari-flets.jp/net/jcom-application/",
+        "https://hikari-flets.jp/net/jcom-chideji/",
+        "https://hikari-flets.jp/net/jcom-sky-perfect-tv-hikaku/",
+        "https://hikari-flets.jp/net/jcom-tv/",
+        "https://hikari-flets.jp/net/jcom-gakuwari/",
+        "https://hikari-flets.jp/net/jcom-net-price/",
+        "https://hikari-flets.jp/net/jcom-construction/",
+        "https://hikari-flets.jp/net/jcom-haisen-cause-and-measures/",
+        "https://hikari-flets.jp/net/jcom-mesh-wifi/",
+        "https://hikari-flets.jp/net/jcom-campaign-best-price/",
+        "https://hikari-flets.jp/net/jcom-inmyroom/",
+        "https://hikari-flets.jp/net/jcom-net-fuguai-taisaku/",
+        "https://hikari-flets.jp/net/jcom-eigyou-trouble-taisaku/",
+        "https://hikari-flets.jp/net/jcom-kaiyaku-tyuuiten-toha/",
+        "https://hikari-flets.jp/net/jcom-au-hikaku/",
+        "https://hikari-flets.jp/net/jcom-area/",
+        "https://hikari-flets.jp/net/jcom-hokkaido-area/",
+        "https://hikari-flets.jp/net/jcom-sendai-area/",
+        "https://hikari-flets.jp/net/jcom-kyuusyuu-area/",
+        "https://hikari-flets.jp/net/jcom-kantou-area/",
+        "https://hikari-flets.jp/net/jcom-kansai-area/",
+        "https://hikari-flets.jp/net/compare-nuro-hikari-and-jcom/"
+      ]
+    },
+    {
+      "name": "J:COMモバイル",
+      "killerPage": "https://hikari-flets.jp/net/jcom-mobile-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/jcom-mobile-reputation/",
+        "https://hikari-flets.jp/net/jcom-mobile-tethering/",
+        "https://hikari-flets.jp/net/jcom-mobile-smart-phone-model-change/",
+        "https://hikari-flets.jp/net/jcom-mobile-campaign/",
+        "https://hikari-flets.jp/net/jcom-mobile-cancel/",
+        "https://hikari-flets.jp/net/jcom-mobile-esim-plan/",
+        "https://hikari-flets.jp/net/jcom-mobile-business-plan/",
+        "https://hikari-flets.jp/net/change-au-into-jcom-mobile/"
+      ]
+    },
+    {
+      "name": "eo光",
+      "killerPage": "https://hikari-flets.jp/net/eo-hikari-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/eo-hikari-reputation/",
+        "https://hikari-flets.jp/net/eo-hikari-mesh-wifi/",
+        "https://hikari-flets.jp/net/eo-hikari-router/",
+        "https://hikari-flets.jp/net/eo-hikari-fuguai-taisaku/",
+        "https://hikari-flets.jp/net/eo-hikari-10g/",
+        "https://hikari-flets.jp/net/eo-hikari-simple-plan/",
+        "https://hikari-flets.jp/net/eo-hikari-kaiyaku/",
+        "https://hikari-flets.jp/net/eo-hikari-kouji/",
+        "https://hikari-flets.jp/net/eo-hikari-speed/",
+        "https://hikari-flets.jp/net/eo-hikari-and-mineo/",
+        "https://hikari-flets.jp/net/eo-hikari-area/",
+        "https://hikari-flets.jp/net/eo-hikari-campaign/",
+        "https://hikari-flets.jp/net/eo-hikari-price/",
+        "https://hikari-flets.jp/net/eo%e5%85%89%e3%81%a3%e3%81%a6%e5%ae%9f%e9%9a%9b%e3%81%a9%e3%81%86%e3%81%aa%e3%81%ae%ef%bc%9f%e3%80%80%e6%96%99%e9%87%91%e8%a6%8b%e7%9b%b4%e3%81%97%e6%99%82%e3%81%ae%e6%b3%a8%e6%84%8f%e7%82%b9%e3%82%92/",
+        "https://hikari-flets.jp/net/compare-nuro-hikari-with-eo-hikari/"
+      ]
+    },
+    {
+      "name": "NURO光",
+      "killerPage": "https://hikari-flets.jp/net/nuro-hikari-campaign/",
+      "members": [
+        "https://hikari-flets.jp/net/nuro-hikari-campaign/",
+        "https://hikari-flets.jp/net/nuro-hikari-playstation5/",
+        "https://hikari-flets.jp/net/nuro-hikari-apartment-reputation/",
+        "https://hikari-flets.jp/net/nuro-hikari-10g/",
+        "https://hikari-flets.jp/net/nuro-hikari-kouji/"
+      ]
+    },
+    {
+      "name": "au光",
+      "killerPage": "https://hikari-flets.jp/net/au-hikari-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/au-hikari-reputation/",
+        "https://hikari-flets.jp/net/au-hikari-provider/",
+        "https://hikari-flets.jp/net/au-hikari-cashback/",
+        "https://hikari-flets.jp/net/au-hikari-10g/",
+        "https://hikari-flets.jp/net/au-hikari-setwari/",
+        "https://hikari-flets.jp/net/au-hikari-area/",
+        "https://hikari-flets.jp/net/au-hikari-cancellation/",
+        "https://hikari-flets.jp/net/au-hikari-biglobe-hikari-hikaku/",
+        "https://hikari-flets.jp/net/au-smart-value-cancel/",
+        "https://hikari-flets.jp/net/compare-sonet-hikari-with-au-hikari/"
+      ]
+    },
+    {
+      "name": "ドコモ光",
+      "killerPage": "https://hikari-flets.jp/net/docomo-hikari-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/docomo-hikari-reputation/",
+        "https://hikari-flets.jp/net/docomo-hikari-ipv6/",
+        "https://hikari-flets.jp/net/docomo-hikari-gmo-cash-back/",
+        "https://hikari-flets.jp/net/docomo-hikari-provider/"
+      ]
+    },
+    {
+      "name": "ソフトバンク光",
+      "killerPage": "https://hikari-flets.jp/net/softbank-hikari-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/softbank-hikari-reputation/",
+        "https://hikari-flets.jp/net/softbank-hikari-kouji/"
+      ]
+    },
+    {
+      "name": "BIGLOBE光",
+      "killerPage": "https://hikari-flets.jp/net/biglobe-hikari-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/biglobe-hikari-reputation/",
+        "https://hikari-flets.jp/net/biglobe-hikari-kouji/",
+        "https://hikari-flets.jp/net/biglobe-hikari-campaign/",
+        "https://hikari-flets.jp/net/biglobe-hikari-speed/"
+      ]
+    },
+    {
+      "name": "GMOとくとくBB光・WiMAX",
+      "killerPage": "https://hikari-flets.jp/net/gmo-hikari-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/gmo-hikari-reputation/",
+        "https://hikari-flets.jp/net/gmo-wimax-arrive/",
+        "https://hikari-flets.jp/net/gmo-hikari-kaiyaku/",
+        "https://hikari-flets.jp/net/gmo-hikari-campaign/",
+        "https://hikari-flets.jp/net/gmo-hikari-10g/",
+        "https://hikari-flets.jp/net/gmo-hikari-kouji/"
+      ]
+    },
+    {
+      "name": "おてがる光",
+      "killerPage": "https://hikari-flets.jp/net/otegal-hikari/",
+      "members": [
+        "https://hikari-flets.jp/net/otegal-hikari/",
+        "https://hikari-flets.jp/net/otegal-hikari-cross/",
+        "https://hikari-flets.jp/net/otegal-hikari-set-wari/",
+        "https://hikari-flets.jp/net/otegal-hikari-speed/",
+        "https://hikari-flets.jp/net/otegal-hikari-kaiyaku/",
+        "https://hikari-flets.jp/net/otegal-hikari-campaign/",
+        "https://hikari-flets.jp/net/otegal-hikari-kouji-2/"
+      ]
+    },
+    {
+      "name": "さすガねっと",
+      "killerPage": "https://hikari-flets.jp/net/sasuganet-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/sasuganet-reputation/",
+        "https://hikari-flets.jp/net/sasuganet-eo-hikaku/",
+        "https://hikari-flets.jp/net/sasuganet-kouji/",
+        "https://hikari-flets.jp/net/sasuganet-campaig/",
+        "https://hikari-flets.jp/net/sasuganet-fletshikari-hikaku/",
+        "https://hikari-flets.jp/net/sasuganet-nurohikari-chigai-toha/",
+        "https://hikari-flets.jp/net/sasuganet-to-jcomnet-chigai-toha/",
+        "https://hikari-flets.jp/net/sasuganet-cancel/"
+      ]
+    },
+    {
+      "name": "So-net光",
+      "killerPage": "https://hikari-flets.jp/net/sonet-hikari-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/sonet-hikari-reputation/",
+        "https://hikari-flets.jp/net/sonet-hikari-campaign/",
+        "https://hikari-flets.jp/net/sonet-hikari-10g/"
+      ]
+    },
+    {
+      "name": "光回線全般・比較・選び方",
+      "killerPage": "https://hikari-flets.jp/net/osusume-hikari-kaisen/",
+      "members": [
+        "https://hikari-flets.jp/net/osusume-hikari-kaisen/",
+        "https://hikari-flets.jp/net/hikari-kaisen-yasui/",
+        "https://hikari-flets.jp/net/hikari-collaboration-slow/",
+        "https://hikari-flets.jp/net/hikari-kaisen-online-game-osusume/",
+        "https://hikari-flets.jp/net/10giga-hikari-kaisen-osusume/",
+        "https://hikari-flets.jp/net/hikari-kaisen-covers-cancellation-fees/",
+        "https://hikari-flets.jp/net/mansion-osusume-hikari-ranking/",
+        "https://hikari-flets.jp/net/set-wari-osusume-hikari-kaisen/",
+        "https://hikari-flets.jp/net/kodate-osusume-hikari-kaisen/",
+        "https://hikari-flets.jp/net/speed-fast-hikari-kaisen-ranking/",
+        "https://hikari-flets.jp/net/shibari-nashi-osusume-hikari-kaisen/",
+        "https://hikari-flets.jp/net/kansai-hikari-kaisen-recommend/",
+        "https://hikari-flets.jp/net/kanto-hikari-kaisen-recommend/",
+        "https://hikari-flets.jp/net/hokkaido-hikarikaisen-osusume/",
+        "https://hikari-flets.jp/net/okinawa-hikarikaisen-osusume/",
+        "https://hikari-flets.jp/net/hikarikaisen-norikae/",
+        "https://hikari-flets.jp/net/hikarikaisen-kaiyakukin/",
+        "https://hikari-flets.jp/net/ipv4-ipv6-chigai/",
+        "https://hikari-flets.jp/net/apartment-hikarikaisen-hikenai/",
+        "https://hikari-flets.jp/net/hikari-kaisen-sales-how-to-decline/",
+        "https://hikari-flets.jp/net/hikari-kaisen-seles-annoying/",
+        "https://hikari-flets.jp/net/ftth/",
+        "https://hikari-flets.jp/net/osusume-hikari-kaisen-living-alone/",
+        "https://hikari-flets.jp/net/condominium-net-osusume/",
+        "https://hikari-flets.jp/net/wimax-hikari-kaisen-compare/",
+        "https://hikari-flets.jp/net/high-cash-back/",
+        "https://hikari-flets.jp/net/hikari-tv-reputation/",
+        "https://hikari-flets.jp/net/gamingplus-reputation/",
+        "https://hikari-flets.jp/net/gamewith-hikari-reputation/",
+        "https://hikari-flets.jp/net/hi-ho-hikari-reputation/",
+        "https://hikari-flets.jp/net/smart-hikari-reputation/",
+        "https://hikari-flets.jp/net/commufa-hikari-reputation/",
+        "https://hikari-flets.jp/net/pikara-hikari-reputation/",
+        "https://hikari-flets.jp/net/megaegg-hikari-reputation/"
+      ]
+    },
+    {
+      "name": "格安SIM全般・比較・選び方",
+      "killerPage": "https://hikari-flets.jp/net/kakuyasu-sim-recommend/",
+      "members": [
+        "https://hikari-flets.jp/net/kakuyasu-sim-recommend/",
+        "https://hikari-flets.jp/net/kakuyasu-sim-3-giga/",
+        "https://hikari-flets.jp/net/kakuyasu-sim-data-share/",
+        "https://hikari-flets.jp/net/kakuyasu-sim-cheapest/",
+        "https://hikari-flets.jp/net/kakuyasu-sim-50-giga/",
+        "https://hikari-flets.jp/net/kakuyasu-sim-yametoke/",
+        "https://hikari-flets.jp/net/call-only-kakuyasu-sim/",
+        "https://hikari-flets.jp/net/softbank-line-kakuyasu-sim/",
+        "https://hikari-flets.jp/net/docomo-line-kakuyasu-sim/",
+        "https://hikari-flets.jp/net/au-line-kakuyasu-sim/",
+        "https://hikari-flets.jp/net/sim-data-unlimited-plan/",
+        "https://hikari-flets.jp/net/data-carry-over-sim/",
+        "https://hikari-flets.jp/net/esim-ranking/",
+        "https://hikari-flets.jp/net/dual-sim/",
+        "https://hikari-flets.jp/net/1mbps-seigen-ranking/",
+        "https://hikari-flets.jp/net/tiktok-giga-free/",
+        "https://hikari-flets.jp/net/32kbps-dekirukoto-toha/",
+        "https://hikari-flets.jp/net/aeon-mobile-reputation/"
+      ]
+    },
+    {
+      "name": "ホームルーター・工事不要回線",
+      "killerPage": "https://hikari-flets.jp/net/docomo-home-5g-reputation/",
+      "members": [
+        "https://hikari-flets.jp/net/docomo-home-5g-reputation/",
+        "https://hikari-flets.jp/net/docomo-home5g-not-connect/",
+        "https://hikari-flets.jp/net/docomo-home5g-hr01-hr02-hikaku/",
+        "https://hikari-flets.jp/net/docomo-home5g-campaign/",
+        "https://hikari-flets.jp/net/home-router-carry-use/",
+        "https://hikari-flets.jp/net/softbankair-reputation/",
+        "https://hikari-flets.jp/net/softbankair-norikae/",
+        "https://hikari-flets.jp/net/kouji-fuyou-net-kaisen/",
+        "https://hikari-flets.jp/net/pocket-wifi-without-a-credit-card/"
+      ]
+    },
+    {
+      "name": "乗り換え・MNP",
+      "killerPage": "https://hikari-flets.jp/net/from-au-norikae/",
+      "members": [
+        "https://hikari-flets.jp/net/from-au-norikae/",
+        "https://hikari-flets.jp/net/from-au-to-uq-mobile/",
+        "https://hikari-flets.jp/net/from-au-to-povo-norikae/",
+        "https://hikari-flets.jp/net/from-docomo-norikae/",
+        "https://hikari-flets.jp/net/from-docomo-to-ahamo-norikae/",
+        "https://hikari-flets.jp/net/from-softbank-norikae/",
+        "https://hikari-flets.jp/net/from-softbank-to-linemo-norikae/",
+        "https://hikari-flets.jp/net/from-eo-hikari-to-jcom/",
+        "https://hikari-flets.jp/net/from-softbank-hikari-to-jcom/",
+        "https://hikari-flets.jp/net/from-docomo-hikari-to-jcom/"
+      ]
+    },
+    {
+      "name": "スマホ・端末・通信お役立ち情報",
+      "killerPage": "https://hikari-flets.jp/net/iphone-buy-cheap/",
+      "members": [
+        "https://hikari-flets.jp/net/iphone-buy-cheap/",
+        "https://hikari-flets.jp/net/smartphone-cost-average/",
+        "https://hikari-flets.jp/net/kids-sim-and-smart-phone-osusume/",
+        "https://hikari-flets.jp/net/ipad-osusume-sim/",
+        "https://hikari-flets.jp/net/senior-smartphone-selection/",
+        "https://hikari-flets.jp/net/work-and-private-2dai/",
+        "https://hikari-flets.jp/net/from-kojin-to-houjin-mnp/",
+        "https://hikari-flets.jp/net/personal-mobile-business-use-compliance-violation-avoid/",
+        "https://hikari-flets.jp/net/corporate-mobile-phone-examination/",
+        "https://hikari-flets.jp/net/corporate-mobile-phone-comparison/",
+        "https://hikari-flets.jp/net/wifi-troubleshooting/",
+        "https://hikari-flets.jp/net/wifi-nikai-todokanai-taisaku/",
+        "https://hikari-flets.jp/net/bs-how-to-watch/",
+        "https://hikari-flets.jp/net/bs-not-watch/"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ページ役割フロー｜デザインプロトタイプ</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cta:#c62828;
+  --accent:#37474f;
+  --bg:#eceef1;--card:#fff;--border:#d5d9e0;
+  --sec-bg:#eef0f4;--sec-head:#dfe2e8;
+  --text:#1a1a1a;--text-sub:#555;--text-muted:#8a8f99;
+  --sidebar-bg:#1e272e;--sidebar-text:#dfe6ed;
+  --f-知る:#5c7cfa;--f-気になる:#40c057;--f-比べる:#fab005;--f-安心する:#be4bdb;--f-申し込む:#e03131;
+  --radius:8px;
+}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+#app{display:flex;height:100vh;overflow:hidden}
+
+/* ===== Sidebar ===== */
+#sidebar{width:260px;min-width:260px;background:var(--sidebar-bg);color:var(--sidebar-text);display:flex;flex-direction:column;overflow:hidden}
+#sidebar-header{padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.06)}
+#sidebar-header h1{font-size:13px;font-weight:700}
+#sidebar-header p{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+#page-list{flex:1;overflow-y:auto;padding:6px 0}
+#page-list::-webkit-scrollbar{width:3px}
+#page-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:2px}
+.pg-item{padding:9px 18px;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .12s;border-left:3px solid transparent;color:rgba(255,255,255,.55)}
+.pg-item:hover{background:rgba(255,255,255,.05);color:rgba(255,255,255,.9)}
+.pg-item.active{background:rgba(255,255,255,.08);border-left-color:rgba(255,255,255,.6);color:#fff}
+.pg-item .pg-num{font-size:10px;opacity:.35;min-width:20px;font-family:monospace}
+.pg-item .f-dot{width:6px;height:6px;border-radius:50%;margin-left:auto;flex-shrink:0;opacity:.5}
+
+/* ===== Main ===== */
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+#topbar{padding:12px 28px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;flex-shrink:0}
+#breadcrumb{font-size:13px;color:var(--text-sub);flex:1}
+#breadcrumb b{color:var(--text)}
+.legend{display:flex;gap:12px;font-size:10px;color:var(--text-muted)}
+.legend .lg{display:flex;align-items:center;gap:3px}
+.legend .lg-dot{width:7px;height:7px;border-radius:50%}
+#content{flex:1;overflow-y:auto;padding:28px 36px}
+
+/* ===== Page Header ===== */
+.page-head{max-width:760px;margin-bottom:22px}
+.page-head h2{font-size:20px;font-weight:800;color:var(--text);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;line-height:1.4}
+.page-head .url{font-size:11px;color:var(--text-muted);font-weight:400;font-family:'SF Mono',Menlo,monospace;background:#e8eaed;padding:2px 8px;border-radius:4px}
+.page-head .meta{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 12px}
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:4px;font-size:10.5px;font-weight:600}
+.badge-tpl{background:#e8eaed;color:var(--text-sub)}
+.badge-funnel{color:#fff}
+.badge-cv{background:var(--cta);color:#fff}
+.badge-off{background:#f5f0dc;color:#7a6c3a}
+.badge-branch{background:#e8eaed;color:var(--text-sub)}
+.role-box{font-size:13px;color:var(--text-sub);background:#f7f8fa;padding:12px 16px;border-radius:var(--radius);border-left:3px solid var(--accent)}
+.role-box strong{color:var(--accent)}
+
+/* ===== Filter Bar ===== */
+.filter-bar{max-width:760px;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.filter-bar label{font-size:11px;color:var(--text-muted);font-weight:600}
+.filter-pills{display:flex;gap:0;background:#e0e3e8;border-radius:6px;overflow:hidden;padding:2px}
+.filter-pill{padding:5px 14px;font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--text-sub);background:transparent;border-radius:4px;user-select:none}
+.filter-pill:hover{background:rgba(255,255,255,.5)}
+.filter-pill.active{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.filter-desc{font-size:10.5px;color:var(--text-muted)}
+
+/* ===== Flow Summary ===== */
+.flow-summary{max-width:760px;margin-bottom:18px;padding:14px 18px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);font-size:12.5px;color:var(--text-sub);line-height:1.8}
+.flow-summary .fs-label{font-size:10.5px;color:var(--text-muted);font-weight:600;margin-bottom:4px;letter-spacing:.03em}
+.flow-summary .fs-journey{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-bottom:6px}
+.flow-summary .fs-step{background:var(--sec-bg);padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;color:var(--text)}
+.flow-summary .fs-arr{color:var(--text-muted);font-size:11px}
+.flow-summary .fs-goal{background:#f9eaea;color:var(--cta);font-weight:700;padding:2px 8px;border-radius:4px;font-size:11.5px}
+.flow-summary .fs-why{font-size:12px;color:var(--text-sub)}
+
+/* ===== Branch Bar ===== */
+.branch-bar{max-width:760px;margin-bottom:18px;background:#f7f8fa;border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px}
+.branch-bar h4{font-size:11px;color:var(--text-muted);margin-bottom:8px;font-weight:600;letter-spacing:.03em}
+.branch-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.branch-tab{padding:9px 16px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:12.5px;cursor:pointer;background:#fff;transition:all .15s;display:flex;flex-direction:column;gap:2px;min-width:130px}
+.branch-tab:hover{border-color:#aab;background:#f5f6f8}
+.branch-tab.active{border-color:var(--accent);background:var(--accent);color:#fff}
+.branch-tab .bt-label{font-weight:700;color:inherit}
+.branch-tab .bt-sub{font-size:10.5px;color:var(--text-muted)}
+.branch-tab.active .bt-sub{color:rgba(255,255,255,.7)}
+
+/* ===== Flow Timeline ===== */
+.flow-box{max-width:760px}
+.flow-title{font-size:13px;font-weight:700;color:var(--text-sub);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.flow-title .cnt{font-weight:500;font-size:11.5px;color:var(--text-muted);background:#e8eaed;padding:2px 8px;border-radius:4px}
+.flow-tl{position:relative;padding-left:38px}
+.flow-tl::before{content:'';position:absolute;left:17px;top:24px;bottom:24px;width:2px;background:#ccc;border-radius:1px}
+
+/* Step */
+.f-step{position:relative;margin-bottom:8px;opacity:0;transform:translateY(6px);animation:stepIn .3s ease forwards}
+@keyframes stepIn{to{opacity:1;transform:translateY(0)}}
+.f-step:last-child{margin-bottom:0}
+.s-dot{position:absolute;left:-27px;top:17px;width:12px;height:12px;border-radius:50%;border:2.5px solid var(--bg);z-index:1}
+.f-step.is-entry .s-dot{box-shadow:0 0 0 2.5px var(--accent)}
+.f-step.is-cv .s-dot{box-shadow:0 0 0 2.5px var(--cta)}
+
+/* Card */
+.s-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .15s}
+.f-step.is-entry .s-card{border-color:var(--accent)}
+.f-step.is-cv .s-card{border-color:var(--cta)}
+
+/* Header */
+.s-header{padding:12px 16px;display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none;transition:background .1s}
+.s-header:hover{background:#f8f9fa}
+.s-num{font-size:10.5px;color:#fff;font-weight:700;min-width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+.s-name{font-weight:700;font-size:13.5px;flex:1;color:var(--text)}
+.s-url{font-size:10.5px;color:var(--text-muted);font-family:'SF Mono',Menlo,monospace;background:#eef0f3;padding:2px 6px;border-radius:3px}
+.entry-tag{padding:2px 7px;border-radius:3px;font-size:10px;font-weight:700;color:#fff;background:var(--accent)}
+.cv-tag{padding:2px 7px;border-radius:3px;font-size:10px;font-weight:700;color:#fff;background:var(--cta)}
+.s-toggle{font-size:10px;color:var(--text-muted);transition:transform .2s;width:18px;text-align:center}
+.s-toggle.open{transform:rotate(180deg)}
+
+/* Body */
+.s-body{padding:0 16px 14px;display:none}
+.s-body.open{display:block}
+.s-funnel{margin-bottom:8px;display:flex;align-items:center;gap:8px}
+
+/* Role in step */
+.s-role{font-size:11.5px;color:var(--text-sub);padding:7px 10px;background:#f4f5f7;border-radius:5px;margin-bottom:10px;border-left:3px solid var(--accent)}
+.s-role strong{color:var(--accent);font-weight:600}
+
+/* ===== Sections Frame ===== */
+.sections-frame{margin-top:12px;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff}
+.sections-frame-header{padding:8px 14px;background:#e8eaed;font-size:11px;font-weight:700;color:var(--text-sub);letter-spacing:.03em;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border)}
+.sections-frame-header .sf-icon{font-size:12px;opacity:.5}
+.sections-frame-header .sf-count{margin-left:auto;font-weight:500;font-size:10px;color:var(--text-muted)}
+.sections-frame-body{padding:8px}
+
+/* ===== Section Block ===== */
+.sec{margin-bottom:6px;border-radius:6px;overflow:hidden;background:var(--sec-bg)}
+.sec-name{padding:7px 12px;font-size:11.5px;font-weight:700;color:var(--text-sub);background:var(--sec-head);display:flex;align-items:center;gap:6px}
+.sec-name.has-cta{color:var(--cta)}
+.sec-name.has-cta::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--cta);flex-shrink:0}
+.sec-name.has-exit{color:var(--accent)}
+.sec-name .sec-tag{font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700}
+.sec-name .exit-from{margin-left:auto;font-size:10px;font-weight:700;color:#fff;background:var(--accent);padding:1px 7px;border-radius:3px}
+
+.sec-items{padding:5px 12px 7px}
+
+/* ATF boundary line (制作向けモードのみ) */
+.atf-line{margin:2px 0 6px;padding:0;display:flex;align-items:center;gap:8px;font-size:10px;color:var(--text-muted)}
+.atf-line::before,.atf-line::after{content:'';flex:1;height:1px;background:repeating-linear-gradient(90deg,#b0b5be 0,#b0b5be 4px,transparent 4px,transparent 8px)}
+
+/* Item styles - gray tone base */
+.item{padding:4px 8px;margin:1px 0;font-size:12px;border-radius:4px;display:flex;align-items:flex-start;gap:7px;line-height:1.5}
+.item .i-icon{min-width:12px;text-align:center;font-size:10px;margin-top:3px;flex-shrink:0}
+.item .i-text{flex:1}
+
+/* CTA - only accent: red left border + bold, no colored bg */
+.item-cta{border-left:3px solid var(--cta);padding-left:8px;font-weight:700;color:var(--text)}
+.item-cta .i-icon{color:var(--cta)}
+
+/* Links - subtle gray */
+.item-link{color:var(--text)}
+.item-link .i-dest{color:var(--text-muted);font-size:10.5px;font-family:'SF Mono',Menlo,monospace}
+.item-link .i-icon{color:var(--accent)}
+
+/* External */
+.item-ext{color:var(--text)}
+.item-ext .i-dest{color:var(--text-muted);font-size:10.5px}
+.item-ext .i-icon{color:var(--text-muted)}
+
+/* Muted items */
+.item-muted{color:var(--text-muted);font-size:11.5px}
+.item-muted .i-icon{color:#bfc4cc}
+
+/* Placeholder for hidden items */
+.sec-placeholder{padding:5px 12px;font-size:11px;color:var(--text-muted)}
+
+/* ===== Arrow ===== */
+.f-arrow{padding:3px 0 3px 12px;display:flex;align-items:center;gap:7px;margin-bottom:2px}
+.f-arrow .arr-icon{color:#aaa;font-size:14px}
+.f-arrow .arr-text{font-size:10.5px;color:var(--text-sub);background:#e8eaed;padding:3px 9px;border-radius:4px}
+.f-arrow .arr-from{font-size:9.5px;color:var(--text-muted);background:#f4f5f7;padding:2px 7px;border-radius:3px}
+
+/* ===== CV Terminal ===== */
+.cv-end{max-width:760px;margin-top:10px;padding:18px 22px;background:#f9eaea;border:1.5px solid var(--cta);border-radius:var(--radius);text-align:center}
+.cv-end h3{font-size:15px;color:var(--cta);margin-bottom:3px;font-weight:800}
+.cv-end p{font-size:11.5px;color:var(--text-muted)}
+
+/* ===== Sticky CTA block ===== */
+.sticky-cta-block{border:1px dashed #ccc;border-radius:6px;overflow:hidden;margin-bottom:6px;background:#f6f7f9}
+.sticky-cta-name{padding:7px 12px;font-size:11.5px;font-weight:700;color:var(--text-muted);background:#eaecef;display:flex;align-items:center;gap:6px;border-bottom:1px dashed #ddd}
+.sticky-spec{padding:4px 12px 6px;font-size:10px;color:var(--text-muted);line-height:1.5}
+
+/* ===== Responsive ===== */
+@media(max-width:768px){
+  #sidebar{width:240px;min-width:240px}
+  #content{padding:20px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+<nav id="sidebar">
+  <div id="sidebar-header">
+    <h1>金光八尾 ページ役割フロー</h1>
+    <p>デザインプロトタイプ</p>
+  </div>
+  <div id="page-list"></div>
+</nav>
+<div id="main">
+  <div id="topbar">
+    <div id="breadcrumb">ページを選択してください</div>
+    <div class="legend">
+      <div class="lg"><div class="lg-dot" style="background:var(--f-知る)"></div>知る</div>
+      <div class="lg"><div class="lg-dot" style="background:var(--f-気になる)"></div>気になる</div>
+      <div class="lg"><div class="lg-dot" style="background:var(--f-比べる)"></div>比べる</div>
+      <div class="lg"><div class="lg-dot" style="background:var(--f-安心する)"></div>安心する</div>
+      <div class="lg"><div class="lg-dot" style="background:var(--f-申し込む)"></div>申し込む</div>
+    </div>
+  </div>
+  <div id="content">
+    <div style="text-align:center;padding:80px 20px;color:var(--text-muted)">
+      <div style="font-size:40px;margin-bottom:16px;opacity:.4">&#x1F4C4;</div>
+      <h2 style="font-size:17px;color:var(--text-sub);margin-bottom:8px;font-weight:700">ページを選択してください</h2>
+      <p style="font-size:13px;line-height:1.8">左のサイドバーからページを選択すると、<br>ゴール（説明会予約）までの推奨フローが表示されます。</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+// ==================== DATA ====================
+// ua: 保護者の体験（サマリー用）
+// atf: ファーストビュー内のセクション数（制作向け情報）
+// exitSec: 次ページへの遷移元セクション名（矢印表示用）
+const P = [
+{id:2,n:"中学校TOP",u:"/junior/",t:"トップページ型",f:"気になる",
+ ua:"中学校の魅力を概観する",
+ r:"コース詳細ページへ誘導。中学受験保護者がコース比較を始める起点",
+ s:[
+  {n:"FV（ファーストビュー）",d:["[画像] 中学校メインビジュアル","【説明会予約】ボタン → 説明会予約フォーム"]},
+  {n:"学びの特色",d:["[画像] 教育特色の紹介テキスト＆画像","「詳しく見る」 → /junior/feature/"]},
+  {n:"コース紹介",d:["[カード] S特進コースカード → /junior/course/s-tokushin/","[カード] 特進コースカード → /junior/course/tokushin/"]},
+  {n:"在校生の声",d:["[カード] インタビューカード ×2枚","「もっと見る」 → /career/students/"]},
+  {n:"学校生活",d:["[画像] 学校生活のイメージ写真","「学校生活を見る」 → /junior/schoollife/","「クラブブログを見る」 → /clubblog/?school=junior"]},
+  {n:"入試情報",d:["説明会日程リンク → /junior/examination/event/","募集要項リンク → /junior/examination/application/","学費・諸経費リンク → /junior/examination/tuition/"]}
+ ],c:[0],ei:4,atf:2,exitSec:"学校生活",ni:6,na:"「学校生活を見る」をクリック"},
+
+{id:6,n:"中学 学校生活",u:"/junior/schoollife/",t:"セクションハブ型",f:"気になる",
+ ua:"学校生活の雰囲気に触れる",
+ r:"サブページ（一日/行事/クラブ）への振り分け。学校の雰囲気に触れた保護者を説明会へ誘導",
+ s:[
+  {n:"サブページカード",d:["[カード] 金光八尾の一日 → /junior/schoollife/daily/","[カード] 年間行事 → /junior/schoollife/events/","[カード] クラブ活動 → /junior/schoollife/club/"]},
+  {n:"行動ボタン",d:["「クラブブログを見る」 → /clubblog/?school=junior","「バーチャル見学」 → バーチャル見学 (外部)","【学校の雰囲気を体感する → 説明会予約】 → 説明会予約フォーム"]}
+ ],c:[1],ei:0,atf:1,exitSec:"サブページカード",
+ br:[
+  {l:"クラブ活動を経由",sub:"「部活が気になる」保護者",ni:27,na:"クラブ活動カードをクリック"},
+  {l:"直接ゴールへ",sub:"「もう見に行きたい」保護者",ni:69,na:"「説明会予約」ボタンをクリック"}
+ ]},
+
+{id:27,n:"中学 クラブ活動",u:"/junior/schoollife/club/",t:"詳細コンテンツ型",f:"気になる",
+ ua:"クラブ活動の様子を見る",
+ r:"クラブ活動の魅力を伝え、学校見学・説明会予約へ誘導",
+ s:[
+  {n:"クラブ一覧",d:["サッカー / バスケ / テニス / 吹奏楽 / 美術 ...（約19クラブ）","[画像] 各クラブ活動写真"]},
+  {n:"行動ボタン",d:["「クラブブログを見る」 → /clubblog/?school=junior","【学校見学で部活体験】 → 説明会予約フォーム"]}
+ ],c:[1],ei:1,atf:1,exitSec:"行動ボタン",ni:69,na:"「学校見学で部活体験」ボタン"},
+
+{id:69,n:"説明会予約",u:"（mirai-compass外部フォーム）",t:"フォーム型",f:"申し込む",
+ ua:"説明会を予約する",
+ r:"ゴール地点。説明会・オープンキャンパスの予約完了が最重要コンバージョン",
+ cv:true,cvName:"説明会予約",cvPriority:1,cvExt:true,
+ s:[
+  {n:"フォーム本体",d:["[フォーム] mirai-compass予約フォーム","学年選択・日程選択・保護者情報入力"]},
+  {n:"補足情報",d:["説明会の内容・持ち物・アクセス案内","過去の説明会の様子 → /admission/event/"]}
+ ],c:[0],ei:0,atf:1}
+];
+
+const FUNNEL_COLORS = {
+  "知る":"var(--f-知る)","気になる":"var(--f-気になる)","比べる":"var(--f-比べる)",
+  "安心する":"var(--f-安心する)","申し込む":"var(--f-申し込む)"
+};
+const FUNNEL_LABEL = {
+  "知る":"知る","気になる":"気になる","比べる":"比べる","安心する":"安心する","申し込む":"申し込む"
+};
+
+// ==================== STATE ====================
+let currentId = null;
+let branchSelections = {};
+let filterMode = "client"; // "client" | "production"
+
+// ==================== HELPERS ====================
+function getPage(id){ return P.find(p => p.id === id); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fc(f){ return FUNNEL_COLORS[f] || "#999"; }
+
+function classifyItem(str){
+  if(str.startsWith("\u3010")) return "cta";
+  if(str.includes("[PDF]")) return "pdf";
+  if(str.includes("(\u5916\u90E8)")) return "ext";
+  if(str.startsWith("[\u753B\u50CF]")) return "img";
+  if(str.startsWith("[\u30BF\u30D6]")) return "tab";
+  if(str.startsWith("[\u30AB\u30FC\u30C9]")) return "card";
+  if(str.startsWith("[\u30D5\u30A9\u30FC\u30E0]")) return "form";
+  if(str.includes(" \u2192 ")) return "link";
+  return "text";
+}
+
+function isEssential(cls){ return cls === "cta" || cls === "link" || cls === "ext" || cls === "pdf"; }
+
+function itemIcon(cls){
+  switch(cls){
+    case "cta": return "\u25CF";
+    case "link": return "\u2192";
+    case "ext": return "\u2197";
+    case "pdf": return "\u2193";
+    default: return "\u2022";
+  }
+}
+
+function buildChain(startId){
+  const chain = [];
+  const visited = new Set();
+  let id = startId;
+  while(id != null){
+    if(visited.has(id)) break;
+    visited.add(id);
+    const p = getPage(id);
+    if(!p) break;
+    chain.push(p);
+    if(p.cv) break;
+    if(p.br){
+      const bi = branchSelections[p.id] || 0;
+      id = p.br[bi] ? p.br[bi].ni : null;
+    } else {
+      id = p.ni || null;
+    }
+  }
+  return chain;
+}
+
+// ==================== RENDER ====================
+function selectPage(id){
+  currentId = id;
+  renderSidebar();
+  renderContent();
+  document.getElementById('content').scrollTop = 0;
+}
+
+function selectBranch(pid, bi){
+  branchSelections[pid] = bi;
+  renderContent();
+}
+
+function setFilter(mode){
+  filterMode = mode;
+  renderContent();
+}
+
+function renderSidebar(){
+  const list = document.getElementById('page-list');
+  let h = '';
+  P.forEach(p => {
+    const active = p.id === currentId ? ' active' : '';
+    h += '<div class="pg-item'+active+'" onclick="selectPage('+p.id+')">';
+    h += '<span class="pg-num">'+String(p.id).padStart(2,'0')+'</span>';
+    h += '<span>'+esc(p.n)+'</span>';
+    h += '<span class="f-dot" style="background:'+fc(p.f)+'"></span>';
+    h += '</div>';
+  });
+  list.innerHTML = h;
+}
+
+function toggleStep(el){
+  const body = el.nextElementSibling;
+  const toggle = el.querySelector('.s-toggle');
+  body.classList.toggle('open');
+  toggle.classList.toggle('open');
+}
+
+// --- Flow Summary ---
+function renderFlowSummary(chain){
+  if(chain.length < 2) return '';
+  const last = chain[chain.length-1];
+  const steps = chain.length - 1;
+
+  let h = '<div class="flow-summary">';
+  h += '<div class="fs-label">\u4FDD\u8B77\u8005\u306E\u4F53\u9A13\u30B9\u30C6\u30C3\u30D7</div>';
+
+  // Journey chips
+  h += '<div class="fs-journey">';
+  chain.forEach((p,i) => {
+    if(i > 0) h += '<span class="fs-arr">\u2192</span>';
+    if(p.cv){
+      h += '<span class="fs-goal">'+esc(p.ua || p.n)+'</span>';
+    } else {
+      h += '<span class="fs-step">'+esc(p.ua || p.n)+'</span>';
+    }
+  });
+  h += '</div>';
+
+  // Why this matters
+  h += '<div class="fs-why">';
+  if(last.cv){
+    h += steps + '\u30AF\u30EA\u30C3\u30AF\u3067\u300C'+esc(last.cvName)+'\u300D\u306B\u5230\u9054\u3002';
+    // Context based on first page
+    const first = chain[0];
+    if(first.f === "\u6C17\u306B\u306A\u308B"){
+      h += '\u5B66\u6821\u306E\u96F0\u56F2\u6C17\u3092\u4F1D\u3048\u3066\u300C\u898B\u306B\u884C\u304D\u305F\u3044\u300D\u3092\u9003\u3055\u306A\u3044\u8A2D\u8A08\u3067\u3059\u3002';
+    } else if(first.f === "\u77E5\u308B"){
+      h += '\u8A8D\u77E5\u6BB5\u968E\u304B\u3089\u884C\u52D5\u307E\u3067\u3092\u30B9\u30E0\u30FC\u30BA\u306B\u3064\u306A\u3050\u8A2D\u8A08\u3067\u3059\u3002';
+    }
+  }
+  h += '</div>';
+  h += '</div>';
+  return h;
+}
+
+// --- Content ---
+function renderContent(){
+  const p = getPage(currentId);
+  if(!p) return;
+  const el = document.getElementById('content');
+  document.getElementById('breadcrumb').innerHTML =
+    'P'+String(p.id).padStart(2,'0')+' <b>'+esc(p.n)+'</b>';
+
+  let h = '';
+
+  // Page header
+  h += '<div class="page-head">';
+  h += '<h2>P'+String(p.id).padStart(2,'0')+' '+esc(p.n);
+  if(filterMode === "production") h += ' <span class="url">'+esc(p.u)+'</span>';
+  h += '</h2>';
+  h += '<div class="meta">';
+  h += '<span class="badge badge-tpl">'+esc(p.t)+'</span>';
+  h += '<span class="badge badge-funnel" style="background:'+fc(p.f)+'">'+esc(FUNNEL_LABEL[p.f] || p.f)+'</span>';
+  if(p.cv) h += '<span class="badge badge-cv">\u30B4\u30FC\u30EB</span>';
+  if(p.br) h += '<span class="badge badge-branch">\u5206\u5C90\u3042\u308A</span>';
+  h += '</div>';
+  h += '<div class="role-box"><strong>\u3053\u306E\u30DA\u30FC\u30B8\u306E\u5F79\u5272:</strong> '+esc(p.r)+'</div>';
+  h += '</div>';
+
+  // Filter bar
+  h += '<div class="filter-bar">';
+  h += '<label>\u8868\u793A\u30E2\u30FC\u30C9:</label>';
+  h += '<div class="filter-pills">';
+  h += '<div class="filter-pill'+(filterMode==="client"?' active':'')+'" onclick="setFilter(\'client\')">\u304A\u5BA2\u3055\u307E\u5411\u3051</div>';
+  h += '<div class="filter-pill'+(filterMode==="production"?' active':'')+'" onclick="setFilter(\'production\')">\u5236\u4F5C\u5411\u3051</div>';
+  h += '</div>';
+  h += '<span class="filter-desc">'+(filterMode==="client"?'\u884C\u52D5\u30DC\u30BF\u30F3\u30FB\u904E\u79FB\u5148\u306E\u307F\u8868\u793A':'\u5168\u8981\u7D20\u8868\u793A\uFF08\u753B\u50CF\u30FB\u30AB\u30FC\u30C9\u30FB\u30C6\u30AD\u30B9\u30C8\u542B\u3080\uFF09')+'</span>';
+  h += '</div>';
+
+  // Branch tabs
+  if(p.br){
+    const bi = branchSelections[p.id] || 0;
+    h += '<div class="branch-bar">';
+    h += '<h4>\u2194 \u4FDD\u8B77\u8005\u306E\u884C\u52D5\u30D1\u30BF\u30FC\u30F3</h4>';
+    h += '<div class="branch-tabs">';
+    p.br.forEach((b,i) => {
+      h += '<div class="branch-tab'+(i===bi?' active':'')+'" onclick="selectBranch('+p.id+','+i+')">';
+      h += '<span class="bt-label">'+esc(b.l)+'</span>';
+      if(b.sub) h += '<span class="bt-sub">'+esc(b.sub)+'</span>';
+      h += '</div>';
+    });
+    h += '</div></div>';
+  }
+
+  // Flow summary
+  const chain = buildChain(p.id);
+  h += renderFlowSummary(chain);
+
+  // Flow timeline
+  h += renderFlow(chain);
+
+  el.innerHTML = h;
+}
+
+// --- Sections Frame ---
+function renderSectionsFrame(p){
+  const secCount = p.s ? p.s.length : 0;
+  let h = '<div class="sections-frame">';
+  h += '<div class="sections-frame-header">';
+  h += '<span class="sf-icon">&#9638;</span> ページ構成';
+  h += '<span class="sf-count">'+secCount+'セクション</span>';
+  h += '</div>';
+  h += '<div class="sections-frame-body">';
+  h += renderSections(p);
+  h += '</div></div>';
+  return h;
+}
+
+// --- Sections ---
+function renderSections(p){
+  let h = '';
+  const isClient = filterMode === "client";
+
+  p.s.forEach((sec, si) => {
+    const isCta = p.c && p.c.includes(si);
+    const isExit = si === p.ei;
+
+    // ATF boundary (制作向けのみ)
+    if(!isClient && p.atf && si === p.atf){
+      h += '<div class="atf-line">\u30D5\u30A1\u30FC\u30B9\u30C8\u30D3\u30E5\u30FC\u5883\u754C</div>';
+    }
+
+    const items = sec.d.map(d => ({text:d, cls:classifyItem(d)}));
+    const essentialItems = items.filter(it => isEssential(it.cls));
+    const visibleItems = isClient ? essentialItems : items;
+
+    if(visibleItems.length === 0 && !isCta && !isExit){
+      if(isClient){
+        h += '<div class="sec">';
+        h += '<div class="sec-name">'+esc(sec.n)+'</div>';
+        h += '<div class="sec-placeholder">\u30C6\u30AD\u30B9\u30C8\u30FB\u753B\u50CF\u30B3\u30F3\u30C6\u30F3\u30C4</div>';
+        h += '</div>';
+        return;
+      }
+    }
+
+    let nameClass = 'sec-name';
+    if(isCta) nameClass += ' has-cta';
+    if(isExit) nameClass += ' has-exit';
+
+    h += '<div class="sec">';
+    h += '<div class="'+nameClass+'">'+esc(sec.n);
+    if(isCta) h += ' <span class="sec-tag" style="background:var(--cta);color:#fff">\u884C\u52D5\u30DC\u30BF\u30F3</span>';
+    if(isExit) h += ' <span class="exit-from">\u6B21\u306E\u30DA\u30FC\u30B8\u3078</span>';
+    h += '</div>';
+    h += '<div class="sec-items">';
+
+    visibleItems.forEach(it => {
+      if(it.cls === "cta"){
+        h += '<div class="item item-cta">';
+        h += '<span class="i-icon">'+itemIcon("cta")+'</span>';
+        // In client mode, hide URL after →
+        const ctaText = isClient ? it.text.split(" \u2192 ")[0] : it.text;
+        h += '<span class="i-text">'+esc(ctaText)+'</span>';
+        h += '</div>';
+      } else if(it.cls === "link"){
+        const parts = it.text.split(" \u2192 ");
+        h += '<div class="item item-link">';
+        h += '<span class="i-icon">'+itemIcon("link")+'</span>';
+        h += '<span class="i-text">'+esc(parts[0]);
+        if(!isClient && parts[1]) h += ' <span class="i-dest">\u2192 '+esc(parts[1])+'</span>';
+        h += '</span></div>';
+      } else if(it.cls === "ext"){
+        const parts = it.text.split(" \u2192 ");
+        h += '<div class="item item-ext">';
+        h += '<span class="i-icon">'+itemIcon("ext")+'</span>';
+        h += '<span class="i-text">'+esc(parts[0]);
+        if(!isClient && parts[1]) h += ' <span class="i-dest">\u2192 '+esc(parts[1])+'</span>';
+        h += '</span></div>';
+      } else if(it.cls === "pdf"){
+        h += '<div class="item item-link">';
+        h += '<span class="i-icon">'+itemIcon("pdf")+'</span>';
+        h += '<span class="i-text">'+esc(it.text)+'</span>';
+        h += '</div>';
+      } else {
+        h += '<div class="item item-muted">';
+        h += '<span class="i-icon">'+itemIcon("text")+'</span>';
+        h += '<span class="i-text">'+esc(it.text)+'</span>';
+        h += '</div>';
+      }
+    });
+
+    if(visibleItems.length === 0){
+      h += '<div class="sec-placeholder">\u30C6\u30AD\u30B9\u30C8\u30FB\u753B\u50CF\u30B3\u30F3\u30C6\u30F3\u30C4</div>';
+    }
+
+    h += '</div></div>';
+  });
+  return h;
+}
+
+// --- Flow Timeline ---
+function renderFlow(chain){
+  if(chain.length === 0) return '';
+  const last = chain[chain.length-1];
+  const reachesCV = last.cv;
+  const isClient = filterMode === "client";
+
+  let h = '<div class="flow-box">';
+  h += '<div class="flow-title">\u27A1 \u30B4\u30FC\u30EB\uFF08\u8AAC\u660E\u4F1A\u4E88\u7D04\uFF09\u307E\u3067\u306E\u63A8\u5968\u30EB\u30FC\u30C8 <span class="cnt">';
+  h += reachesCV ? (chain.length-1)+'\u30AF\u30EA\u30C3\u30AF\u3067\u5230\u9054' : chain.length+'\u30DA\u30FC\u30B8';
+  h += '</span></div>';
+
+  h += '<div class="flow-tl">';
+  chain.forEach((p,i) => {
+    const isFirst = i === 0;
+    const isLast = i === chain.length - 1;
+    const isCV = p.cv;
+    const delay = i * 0.1;
+
+    h += '<div class="f-step'+(isFirst?' is-entry':'')+(isCV?' is-cv':'')+'" style="animation-delay:'+delay+'s">';
+    h += '<div class="s-dot" style="background:'+fc(p.f)+'"></div>';
+    h += '<div class="s-card">';
+
+    // Header
+    h += '<div class="s-header" onclick="toggleStep(this)">';
+    h += '<span class="s-num" style="background:'+fc(p.f)+'">'+(i+1)+'</span>';
+    h += '<span class="s-name">'+esc(p.n)+'</span>';
+    if(isFirst) h += '<span class="entry-tag">\u5165\u53E3</span>';
+    if(isCV) h += '<span class="cv-tag">\u30B4\u30FC\u30EB</span>';
+    if(!isClient) h += '<span class="s-url">'+esc(p.u)+'</span>';
+    h += '<span class="s-toggle'+(isFirst||isCV?' open':'')+'">&#x25BC;</span>';
+    h += '</div>';
+
+    // Body
+    h += '<div class="s-body'+(isFirst||isCV?' open':'')+'">';
+
+    // Funnel badge
+    h += '<div class="s-funnel"><span class="badge badge-funnel" style="background:'+fc(p.f)+';font-size:10px">\u4FDD\u8B77\u8005\u306E\u6C17\u6301\u3061: '+esc(FUNNEL_LABEL[p.f] || p.f)+'</span></div>';
+
+    // Role
+    h += '<div class="s-role"><strong>\u5F79\u5272:</strong> '+esc(p.r)+'</div>';
+
+    // Sections frame
+    h += renderSectionsFrame(p);
+
+    // Sticky CTA
+    if(!p.cv){
+      h += '<div class="sticky-cta-block">';
+      h += '<div class="sticky-cta-name">\u25CB \u8FFD\u5F93\u30DC\u30BF\u30F3\uFF08\u5168\u30DA\u30FC\u30B8\u5171\u901A\uFF09</div>';
+      h += '<div class="sec-items">';
+      if(isClient){
+        h += '<div class="item item-cta"><span class="i-icon">\u25CF</span><span class="i-text">\u3010\u8AAC\u660E\u4F1A\u4E88\u7D04\u3011\u8FFD\u5F93\u30DC\u30BF\u30F3</span></div>';
+        h += '<div class="item item-cta"><span class="i-icon">\u25CF</span><span class="i-text">\u3010\u8CC7\u6599\u8ACB\u6C42\u3011\u8FFD\u5F93\u30DC\u30BF\u30F3</span></div>';
+      } else {
+        h += '<div class="item item-cta"><span class="i-icon">\u25CF</span><span class="i-text">\u3010\u8AAC\u660E\u4F1A\u4E88\u7D04\u3011\u8FFD\u5F93\u30DC\u30BF\u30F3 \u2192 \u8AAC\u660E\u4F1A\u4E88\u7D04\u30D5\u30A9\u30FC\u30E0</span></div>';
+        h += '<div class="item item-cta"><span class="i-icon">\u25CF</span><span class="i-text">\u3010\u8CC7\u6599\u8ACB\u6C42\u3011\u8FFD\u5F93\u30DC\u30BF\u30F3 \u2192 /request/</span></div>';
+      }
+      h += '</div>';
+      // Spec note (制作向けのみ)
+      if(!isClient){
+        h += '<div class="sticky-spec">\u5B9F\u88C5\u5F62\u5F0F: \u753B\u9762\u4E0B\u90E8\u56FA\u5B9A\u30D0\u30FC\uFF08\u30B9\u30C6\u30A3\u30C3\u30AD\u30FC\uFF09\u3002\u9AD8\u305595px\u7A0B\u5EA6\u3002\u30B9\u30AF\u30ED\u30FC\u30EB\u3057\u3066\u3082\u5E38\u6642\u8868\u793A\u3002\u30E2\u30D0\u30A4\u30EB\u3067\u306F\u30DC\u30BF\u30F3\u3092\u7E26\u4E26\u3073\u306B\u5909\u66F4\u3002</div>';
+      }
+      h += '</div>';
+    }
+
+    h += '</div>'; // s-body
+    h += '</div>'; // s-card
+    h += '</div>'; // f-step
+
+    // Arrow between steps
+    if(!isLast){
+      let arrowText = '';
+      if(p.br){
+        const bi = branchSelections[p.id] || 0;
+        arrowText = p.br[bi] ? p.br[bi].na : '';
+      } else {
+        arrowText = p.na || '';
+      }
+      h += '<div class="f-arrow">';
+      h += '<span class="arr-icon">\u2193</span>';
+      h += '<span class="arr-text">'+esc(arrowText)+'</span>';
+      if(!isClient && p.exitSec) h += '<span class="arr-from">\u2190 '+esc(p.exitSec)+'\u30BB\u30AF\u30B7\u30E7\u30F3\u5185</span>';
+      h += '</div>';
+    }
+  });
+  h += '</div>'; // flow-tl
+
+  // CV Terminal
+  if(reachesCV){
+    const cvPage = chain[chain.length-1];
+    h += '<div class="cv-end">';
+    h += '<h3>'+esc(cvPage.cvName)+'\uFF08\u6700\u91CD\u8981\u30B4\u30FC\u30EB\uFF09</h3>';
+    h += '<p>'+(cvPage.cvExt?'mirai-compass\u5916\u90E8\u30B5\u30FC\u30D3\u30B9\u3067\u4E88\u7D04\u5B8C\u4E86':'\u30D5\u30A9\u30FC\u30E0\u9001\u4FE1\u3067\u5B8C\u4E86')+'</p>';
+    h += '</div>';
+  }
+
+  h += '</div>'; // flow-box
+  return h;
+}
+
+// ==================== INIT ====================
+renderSidebar();
+selectPage(6);
+</script>
+</body>
+</html>
