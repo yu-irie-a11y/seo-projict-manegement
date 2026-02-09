@@ -2138,68 +2138,28 @@ function renderPageMockup(p){
       return {raw:d, cls:classifyItem(d), parts:d.split(' \u2192 ')};
     });
 
-    // 写真＋テキスト混在パターン検出 → 横並びレイアウト適用
+    // 画像＋他コンテンツ混在 → 左右横並びレイアウト（FV以外すべて適用）
     var hasImg = items.some(function(it){ return it.cls === 'img'; });
-    var hasTxt = items.some(function(it){ return it.cls === 'text'; });
-    var hasOnlyImgAndTxt = hasImg && hasTxt && !isFV;
-    // 横並び対象: 画像とテキストの両方がある一般セクション（FV以外）
-    // カード/CTA/フォーム等がメインの場合は除外
-    var cardCtaCount = items.filter(function(it){ return it.cls==='card'||it.cls==='cta'||it.cls==='form'; }).length;
-    var useSplit = hasOnlyImgAndTxt && cardCtaCount === 0;
+    var nonImgCount = items.filter(function(it){ return it.cls !== 'img'; }).length;
+    var useSplit = hasImg && !isFV && nonImgCount > 0;
 
     if(useSplit){
-      // 横並びレイアウト: 画像と非画像を分離
       var imgItems = items.filter(function(it){ return it.cls === 'img'; });
-      var otherItems = items.filter(function(it){ return it.cls !== 'img'; });
-      var reverse = items[0].cls !== 'img'; // テキストが先なら reverse
-
+      var reverse = items[0].cls !== 'img';
       h += '<div class="mk-split' + (reverse ? ' mk-split-reverse' : '') + '">';
-
-      // 画像側
       h += '<div class="mk-split-img">';
       imgItems.forEach(function(it){
         var desc = it.raw.replace('[\u753B\u50CF] ','').split(' \u2192 ')[0];
         h += '<div class="mk-img-frame"><div class="mk-img">' + esc(desc) + '</div></div>';
       });
       h += '</div>';
-
-      // テキスト側
       h += '<div class="mk-split-txt">';
-      var otherIdx = 0;
-      while(otherIdx < otherItems.length){
-        var ot = otherItems[otherIdx];
-        if(ot.cls === 'text'){
-          var tempArr = otherItems.slice(otherIdx);
-          var tg = renderTextGroup(tempArr, 0);
-          h += tg.html;
-          otherIdx += tg.count;
-        } else if(ot.parts.length > 1){
-          var label0 = ot.parts[0].trim();
-          if(label0.startsWith('\u300C')){
-            var btnLabel = label0.replace(/^\u300C/, '').replace(/\u300D$/, '');
-            h += '<div class="mk-cta-row"><div class="mk-link-btn">' + esc(btnLabel) + ' \u2192</div></div>';
-          } else {
-            h += '<div class="mk-link">' + esc(ot.parts[0]) + ' \u2192 <b>' + esc(ot.parts[1]) + '</b></div>';
-          }
-          otherIdx++;
-        } else if(ot.cls === 'ext'){
-          h += '<div class="mk-ext">\u2197 ' + esc(ot.parts[0]) + '</div>';
-          otherIdx++;
-        } else if(ot.cls === 'pdf'){
-          h += '<div class="mk-pdf">\u2193 ' + esc(ot.parts[0]) + '</div>';
-          otherIdx++;
-        } else {
-          otherIdx++;
-        }
-      }
-      h += '</div>';
-      h += '</div>';
-    } else {
-    // 通常レイアウト（既存ロジック）
+    }
 
     var idx = 0;
     while(idx < items.length){
       var it = items[idx];
+      if(useSplit && it.cls === 'img'){ idx++; continue; }
 
       if(it.cls === 'tab'){
         // Tab bar UI
@@ -2349,7 +2309,10 @@ function renderPageMockup(p){
         idx += tg.count;
       }
     }
-    } // end else (通常レイアウト)
+    if(useSplit){
+      h += '</div>'; // mk-split-txt
+      h += '</div>'; // mk-split
+    }
 
     h += '</div>'; // mk-sec-inner
     h += '</div>'; // mk-sec
