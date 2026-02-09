@@ -333,7 +333,51 @@ body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',system-ui,sans-serif
 .mk-link-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 30px;border:1.5px solid rgba(255,255,255,.4);border-radius:6px;color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.3px;text-align:center;margin:4px 0;transition:background .15s}
 .mk-ext{color:rgba(255,255,255,.65);font-size:11.5px;padding:3px 0;text-align:center}
 .mk-pdf{color:rgba(255,255,255,.65);font-size:11.5px;padding:3px 0;text-align:center}
-.mk-txt{color:rgba(255,255,255,.35);font-size:11px;padding:2px 0;text-align:center}
+/* Text placeholder boxes */
+.mk-txt-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:10px 14px;width:100%;display:flex;flex-direction:column;gap:4px}
+.mk-txt-box .tb-label{font-size:8px;color:rgba(255,255,255,.3);font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.mk-txt-box .tb-lines{display:flex;flex-direction:column;gap:4px}
+.mk-txt-box .tb-line{height:6px;background:rgba(255,255,255,.1);border-radius:3px}
+.mk-txt-box .tb-line:last-child{width:65%}
+.mk-txt-box .tb-content{font-size:9px;color:rgba(255,255,255,.3);line-height:1.6}
+/* Size variants */
+.mk-txt-box.tb-xs{padding:6px 10px}
+.mk-txt-box.tb-xs .tb-line{height:5px}
+.mk-txt-box.tb-sm{padding:8px 12px}
+.mk-txt-box.tb-md{padding:12px 16px}
+.mk-txt-box.tb-md .tb-lines{gap:5px}
+.mk-txt-box.tb-md .tb-line{height:7px}
+.mk-txt-box.tb-lg{padding:16px 18px}
+.mk-txt-box.tb-lg .tb-lines{gap:6px}
+.mk-txt-box.tb-lg .tb-line{height:8px}
+.mk-txt-box.tb-xl{padding:20px 20px}
+.mk-txt-box.tb-xl .tb-lines{gap:6px}
+.mk-txt-box.tb-xl .tb-line{height:8px}
+/* QA variant */
+.mk-txt-box.tb-qa{border-left:3px solid rgba(255,255,255,.2)}
+.mk-txt-box.tb-qa .tb-q{font-size:9.5px;color:rgba(255,255,255,.45);font-weight:700;margin-bottom:2px}
+.mk-txt-box.tb-qa .tb-a{font-size:8.5px;color:rgba(255,255,255,.25);line-height:1.5}
+/* Data/table variant */
+.mk-txt-box.tb-data{background:rgba(255,255,255,.06)}
+.mk-txt-box.tb-data .tb-row{display:flex;align-items:center;gap:8px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:8.5px;color:rgba(255,255,255,.3)}
+.mk-txt-box.tb-data .tb-row:last-child{border-bottom:none}
+.mk-txt-box.tb-data .tb-row .tb-key{min-width:80px;font-weight:600;color:rgba(255,255,255,.4)}
+.mk-txt-box.tb-data .tb-row .tb-val{flex:1}
+/* List variant */
+.mk-txt-box.tb-list .tb-item{display:flex;align-items:flex-start;gap:6px;padding:3px 0;font-size:8.5px;color:rgba(255,255,255,.3)}
+.mk-txt-box.tb-list .tb-item .tb-bullet{color:rgba(255,255,255,.2);flex-shrink:0;font-size:7px;margin-top:2px}
+/* Alert variant */
+.mk-txt-box.tb-alert{border-color:rgba(255,200,50,.3);background:rgba(255,200,50,.06)}
+.mk-txt-box.tb-alert .tb-label{color:rgba(255,200,50,.5)}
+/* Grouped text boxes */
+.mk-txt-group{display:flex;flex-direction:column;gap:6px;width:100%}
+/* FV section text boxes - bigger */
+.mk-fv .mk-txt-box{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
+.mk-fv .mk-txt-box .tb-label{color:rgba(0,0,0,.25)}
+.mk-fv .mk-txt-box .tb-line{background:rgba(0,0,0,.08)}
+.mk-fv .mk-txt-box .tb-content{color:rgba(0,0,0,.2)}
+/* Light section text boxes */
+.mk-sec-light .mk-txt-box .tb-line{background:rgba(255,255,255,.12)}
 /* Form */
 .mk-form{background:rgba(255,255,255,.85);border:2px dashed #bbb;border-radius:8px;min-height:100px;display:flex;align-items:center;justify-content:center;color:#999;font-size:11px;gap:4px;width:100%}
 .mk-sec-dark .mk-form{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.35)}
@@ -1290,6 +1334,140 @@ function classifyItem(str){
 
 function isEssential(cls){ return cls === "cta" || cls === "link" || cls === "ext" || cls === "pdf"; }
 
+// テキストボックスのサイズ・種類を判定
+function classifyText(str){
+  // Q&A
+  if(str.startsWith('Q:') || str.startsWith('Q：')) return {type:'qa',role:'q'};
+  if(str.startsWith('A:') || str.startsWith('A：')) return {type:'qa',role:'a'};
+  // データ表（¥マークや数値入り）
+  if(str.includes('¥') || str.includes('：¥') || /[：:].+[0-9]/.test(str)) return {type:'data'};
+  // 番号付きリスト
+  if(/^[①②③④⑤⑥⑦⑧⑨⑩]/.test(str) || /^[0-9]+[\.\)）]/.test(str)) return {type:'list'};
+  // 注意書き
+  if(str.startsWith('※') || str.startsWith('注')) return {type:'note'};
+  // 警告
+  if(str.includes('ご注意') || str.includes('不審')) return {type:'alert'};
+  // 長文（40文字以上）
+  if(str.length > 60) return {type:'paragraph',size:'lg'};
+  if(str.length > 30) return {type:'paragraph',size:'md'};
+  // 見出し的テキスト
+  if(str.length <= 15) return {type:'heading',size:'xs'};
+  return {type:'paragraph',size:'sm'};
+}
+
+// テキストボックスのダミー行を生成
+function tbLines(count){
+  var h = '<div class="tb-lines">';
+  for(var i=0;i<count;i++) h += '<div class="tb-line"'+(i===count-1?' style="width:'+Math.floor(40+Math.random()*35)+'%"':'')+' ></div>';
+  h += '</div>';
+  return h;
+}
+
+// テキストアイテム群をグループ化してボックス描画
+function renderTextGroup(items, startIdx){
+  var h = '';
+  var idx = startIdx;
+  var qaGroup = [];
+  var dataGroup = [];
+  var listGroup = [];
+  var consumed = 0;
+
+  // 連続するテキストを先読みしてグループ化
+  while(idx < items.length && items[idx].cls === 'text'){
+    var it = items[idx];
+    var tc = classifyText(it.raw);
+
+    if(tc.type === 'qa'){
+      // Q&Aをペアでまとめる
+      qaGroup.push({raw:it.raw, role:tc.role});
+      idx++; consumed++;
+    } else if(tc.type === 'data'){
+      // データ行をまとめる
+      if(qaGroup.length > 0){ h += flushQA(qaGroup); qaGroup = []; }
+      if(listGroup.length > 0){ h += flushList(listGroup); listGroup = []; }
+      dataGroup.push(it.raw);
+      idx++; consumed++;
+    } else if(tc.type === 'list'){
+      if(qaGroup.length > 0){ h += flushQA(qaGroup); qaGroup = []; }
+      if(dataGroup.length > 0){ h += flushData(dataGroup); dataGroup = []; }
+      listGroup.push(it.raw);
+      idx++; consumed++;
+    } else {
+      // flush previous groups
+      if(qaGroup.length > 0){ h += flushQA(qaGroup); qaGroup = []; }
+      if(dataGroup.length > 0){ h += flushData(dataGroup); dataGroup = []; }
+      if(listGroup.length > 0){ h += flushList(listGroup); listGroup = []; }
+      // Single text box
+      h += renderSingleTextBox(it.raw, tc);
+      idx++; consumed++;
+    }
+  }
+  // flush remaining
+  if(qaGroup.length > 0) h += flushQA(qaGroup);
+  if(dataGroup.length > 0) h += flushData(dataGroup);
+  if(listGroup.length > 0) h += flushList(listGroup);
+
+  return {html: consumed > 1 ? '<div class="mk-txt-group">' + h + '</div>' : h, count: consumed};
+}
+
+function flushQA(items){
+  var h = '<div class="mk-txt-box tb-qa tb-md">';
+  h += '<div class="tb-label">Q&A</div>';
+  items.forEach(function(it){
+    if(it.role === 'q'){
+      h += '<div class="tb-q">' + esc(it.raw) + '</div>';
+    } else {
+      h += '<div class="tb-a">' + esc(it.raw) + '</div>';
+      h += '<div style="height:4px"></div>';
+    }
+  });
+  h += '</div>';
+  return h;
+}
+
+function flushData(items){
+  var h = '<div class="mk-txt-box tb-data tb-md">';
+  h += '<div class="tb-label">DATA</div>';
+  items.forEach(function(raw){
+    var sep = raw.includes('：') ? '：' : (raw.includes(':') ? ':' : null);
+    if(sep){
+      var kv = raw.split(sep);
+      h += '<div class="tb-row"><span class="tb-key">' + esc(kv[0]) + '</span><span class="tb-val">' + esc(kv.slice(1).join(sep)) + '</span></div>';
+    } else {
+      h += '<div class="tb-row"><span class="tb-val">' + esc(raw) + '</span></div>';
+    }
+  });
+  h += '</div>';
+  return h;
+}
+
+function flushList(items){
+  var h = '<div class="mk-txt-box tb-list tb-md">';
+  h += '<div class="tb-label">LIST</div>';
+  items.forEach(function(raw){
+    h += '<div class="tb-item"><span class="tb-bullet">\u25CF</span><span>' + esc(raw) + '</span></div>';
+  });
+  h += '</div>';
+  return h;
+}
+
+function renderSingleTextBox(raw, tc){
+  var sz = tc.size || 'sm';
+  var cls = 'mk-txt-box tb-' + sz;
+  if(tc.type === 'alert') cls += ' tb-alert';
+  var lines = sz === 'xs' ? 1 : sz === 'sm' ? 2 : sz === 'md' ? 3 : sz === 'lg' ? 5 : 3;
+  var h = '<div class="' + cls + '">';
+  if(tc.type === 'alert'){
+    h += '<div class="tb-label">\u26A0 NOTICE</div>';
+  } else if(tc.type === 'note'){
+    h += '<div class="tb-label">NOTE</div>';
+  }
+  h += '<div class="tb-content">' + esc(raw) + '</div>';
+  h += tbLines(lines);
+  h += '</div>';
+  return h;
+}
+
 function findPageByUrl(url){
   if(!url) return null;
   url = url.trim();
@@ -2091,9 +2269,10 @@ function renderPageMockup(p){
           idx++;
         }
       } else {
-        // Text content (with FIX marker)
-        h += '<div class="mk-txt">' + esc(it.raw) + fixTag() + '</div>';
-        idx++;
+        // Text content → テキストボックス（連続テキストをグループ化）
+        var tg = renderTextGroup(items, idx);
+        h += tg.html;
+        idx += tg.count;
       }
     }
 
