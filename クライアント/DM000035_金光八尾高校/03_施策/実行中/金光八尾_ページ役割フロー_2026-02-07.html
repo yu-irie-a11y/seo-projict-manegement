@@ -333,51 +333,66 @@ body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',system-ui,sans-serif
 .mk-link-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 30px;border:1.5px solid rgba(255,255,255,.4);border-radius:6px;color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.3px;text-align:center;margin:4px 0;transition:background .15s}
 .mk-ext{color:rgba(255,255,255,.65);font-size:11.5px;padding:3px 0;text-align:center}
 .mk-pdf{color:rgba(255,255,255,.65);font-size:11.5px;padding:3px 0;text-align:center}
-/* Text placeholder boxes */
-.mk-txt-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:10px 14px;width:100%;display:flex;flex-direction:column;gap:4px}
-.mk-txt-box .tb-label{font-size:8px;color:rgba(255,255,255,.3);font-weight:700;letter-spacing:.3px;text-transform:uppercase}
-.mk-txt-box .tb-lines{display:flex;flex-direction:column;gap:4px}
-.mk-txt-box .tb-line{height:6px;background:rgba(255,255,255,.1);border-radius:3px}
-.mk-txt-box .tb-line:last-child{width:65%}
-.mk-txt-box .tb-content{font-size:9px;color:rgba(255,255,255,.3);line-height:1.6}
+/* ===== 写真＋テキスト 横並びレイアウト ===== */
+.mk-split{display:flex;gap:16px;width:100%;align-items:stretch}
+.mk-split-img{flex:0 0 45%;min-width:0}
+.mk-split-img .mk-img-frame{height:100%;display:flex}
+.mk-split-img .mk-img{min-height:120px;flex:1}
+.mk-split-txt{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+/* テキストが先、画像が後のパターン */
+.mk-split.mk-split-reverse{flex-direction:row-reverse}
+
+/* ===== テキストプレースホルダーボックス ===== */
+.mk-txt-box{background:rgba(255,255,255,.07);border:1.5px dashed rgba(255,255,255,.18);border-radius:6px;padding:12px 16px;width:100%;display:flex;flex-direction:column;gap:6px}
+.mk-txt-box .tb-label{font-size:7.5px;color:rgba(255,255,255,.4);font-weight:700;letter-spacing:.5px;text-transform:uppercase;display:flex;align-items:center;gap:4px}
+.mk-txt-box .tb-label::before{content:'';display:inline-block;width:4px;height:4px;border-radius:1px;background:rgba(255,255,255,.25)}
+.mk-txt-box .tb-lines{display:flex;flex-direction:column;gap:5px}
+.mk-txt-box .tb-line{height:7px;background:rgba(255,255,255,.1);border-radius:3px}
+.mk-txt-box .tb-line:last-child{width:60%}
+.mk-txt-box .tb-content{font-size:8.5px;color:rgba(255,255,255,.28);line-height:1.7}
 /* Size variants */
-.mk-txt-box.tb-xs{padding:6px 10px}
-.mk-txt-box.tb-xs .tb-line{height:5px}
-.mk-txt-box.tb-sm{padding:8px 12px}
-.mk-txt-box.tb-md{padding:12px 16px}
-.mk-txt-box.tb-md .tb-lines{gap:5px}
-.mk-txt-box.tb-md .tb-line{height:7px}
-.mk-txt-box.tb-lg{padding:16px 18px}
-.mk-txt-box.tb-lg .tb-lines{gap:6px}
-.mk-txt-box.tb-lg .tb-line{height:8px}
-.mk-txt-box.tb-xl{padding:20px 20px}
-.mk-txt-box.tb-xl .tb-lines{gap:6px}
-.mk-txt-box.tb-xl .tb-line{height:8px}
-/* QA variant */
-.mk-txt-box.tb-qa{border-left:3px solid rgba(255,255,255,.2)}
-.mk-txt-box.tb-qa .tb-q{font-size:9.5px;color:rgba(255,255,255,.45);font-weight:700;margin-bottom:2px}
-.mk-txt-box.tb-qa .tb-a{font-size:8.5px;color:rgba(255,255,255,.25);line-height:1.5}
+.mk-txt-box.tb-xs{padding:8px 12px}
+.mk-txt-box.tb-xs .tb-line{height:6px}
+.mk-txt-box.tb-sm{padding:10px 14px}
+.mk-txt-box.tb-md{padding:14px 18px}
+.mk-txt-box.tb-md .tb-lines{gap:6px}
+.mk-txt-box.tb-md .tb-line{height:8px}
+.mk-txt-box.tb-lg{padding:18px 20px}
+.mk-txt-box.tb-lg .tb-lines{gap:7px}
+.mk-txt-box.tb-lg .tb-line{height:9px}
+.mk-txt-box.tb-xl{padding:22px 22px}
+.mk-txt-box.tb-xl .tb-lines{gap:8px}
+.mk-txt-box.tb-xl .tb-line{height:10px}
+/* Q&A variant */
+.mk-txt-box.tb-qa{border-left:3px solid rgba(255,255,255,.25);border-style:solid;background:rgba(255,255,255,.04)}
+.mk-txt-box.tb-qa .tb-q{font-size:9px;color:rgba(255,255,255,.5);font-weight:700;margin-bottom:1px}
+.mk-txt-box.tb-qa .tb-a{font-size:8px;color:rgba(255,255,255,.25);line-height:1.6;padding-left:8px}
 /* Data/table variant */
-.mk-txt-box.tb-data{background:rgba(255,255,255,.06)}
-.mk-txt-box.tb-data .tb-row{display:flex;align-items:center;gap:8px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:8.5px;color:rgba(255,255,255,.3)}
+.mk-txt-box.tb-data{background:rgba(255,255,255,.05);border-style:solid}
+.mk-txt-box.tb-data .tb-row{display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:8px;color:rgba(255,255,255,.3)}
 .mk-txt-box.tb-data .tb-row:last-child{border-bottom:none}
 .mk-txt-box.tb-data .tb-row .tb-key{min-width:80px;font-weight:600;color:rgba(255,255,255,.4)}
 .mk-txt-box.tb-data .tb-row .tb-val{flex:1}
 /* List variant */
-.mk-txt-box.tb-list .tb-item{display:flex;align-items:flex-start;gap:6px;padding:3px 0;font-size:8.5px;color:rgba(255,255,255,.3)}
-.mk-txt-box.tb-list .tb-item .tb-bullet{color:rgba(255,255,255,.2);flex-shrink:0;font-size:7px;margin-top:2px}
+.mk-txt-box.tb-list .tb-item{display:flex;align-items:flex-start;gap:6px;padding:4px 0;font-size:8px;color:rgba(255,255,255,.3)}
+.mk-txt-box.tb-list .tb-item .tb-bullet{color:rgba(255,255,255,.2);flex-shrink:0;font-size:7px;margin-top:3px}
 /* Alert variant */
-.mk-txt-box.tb-alert{border-color:rgba(255,200,50,.3);background:rgba(255,200,50,.06)}
-.mk-txt-box.tb-alert .tb-label{color:rgba(255,200,50,.5)}
+.mk-txt-box.tb-alert{border-color:rgba(255,200,50,.35);background:rgba(255,200,50,.06)}
+.mk-txt-box.tb-alert .tb-label{color:rgba(255,200,50,.6)}
+.mk-txt-box.tb-alert .tb-label::before{background:rgba(255,200,50,.5)}
+/* Note variant */
+.mk-txt-box.tb-note{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.03)}
 /* Grouped text boxes */
-.mk-txt-group{display:flex;flex-direction:column;gap:6px;width:100%}
-/* FV section text boxes - bigger */
-.mk-fv .mk-txt-box{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
-.mk-fv .mk-txt-box .tb-label{color:rgba(0,0,0,.25)}
+.mk-txt-group{display:flex;flex-direction:column;gap:8px;width:100%}
+/* FV section */
+.mk-fv .mk-txt-box{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.12)}
+.mk-fv .mk-txt-box .tb-label{color:rgba(0,0,0,.3)}
+.mk-fv .mk-txt-box .tb-label::before{background:rgba(0,0,0,.2)}
 .mk-fv .mk-txt-box .tb-line{background:rgba(0,0,0,.08)}
-.mk-fv .mk-txt-box .tb-content{color:rgba(0,0,0,.2)}
-/* Light section text boxes */
-.mk-sec-light .mk-txt-box .tb-line{background:rgba(255,255,255,.12)}
+.mk-fv .mk-txt-box .tb-content{color:rgba(0,0,0,.22)}
+.mk-fv .mk-split-txt .mk-txt-box{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.12)}
+/* Light section */
+.mk-sec-light .mk-txt-box .tb-line{background:rgba(255,255,255,.13)}
 /* Form */
 .mk-form{background:rgba(255,255,255,.85);border:2px dashed #bbb;border-radius:8px;min-height:100px;display:flex;align-items:center;justify-content:center;color:#999;font-size:11px;gap:4px;width:100%}
 .mk-sec-dark .mk-form{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.35)}
@@ -2123,6 +2138,65 @@ function renderPageMockup(p){
       return {raw:d, cls:classifyItem(d), parts:d.split(' \u2192 ')};
     });
 
+    // 写真＋テキスト混在パターン検出 → 横並びレイアウト適用
+    var hasImg = items.some(function(it){ return it.cls === 'img'; });
+    var hasTxt = items.some(function(it){ return it.cls === 'text'; });
+    var hasOnlyImgAndTxt = hasImg && hasTxt && !isFV;
+    // 横並び対象: 画像とテキストの両方がある一般セクション（FV以外）
+    // カード/CTA/フォーム等がメインの場合は除外
+    var cardCtaCount = items.filter(function(it){ return it.cls==='card'||it.cls==='cta'||it.cls==='form'; }).length;
+    var useSplit = hasOnlyImgAndTxt && cardCtaCount === 0;
+
+    if(useSplit){
+      // 横並びレイアウト: 画像と非画像を分離
+      var imgItems = items.filter(function(it){ return it.cls === 'img'; });
+      var otherItems = items.filter(function(it){ return it.cls !== 'img'; });
+      var reverse = items[0].cls !== 'img'; // テキストが先なら reverse
+
+      h += '<div class="mk-split' + (reverse ? ' mk-split-reverse' : '') + '">';
+
+      // 画像側
+      h += '<div class="mk-split-img">';
+      imgItems.forEach(function(it){
+        var desc = it.raw.replace('[\u753B\u50CF] ','').split(' \u2192 ')[0];
+        h += '<div class="mk-img-frame"><div class="mk-img">' + esc(desc) + '</div></div>';
+      });
+      h += '</div>';
+
+      // テキスト側
+      h += '<div class="mk-split-txt">';
+      var otherIdx = 0;
+      while(otherIdx < otherItems.length){
+        var ot = otherItems[otherIdx];
+        if(ot.cls === 'text'){
+          var tempArr = otherItems.slice(otherIdx);
+          var tg = renderTextGroup(tempArr, 0);
+          h += tg.html;
+          otherIdx += tg.count;
+        } else if(ot.parts.length > 1){
+          var label0 = ot.parts[0].trim();
+          if(label0.startsWith('\u300C')){
+            var btnLabel = label0.replace(/^\u300C/, '').replace(/\u300D$/, '');
+            h += '<div class="mk-cta-row"><div class="mk-link-btn">' + esc(btnLabel) + ' \u2192</div></div>';
+          } else {
+            h += '<div class="mk-link">' + esc(ot.parts[0]) + ' \u2192 <b>' + esc(ot.parts[1]) + '</b></div>';
+          }
+          otherIdx++;
+        } else if(ot.cls === 'ext'){
+          h += '<div class="mk-ext">\u2197 ' + esc(ot.parts[0]) + '</div>';
+          otherIdx++;
+        } else if(ot.cls === 'pdf'){
+          h += '<div class="mk-pdf">\u2193 ' + esc(ot.parts[0]) + '</div>';
+          otherIdx++;
+        } else {
+          otherIdx++;
+        }
+      }
+      h += '</div>';
+      h += '</div>';
+    } else {
+    // 通常レイアウト（既存ロジック）
+
     var idx = 0;
     while(idx < items.length){
       var it = items[idx];
@@ -2275,6 +2349,7 @@ function renderPageMockup(p){
         idx += tg.count;
       }
     }
+    } // end else (通常レイアウト)
 
     h += '</div>'; // mk-sec-inner
     h += '</div>'; // mk-sec
