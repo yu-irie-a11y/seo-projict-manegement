@@ -335,10 +335,11 @@ body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',system-ui,sans-serif
 .mk-pdf{color:rgba(255,255,255,.65);font-size:11.5px;padding:3px 0;text-align:center}
 /* ===== 写真＋テキスト 横並びレイアウト ===== */
 .mk-split{display:flex;gap:16px;width:100%;align-items:stretch}
-.mk-split-img{flex:0 0 45%;min-width:0}
-.mk-split-img .mk-img-frame{height:100%;display:flex}
+.mk-split-img{flex:0 0 45%;min-width:0;display:flex;flex-direction:column;gap:8px}
+.mk-split-img .mk-img-frame{flex:1;display:flex}
 .mk-split-img .mk-img{min-height:120px;flex:1}
 .mk-split-txt{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+.mk-split-txt .mk-txt-box{flex:1}
 /* テキストが先、画像が後のパターン */
 .mk-split.mk-split-reverse{flex-direction:row-reverse}
 
@@ -2086,6 +2087,7 @@ function renderPageMockup(p){
   h += '<div class="mk-body">';
   var atfIdx = (isDetail && p.atf != null) ? p.atf : -1;
   var hasFV = p.s.length > 0 && (p.s[0].n.includes('FV') || p.s[0].n.includes('\u30D5\u30A1\u30FC\u30B9\u30C8\u30D3\u30E5\u30FC'));
+  var splitIdx = 0; // 横並びセクションの通し番号（左右交互用）
 
   p.s.forEach(function(sec, si){
     // ATF boundary
@@ -2145,7 +2147,8 @@ function renderPageMockup(p){
 
     if(useSplit){
       var imgItems = items.filter(function(it){ return it.cls === 'img'; });
-      var reverse = items[0].cls !== 'img';
+      var reverse = (splitIdx % 2 === 1); // 偶数=画像左, 奇数=画像右
+      splitIdx++;
       h += '<div class="mk-split' + (reverse ? ' mk-split-reverse' : '') + '">';
       h += '<div class="mk-split-img">';
       imgItems.forEach(function(it){
