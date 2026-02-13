@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>講師一覧 | ブライトフォーメン - NLP心理学で恋愛力を高める恋愛スクール</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Roboto:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #ffffff;
+      --color-fg: #ffffff;
+      --color-text: #000000;
+      --color-border: #000000;
+      --color-neutral-darkest: #000000;
+      --color-neutral-lightest: #eeeeee;
+      --color-white: #ffffff;
+      --padding-global: 64px;
+      --padding-section-medium: 80px;
+      --padding-section-large: 112px;
+      --border-width: 1px;
+      --font-h1: 56px;
+      --font-h2: 48px;
+      --font-h4: 32px;
+      --font-h5: 24px;
+      --font-h6: 20px;
+      --font-text-large: 20px;
+      --font-text-medium: 18px;
+      --font-text-regular: 16px;
+      --font-text-small: 14px;
+      --max-width: 1280px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.5;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      background: var(--color-bg);
+      display: flex;
+      flex-direction: column;
+      height: 72px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 var(--padding-global);
+      width: 100%;
+    }
+    .navbar-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: var(--max-width);
+    }
+    .navbar-logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .navbar-right {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: var(--font-text-regular);
+      font-weight: 400;
+    }
+    .nav-links a:hover { opacity: 0.7; }
+    .nav-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+      font-size: var(--font-text-regular);
+      font-weight: 400;
+      cursor: pointer;
+      border: 1px solid var(--color-neutral-darkest);
+      background: transparent;
+      color: var(--color-neutral-darkest);
+      padding: 8px 20px;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.8; }
+    .btn-primary {
+      background: var(--color-neutral-darkest);
+      color: var(--color-white);
+    }
+    .btn-lg { padding: 12px 24px; }
+    .btn-link {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--color-neutral-darkest);
+      font-size: var(--font-text-regular);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .btn-link:hover { opacity: 0.7; }
+    .btn-link .arrow { font-size: 20px; }
+
+    /* ===== SECTION COMMON ===== */
+    .section {
+      background: var(--color-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      padding: var(--padding-section-large) var(--padding-global);
+      width: 100%;
+    }
+    .section-container {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+      align-items: center;
+      max-width: var(--max-width);
+      width: 100%;
+    }
+    .section-title {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      max-width: 768px;
+      width: 100%;
+    }
+    .section-title-left {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+      max-width: 768px;
+      width: 100%;
+    }
+    .tagline {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .section-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+    .section-heading.center { text-align: center; }
+    .section-heading h2 {
+      font-size: var(--font-h2);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .section-heading p {
+      font-size: var(--font-text-medium);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* ===== HEADER / HERO ===== */
+    .header-section {
+      background: var(--color-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      padding: var(--padding-section-large) var(--padding-global);
+      width: 100%;
+    }
+    .header-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: center;
+      max-width: 768px;
+      width: 100%;
+      text-align: center;
+    }
+    .header-inner h1 {
+      font-size: var(--font-h1);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .header-inner p {
+      font-size: var(--font-text-medium);
+      line-height: 1.5;
+    }
+    .header-actions {
+      display: flex;
+      gap: 16px;
+    }
+
+    /* ===== TEAM GRID ===== */
+    .team-content {
+      display: flex;
+      flex-direction: column;
+      gap: 64px;
+      width: 100%;
+    }
+    .team-row {
+      display: flex;
+      gap: 48px;
+      width: 100%;
+    }
+    .team-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+      min-width: 0;
+    }
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--color-neutral-lightest);
+    }
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .team-card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+    .team-card-title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .team-card-title .name {
+      font-size: var(--font-text-large);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .team-card-title .role {
+      font-size: var(--font-text-medium);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .team-card-desc {
+      font-size: var(--font-text-regular);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .team-social {
+      display: flex;
+      gap: 14px;
+    }
+    .team-social a {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .team-social svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ===== FEATURED INSTRUCTOR ===== */
+    .instructor-feature {
+      display: flex;
+      gap: 64px;
+      width: 100%;
+      align-items: flex-start;
+    }
+    .instructor-feature-image {
+      flex: 0 0 320px;
+      aspect-ratio: 3/4;
+      background: var(--color-neutral-lightest);
+      overflow: hidden;
+    }
+    .instructor-feature-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .instructor-feature-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      min-width: 0;
+    }
+    .instructor-feature-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .instructor-feature-header .name {
+      font-size: var(--font-h4);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .instructor-feature-header .role {
+      font-size: var(--font-text-medium);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .instructor-feature-story {
+      font-size: var(--font-text-medium);
+      line-height: 1.8;
+    }
+    .instructor-stats {
+      display: flex;
+      gap: 0;
+      width: 100%;
+      border-top: var(--border-width) solid var(--color-border);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+    .instructor-stat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: center;
+      padding: 24px 16px;
+      text-align: center;
+    }
+    .instructor-stat + .instructor-stat {
+      border-left: var(--border-width) solid var(--color-border);
+    }
+    .instructor-stat .number {
+      font-size: var(--font-h4);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .instructor-stat .label {
+      font-size: var(--font-text-small);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .instructor-feature-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .keyword-tag {
+      display: inline-block;
+      padding: 6px 16px;
+      border: var(--border-width) solid var(--color-border);
+      font-size: var(--font-text-small);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* ===== RECRUIT CTA ===== */
+    .recruit-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+      max-width: 768px;
+      width: 100%;
+      text-align: center;
+    }
+    .recruit-cta h3 {
+      font-size: var(--font-h4);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .recruit-cta p {
+      font-size: var(--font-text-medium);
+      line-height: 1.5;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials-row {
+      display: flex;
+      gap: 32px;
+      width: 100%;
+    }
+    .testimonial-card {
+      background: var(--color-fg);
+      border: var(--border-width) solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: flex-start;
+      flex: 1;
+      padding: 32px;
+      min-width: 0;
+    }
+    .testimonial-card-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      width: 100%;
+    }
+    .testimonial-logo {
+      height: 48px;
+      width: 120px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .testimonial-logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .testimonial-content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+    .testimonial-quote {
+      font-size: var(--font-text-medium);
+      line-height: 1.5;
+    }
+    .testimonial-avatar {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      width: 100%;
+    }
+    .testimonial-avatar-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .testimonial-avatar-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .testimonial-avatar-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .testimonial-name {
+      font-size: var(--font-text-regular);
+      font-weight: 600;
+    }
+    .testimonial-role {
+      font-size: var(--font-text-regular);
+      font-weight: 400;
+    }
+
+    /* ===== CTA BOTTOM ===== */
+    .cta-card {
+      background: var(--color-fg);
+      border: var(--border-width) solid var(--color-border);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      width: 100%;
+    }
+    .cta-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px;
+    }
+    .cta-content h2 {
+      font-size: var(--font-h2);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .cta-content p {
+      font-size: var(--font-text-medium);
+      line-height: 1.5;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+    }
+    .cta-image {
+      flex: 1;
+      align-self: stretch;
+      position: relative;
+      min-height: 300px;
+    }
+    .cta-image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--color-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      padding: var(--padding-section-medium) var(--padding-global);
+      width: 100%;
+    }
+    .footer-container {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+      align-items: flex-start;
+      max-width: var(--max-width);
+      width: 100%;
+    }
+    .footer-content {
+      display: flex;
+      gap: 64px;
+      width: 100%;
+    }
+    .footer-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      overflow: hidden;
+    }
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .footer-address-block {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      font-size: var(--font-text-small);
+      line-height: 1.5;
+    }
+    .footer-address-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .footer-address-item .label { font-weight: 600; }
+    .footer-address-item .value { font-weight: 400; }
+    .footer-address-item a { text-decoration: underline; }
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social a {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .footer-social svg {
+      width: 18px;
+      height: 18px;
+    }
+    .footer-right {
+      flex: 1;
+      display: flex;
+      gap: 24px;
+      max-width: 400px;
+    }
+    .footer-link-list {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .footer-link-list a {
+      display: block;
+      padding: 8px 0;
+      font-size: var(--font-text-small);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .footer-link-list a:hover { opacity: 0.7; }
+    .footer-credits {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      width: 100%;
+    }
+    .footer-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--color-border);
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      font-size: var(--font-text-small);
+      line-height: 1.5;
+    }
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-bottom-links a { text-decoration: underline; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      :root {
+        --padding-global: 40px;
+        --padding-section-large: 80px;
+        --padding-section-medium: 60px;
+        --font-h1: 42px;
+        --font-h2: 36px;
+        --font-h4: 28px;
+      }
+      .instructor-feature {
+        gap: 40px;
+      }
+      .instructor-feature-image {
+        flex: 0 0 260px;
+      }
+      .team-row {
+        gap: 32px;
+      }
+      .testimonials-row {
+        flex-direction: column;
+      }
+      .cta-card {
+        flex-direction: column;
+      }
+    }
+    @media (max-width: 768px) {
+      :root {
+        --padding-global: 20px;
+        --padding-section-large: 60px;
+        --padding-section-medium: 40px;
+        --font-h1: 32px;
+        --font-h2: 28px;
+        --font-h4: 24px;
+      }
+      .nav-links { display: none; }
+      .instructor-feature {
+        flex-direction: column;
+        gap: 32px;
+      }
+      .instructor-feature-image {
+        flex: none;
+        width: 100%;
+        max-width: 320px;
+        aspect-ratio: 3/4;
+      }
+      .instructor-stats {
+        flex-wrap: wrap;
+      }
+      .instructor-stat {
+        flex: 1 1 40%;
+        padding: 16px 12px;
+      }
+      .instructor-stat:nth-child(3) {
+        border-left: none;
+      }
+      .team-row {
+        flex-direction: column;
+        gap: 48px;
+      }
+      .footer-content {
+        flex-direction: column;
+        gap: 40px;
+      }
+      .footer-right { max-width: 100%; }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-logo">Logo</div>
+      <div class="navbar-right">
+        <div class="nav-links">
+          <a href="#">当校について</a>
+          <a href="#">強みと特徴</a>
+          <a href="#">講師陣</a>
+          <a href="#">学習 ▾</a>
+        </div>
+        <div class="nav-actions">
+          <button class="btn">資料請求</button>
+          <button class="btn btn-primary">無料体験</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HEADER ===== -->
+  <section class="header-section">
+    <div class="header-inner">
+      <div style="display:flex;flex-direction:column;gap:16px;width:100%;">
+        <p class="tagline">講師陣</p>
+        <div style="display:flex;flex-direction:column;gap:24px;width:100%;">
+          <h1>「科学的に正しい方法」で<br>恋愛を変える講師陣</h1>
+          <p>NLP心理学・動物行動学・進化心理学・脳科学。感覚や根性論ではなく、再現性のあるメソッドを体系化した講師陣が、あなたの恋愛を本気で変えます。</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary btn-lg">無料体験に申し込む</button>
+        <button class="btn btn-lg">LINE無料講座を受け取る</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED INSTRUCTOR: 零時レイ ===== -->
+  <section class="section">
+    <div class="section-container">
+      <div class="section-title">
+        <p class="tagline">代表講師</p>
+        <div class="section-heading center">
+          <h2>NLPナンパ研究所 主宰</h2>
+        </div>
+      </div>
+
+      <div class="instructor-feature">
+        <div class="instructor-feature-image">
+          <div style="width:100%;height:100%;background:var(--color-neutral-lightest);display:flex;align-items:center;justify-content:center;color:#999;font-size:14px;">Placeholder Image</div>
+        </div>
+        <div class="instructor-feature-body">
+          <div class="instructor-feature-header">
+            <p class="name">零時レイ</p>
+            <p class="role">代表講師 / NLP認定トレーナー</p>
+          </div>
+          <p class="instructor-feature-story">かつてはコミュ障陰キャの非モテ。人とまともに話すことすらできなかった自身が、NLP心理学と実戦トレーニングで人生を大逆転。以来13年間ストリートに立ち続け、動物行動学・進化心理学・脳科学に基づく「科学的に正しいモテの方法論」を体系化。LINE限定講座「0→100 NLP錬愛術」は5,000人以上が受講。</p>
+
+          <!-- 実績数値 -->
+          <div class="instructor-stats">
+            <div class="instructor-stat">
+              <span class="number">13年</span>
+              <span class="label">活動歴</span>
+            </div>
+            <div class="instructor-stat">
+              <span class="number">1,200+</span>
+              <span class="label">ゲット実績</span>
+            </div>
+            <div class="instructor-stat">
+              <span class="number">5,000+</span>
+              <span class="label">講座受講者</span>
+            </div>
+            <div class="instructor-stat">
+              <span class="number">1,500+</span>
+              <span class="label">直接指導</span>
+            </div>
+          </div>
+
+          <!-- 専門キーワード -->
+          <div class="instructor-feature-keywords">
+            <span class="keyword-tag">NLP心理学</span>
+            <span class="keyword-tag">ノンバーバル</span>
+            <span class="keyword-tag">科学的トレーニング</span>
+            <span class="keyword-tag">進化心理学</span>
+            <span class="keyword-tag">動物行動学</span>
+          </div>
+
+          <div class="team-social">
+            <a href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.44 8.6.44 8.6.44s6.88 0 8.6-.44a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"/></svg>
+            </a>
+            <a href="#" aria-label="X">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TEAM SECTION ===== -->
+  <section class="section">
+    <div class="section-container">
+      <!-- Section Title -->
+      <div class="section-title">
+        <p class="tagline">講師陣</p>
+        <div class="section-heading center">
+          <h2>各分野のスペシャリスト</h2>
+          <p>NLPの各スキルに精通した講師が、あなたのレベルに合わせて直接指導します</p>
+        </div>
+      </div>
+
+      <!-- Team Cards -->
+      <div class="team-content">
+        <!-- Row 1 -->
+        <div class="team-row">
+          <!-- 講師2 -->
+          <div class="team-card">
+            <div class="team-avatar"></div>
+            <div class="team-card-content">
+              <div class="team-card-title">
+                <p class="name">鈴木 由美</p>
+                <p class="role">シニア講師 / 女性心理アドバイザー</p>
+              </div>
+              <p class="team-card-desc">カウンセリング経験15年以上。女性側の視点から「なぜあの子が離れたのか」「どこで好意が冷めるのか」を言語化。男性が見落としがちな女性心理のポイントを的確にフィードバックする。</p>
+            </div>
+            <div class="team-social">
+              <a href="#" aria-label="X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- 講師3 -->
+          <div class="team-card">
+            <div class="team-avatar"></div>
+            <div class="team-card-content">
+              <div class="team-card-title">
+                <p class="name">佐藤 健一</p>
+                <p class="role">講師 / ノンバーバル専門</p>
+              </div>
+              <p class="team-card-desc">NLP実践トレーナー。非言語コミュニケーション（ノンバーバル）を専門に指導。姿勢・視線・声のトーンだけで初対面の相手から主導権を握る技術を体系化し、再現性ある形で教える。</p>
+            </div>
+            <div class="team-social">
+              <a href="#" aria-label="X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- 講師4 -->
+          <div class="team-card">
+            <div class="team-avatar"></div>
+            <div class="team-card-content">
+              <div class="team-card-title">
+                <p class="name">伊藤 拓也</p>
+                <p class="role">講師 / 進化心理学担当</p>
+              </div>
+              <p class="team-card-desc">動物行動学・進化心理学をベースに、女性が本能レベルで惹かれる「アルファ雄」の振る舞いを科学的に解説。データドリブンなアプローチで受講生の行動変容をサポートする。</p>
+            </div>
+            <div class="team-social">
+              <a href="#" aria-label="X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="team-row">
+          <!-- 講師5 -->
+          <div class="team-card">
+            <div class="team-avatar"></div>
+            <div class="team-card-content">
+              <div class="team-card-title">
+                <p class="name">中村 翔太</p>
+                <p class="role">講師 / トーク&心理技術専門</p>
+              </div>
+              <p class="team-card-desc">NLP心理学とノンバーバル技術を恋愛場面に特化して実践指導。「食いつかれるトーク」と「依存を生む心理技術」で、出会いから関係継続までをカバーする。</p>
+            </div>
+            <div class="team-social">
+              <a href="#" aria-label="X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- 講師6 -->
+          <div class="team-card">
+            <div class="team-avatar"></div>
+            <div class="team-card-content">
+              <div class="team-card-title">
+                <p class="name">高橋 麻衣</p>
+                <p class="role">講師 / メンタルブロック解除</p>
+              </div>
+              <p class="team-card-desc">内面変革とメンタルブロック解除の専門家。「弱い所を暴かれそうで怖い」「自分にもできるのか」といった心理的障壁を取り除き、受講生が本来持つ潜在能力を引き出す。</p>
+            </div>
+            <div class="team-social">
+              <a href="#" aria-label="X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- 空の3枠目は不要 → 2名のみ -->
+        </div>
+      </div>
+
+      <!-- Recruit CTA -->
+      <div class="recruit-cta">
+        <div style="display:flex;flex-direction:column;gap:16px;width:100%;">
+          <h3>講師を募集中</h3>
+          <p>NLP心理学の知識と恋愛コーチングの実績を持つ講師を募集しています</p>
+        </div>
+        <div>
+          <button class="btn btn-lg">応募する</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="section">
+    <div class="section-container" style="align-items:flex-start;">
+      <div class="section-title-left">
+        <h2 style="font-size:var(--font-h2);font-weight:700;line-height:1.2;">受講生の声</h2>
+        <p style="font-size:var(--font-text-medium);line-height:1.5;">講師の指導で人生が変わった受講生たち</p>
+      </div>
+      <div class="testimonials-row">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-card-inner">
+            <div class="testimonial-logo">
+              <span class="testimonial-logo-text">受講3ヵ月</span>
+            </div>
+            <div class="testimonial-content">
+              <p class="testimonial-quote">「33歳童貞からのスタート。人とまともに喋ることすらできない真性コミュ障だった自分が、NLPトレーニングわずか3ヵ月で歌舞伎町のキャバ嬢をゲット。対人全般の苦手も克服でき、仕事でも成果が出始めました。」</p>
+              <div class="testimonial-avatar">
+                <div class="testimonial-avatar-img"></div>
+                <div class="testimonial-avatar-info">
+                  <p class="testimonial-name">T.K さん（33歳）</p>
+                  <p class="testimonial-role">会社員、東京</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="btn-link">詳しく見る <span class="arrow">›</span></button>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-card-inner">
+            <div class="testimonial-logo">
+              <span class="testimonial-logo-text">受講6ヵ月</span>
+            </div>
+            <div class="testimonial-content">
+              <p class="testimonial-quote">「"モテの習得は自動車教習所に行くようなもの"という言葉通り、科学的に正しいトレーニングを繰り返すことで確実に結果が出た。ノンバーバルを身につけてからは、初対面でも主導権を握れるようになりました。」</p>
+              <div class="testimonial-avatar">
+                <div class="testimonial-avatar-img"></div>
+                <div class="testimonial-avatar-info">
+                  <p class="testimonial-name">S.K さん（28歳）</p>
+                  <p class="testimonial-role">営業職、大阪</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="btn-link">詳しく見る <span class="arrow">›</span></button>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-card-inner">
+            <div class="testimonial-logo">
+              <span class="testimonial-logo-text">受講1年</span>
+            </div>
+            <div class="testimonial-content">
+              <p class="testimonial-quote">「講師の実体験に基づいた指導で自信がつき、半年で100ゲットを達成。モテ力が追い風になって副業でも稼げるようになり、関わる人すべてを味方につけられるようになりました。」</p>
+              <div class="testimonial-avatar">
+                <div class="testimonial-avatar-img"></div>
+                <div class="testimonial-avatar-info">
+                  <p class="testimonial-name">M.T さん（31歳）</p>
+                  <p class="testimonial-role">自営業、福岡</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="btn-link">詳しく見る <span class="arrow">›</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BOTTOM ===== -->
+  <section class="section">
+    <div style="max-width:var(--max-width);width:100%;">
+      <div class="cta-card">
+        <div class="cta-content">
+          <div style="display:flex;flex-direction:column;gap:24px;width:100%;">
+            <h2>まずは無料で体験する</h2>
+            <p>恋愛経験ゼロでも、付き合えるが続かない悩みでも、理想の相手だけ落とせない壁でも。あなたのステージに合わせた「科学的に正しいトレーニング」を、経験豊かな講師が直接指導します。LINE限定の無料講座「0→100 NLP錬愛術」で、まずはメソッドを体感してください。</p>
+          </div>
+          <div class="cta-actions">
+            <button class="btn btn-primary btn-lg">無料体験に申し込む</button>
+            <button class="btn btn-lg">LINE無料講座を受け取る</button>
+          </div>
+        </div>
+        <div class="cta-image">
+          <div style="width:100%;height:100%;background:var(--color-neutral-lightest);display:flex;align-items:center;justify-content:center;color:#999;font-size:14px;">Placeholder Image</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <div class="footer-logo">Logo</div>
+          <div class="footer-address-block">
+            <div class="footer-address-item">
+              <span class="label">住所</span>
+              <span class="value">東京都渋谷区道玄坂1-2-3</span>
+            </div>
+            <div class="footer-address-item">
+              <span class="label">連絡先</span>
+              <a href="tel:03-1234-5678">03-1234-5678</a>
+              <a href="mailto:info@brightformen.jp">info@brightformen.jp</a>
+            </div>
+          </div>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+            </a>
+            <a href="#" aria-label="X">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 110-4 2 2 0 010 4z"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.44 8.6.44 8.6.44s6.88 0 8.6-.44a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <div class="footer-link-list">
+            <a href="#">当校について</a>
+            <a href="#">選ばれる理由</a>
+            <a href="#">NLP心理学</a>
+            <a href="#">カリキュラム</a>
+            <a href="#">講師一覧</a>
+          </div>
+          <div class="footer-link-list">
+            <a href="#">よくある質問</a>
+            <a href="#">コンテンツ</a>
+            <a href="#">料金案内</a>
+            <a href="#">アクセス</a>
+            <a href="#">&copy; 2025 ブライトフォーメン。すべての権利を保有しています。</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-credits">
+        <div class="footer-divider"></div>
+        <div class="footer-bottom">
+          <span>プライバシーポリシー</span>
+          <div class="footer-bottom-links">
+            <a href="#">利用規約</a>
+            <a href="#">クッキー設定</a>
+            <a href="#">Cookies Settings</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
