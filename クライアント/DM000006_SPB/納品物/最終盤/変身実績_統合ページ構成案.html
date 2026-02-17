@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>受講生のBefore & After | NLP錬愛術</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700;900&family=Roboto:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ========== Design Tokens ========== */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-border: #000000;
+  --color-neutral-darkest: #000000;
+  --color-neutral-lightest: #eeeeee;
+  --color-white: #ffffff;
+  --color-accent: #e63946;
+  --color-accent-light: #fff0f1;
+  --padding-global: 64px;
+  --padding-section-medium: 80px;
+  --padding-section-large: 112px;
+  --border-width: 1px;
+  --font-h1: 56px;
+  --font-h2: 48px;
+  --font-h3: 40px;
+  --font-h4: 32px;
+  --font-h5: 24px;
+  --font-h6: 20px;
+  --font-text-large: 20px;
+  --font-text-medium: 18px;
+  --font-text-regular: 16px;
+  --font-text-small: 14px;
+  --font-text-tiny: 12px;
+  --max-width: 1280px;
+}
+@media (max-width: 1024px) {
+  :root {
+    --padding-global: 40px;
+    --padding-section-large: 80px;
+    --font-h1: 42px;
+    --font-h2: 36px;
+    --font-h3: 32px;
+    --font-h4: 26px;
+  }
+}
+@media (max-width: 768px) {
+  :root {
+    --padding-global: 20px;
+    --padding-section-large: 60px;
+    --font-h1: 32px;
+    --font-h2: 28px;
+    --font-h3: 26px;
+    --font-h4: 22px;
+  }
+}
+
+/* ========== Reset ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+body {
+  font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* ========== Navbar ========== */
+.navbar {
+  display: flex; flex-direction: column; height: 72px;
+  align-items: center; justify-content: center;
+  padding: 0 var(--padding-global); width: 100%;
+  border-bottom: 1px solid var(--color-neutral-lightest);
+  position: sticky; top: 0; background: #fff; z-index: 100;
+}
+.navbar-container {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; max-width: var(--max-width);
+}
+.navbar-logo { font-size: 24px; font-weight: 700; letter-spacing: 0.02em; }
+.navbar-right { display: flex; gap: 32px; align-items: center; }
+.nav-links { display: flex; gap: 32px; align-items: center; font-size: var(--font-text-regular); }
+.nav-links a:hover { opacity: 0.7; }
+
+/* ========== Buttons ========== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: inherit; font-size: var(--font-text-regular); cursor: pointer;
+  transition: opacity 0.2s; border: none; background: none;
+}
+.btn:hover { opacity: 0.8; }
+.btn-filled {
+  background: var(--color-neutral-darkest); border: 1px solid var(--color-border);
+  color: var(--color-white); padding: 8px 20px;
+}
+.btn-filled-lg {
+  background: var(--color-neutral-darkest); border: 1px solid var(--color-border);
+  color: var(--color-white); padding: 16px 48px; font-size: var(--font-text-medium); font-weight: 700;
+}
+.btn-accent {
+  background: var(--color-accent); border: none;
+  color: var(--color-white); padding: 16px 48px; font-size: var(--font-text-medium); font-weight: 700;
+  border-radius: 4px;
+}
+.btn-outline-lg {
+  background: transparent; border: 1px solid var(--color-border);
+  color: var(--color-text); padding: 16px 48px; font-size: var(--font-text-medium); font-weight: 700;
+}
+
+/* ========== Section ========== */
+.section {
+  display: flex; flex-direction: column; align-items: center;
+  overflow: hidden;
+  padding: var(--padding-section-large) var(--padding-global);
+  width: 100%;
+}
+.section-container {
+  display: flex; flex-direction: column; gap: 80px;
+  align-items: center; max-width: var(--max-width); width: 100%;
+}
+.section-title {
+  display: flex; flex-direction: column; gap: 16px;
+  align-items: center; max-width: 768px; width: 100%; text-align: center;
+}
+.tagline { font-size: var(--font-text-regular); font-weight: 600; line-height: 1.5; letter-spacing: 0.1em; }
+.section-heading { display: flex; flex-direction: column; gap: 24px; }
+.section-heading.center { text-align: center; }
+.section-heading h2 { font-size: var(--font-h2); font-weight: 700; line-height: 1.2; }
+.section-heading h3 { font-size: var(--font-h3); font-weight: 700; line-height: 1.2; }
+.section-heading p { font-size: var(--font-text-medium); line-height: 1.5; color: #555; }
+.section-dark { background: var(--color-neutral-darkest); color: var(--color-white); }
+.section-dark .section-heading p { color: rgba(255,255,255,0.7); }
+.section-light { background: #f8f8f8; }
+
+/* ========== Hero ========== */
+.hero {
+  display: flex; flex-direction: column; align-items: center;
+  padding: var(--padding-section-large) var(--padding-global);
+  width: 100%; background: var(--color-neutral-darkest); color: var(--color-white);
+  position: relative; overflow: hidden;
+  min-height: 480px; justify-content: center;
+}
+.hero-inner {
+  display: flex; flex-direction: column; align-items: center; gap: 32px;
+  max-width: 900px; width: 100%; text-align: center; z-index: 1;
+}
+.hero-inner h1 {
+  font-size: var(--font-h1); font-weight: 900; line-height: 1.2;
+  letter-spacing: 0.04em;
+}
+.hero-inner .hero-sub {
+  font-size: var(--font-h5); font-weight: 400; line-height: 1.6;
+  color: rgba(255,255,255,0.8);
+}
+.hero-stats {
+  display: flex; gap: 48px; justify-content: center; flex-wrap: wrap;
+  margin-top: 16px;
+}
+.hero-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.hero-stat .number { font-size: var(--font-h2); font-weight: 900; }
+.hero-stat .label { font-size: var(--font-text-small); color: rgba(255,255,255,0.7); }
+
+/* ========== Before After Card ========== */
+.ba-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px; width: 100%;
+}
+@media (max-width: 768px) {
+  .ba-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+.ba-card {
+  border: 1px solid var(--color-border);
+  display: flex; flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+.ba-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+.ba-images {
+  display: flex; width: 100%; position: relative;
+}
+.ba-image-box {
+  flex: 1; aspect-ratio: 3/4;
+  background: var(--color-neutral-lightest);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--font-text-small); color: #999;
+  position: relative; overflow: hidden;
+}
+.ba-image-box img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.ba-label {
+  position: absolute; top: 12px; left: 12px;
+  padding: 4px 16px; font-size: var(--font-text-tiny); font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.ba-label-before {
+  background: #333; color: #fff;
+}
+.ba-label-after {
+  background: var(--color-accent); color: #fff;
+}
+.ba-arrow {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 48px; height: 48px; background: var(--color-white);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 700; z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.ba-info {
+  padding: 24px; display: flex; flex-direction: column; gap: 12px;
+}
+.ba-meta {
+  display: flex; gap: 12px; align-items: center;
+  font-size: var(--font-text-small); color: #666;
+}
+.ba-meta-tag {
+  background: var(--color-neutral-lightest); padding: 2px 10px;
+  font-size: var(--font-text-tiny); font-weight: 600;
+}
+.ba-name {
+  font-size: var(--font-h6); font-weight: 700; line-height: 1.4;
+}
+.ba-desc {
+  font-size: var(--font-text-regular); color: #555; line-height: 1.6;
+}
+
+/* ========== Testimonial Full (声セクション) ========== */
+.voice-list {
+  display: flex; flex-direction: column; gap: 0; width: 100%;
+}
+.voice-item {
+  display: flex; gap: 48px; width: 100%;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.voice-item:first-child { border-top: 1px solid var(--color-border); }
+.voice-item:nth-child(even) { flex-direction: row-reverse; }
+
+.voice-ba {
+  flex-shrink: 0; width: 340px;
+  display: flex; flex-direction: column; gap: 0;
+}
+.voice-ba-pair {
+  display: flex; gap: 0; width: 100%;
+}
+.voice-ba-img {
+  flex: 1; aspect-ratio: 3/4;
+  background: var(--color-neutral-lightest);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--font-text-tiny); color: #999;
+  position: relative;
+}
+.voice-ba-img img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.voice-ba-labels {
+  display: flex; width: 100%;
+}
+.voice-ba-label {
+  flex: 1; text-align: center; padding: 6px 0;
+  font-size: var(--font-text-tiny); font-weight: 700; letter-spacing: 0.08em;
+}
+.voice-ba-label-b { background: #333; color: #fff; }
+.voice-ba-label-a { background: var(--color-accent); color: #fff; }
+
+.voice-content {
+  flex: 1; display: flex; flex-direction: column; gap: 16px; justify-content: center;
+}
+.voice-date {
+  font-size: var(--font-text-tiny); color: #999; letter-spacing: 0.04em;
+}
+.voice-profile {
+  display: flex; gap: 12px; align-items: center;
+}
+.voice-profile-tag {
+  background: var(--color-neutral-darkest); color: #fff;
+  padding: 4px 12px; font-size: var(--font-text-tiny); font-weight: 600;
+}
+.voice-profile-info {
+  font-size: var(--font-text-regular); font-weight: 700;
+}
+.voice-headline {
+  font-size: var(--font-h5); font-weight: 700; line-height: 1.4;
+}
+.voice-text {
+  font-size: var(--font-text-regular); color: #555; line-height: 1.8;
+}
+.voice-result {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px; background: var(--color-accent-light);
+  border-left: 3px solid var(--color-accent);
+  font-size: var(--font-text-regular); font-weight: 600;
+  color: var(--color-accent);
+}
+
+@media (max-width: 768px) {
+  .voice-item, .voice-item:nth-child(even) {
+    flex-direction: column; gap: 24px;
+  }
+  .voice-ba { width: 100%; }
+}
+
+/* ========== Numbers Banner ========== */
+.numbers-banner {
+  display: flex; justify-content: center; gap: 64px; flex-wrap: wrap;
+  padding: 48px var(--padding-global);
+  width: 100%;
+}
+.number-item {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.number-item .num {
+  font-size: var(--font-h2); font-weight: 900; line-height: 1;
+}
+.number-item .num-label {
+  font-size: var(--font-text-small); color: rgba(255,255,255,0.7);
+}
+
+/* ========== Video ========== */
+.video-embed {
+  width: 100%; max-width: 800px; aspect-ratio: 16/9;
+  background: var(--color-neutral-lightest);
+  border: 1px solid var(--color-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--font-text-regular); color: #999;
+}
+
+/* ========== CTA Section ========== */
+.cta-section {
+  display: flex; flex-direction: column; align-items: center;
+  padding: var(--padding-section-large) var(--padding-global);
+  width: 100%; background: var(--color-neutral-darkest); color: var(--color-white);
+}
+.cta-inner {
+  display: flex; flex-direction: column; align-items: center; gap: 32px;
+  max-width: 640px; width: 100%; text-align: center;
+}
+.cta-inner h2 { font-size: var(--font-h3); font-weight: 700; line-height: 1.3; }
+.cta-inner p { font-size: var(--font-text-medium); color: rgba(255,255,255,0.7); line-height: 1.6; }
+.cta-price { display: flex; align-items: baseline; gap: 12px; }
+.cta-price .old {
+  font-size: var(--font-text-large); text-decoration: line-through;
+  color: rgba(255,255,255,0.5);
+}
+.cta-price .new {
+  font-size: var(--font-h2); font-weight: 900; color: var(--color-accent);
+}
+.cta-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+/* ========== Load More ========== */
+.load-more-wrap {
+  display: flex; justify-content: center; width: 100%;
+}
+
+/* ========== Footer ========== */
+.footer {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 48px var(--padding-global) 24px;
+  border-top: 1px solid var(--color-border);
+}
+.footer-inner {
+  display: flex; justify-content: space-between; gap: 48px;
+  max-width: var(--max-width); width: 100%;
+}
+.footer-links {
+  display: flex; gap: 32px; font-size: var(--font-text-small); color: #666;
+}
+.footer-links a:hover { color: #000; }
+.footer-copy {
+  font-size: var(--font-text-tiny); color: #999; margin-top: 32px; text-align: center;
+  max-width: var(--max-width); width: 100%;
+}
+@media (max-width: 768px) {
+  .footer-inner { flex-direction: column; gap: 24px; }
+  .footer-links { flex-wrap: wrap; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+  SECTION 1: NAVBAR
+============================================================= -->
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-logo">NLP錬愛術</div>
+    <div class="navbar-right">
+      <div class="nav-links">
+        <a href="#">受講生の声</a>
+        <a href="#">講師紹介</a>
+        <a href="#">サービス内容</a>
+        <a href="#">体験会</a>
+      </div>
+      <a href="#cta" class="btn btn-filled">無料体験会に参加</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+  SECTION 2: HERO - ファーストビュー
+  目的: 受講生のBefore & Afterを統合したページの第一印象
+  数値実績を冒頭で提示し信頼性を担保
+============================================================= -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="tagline">BEFORE &amp; AFTER</p>
+    <h1>受講生のBefore &amp; After</h1>
+    <p class="hero-sub">
+      受講前と受講後で、見た目も人生も変わった。<br>
+      1,500人以上を直接指導してきたリアルな変化を公開。
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="number">13年</span>
+        <span class="label">活動歴</span>
+      </div>
+      <div class="hero-stat">
+        <span class="number">5,000+</span>
+        <span class="label">講座受講者</span>
+      </div>
+      <div class="hero-stat">
+        <span class="number">1,500+</span>
+        <span class="label">直接指導人数</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  SECTION 3: BEFORE / AFTER グリッド
+  目的: 視覚的なインパクトで「自分も変われる」を訴求
+  2カラムグリッドでBefore→Afterの変化を一覧表示
+============================================================= -->
+<section class="section">
+  <div class="section-container">
+    <div class="section-title">
+      <p class="tagline">TRANSFORMATION</p>
+      <div class="section-heading center">
+        <h2>参加者ビフォーアフター</h2>
+        <p>受講前と受講後の変化を一挙公開。年齢・経験問わず、正しいトレーニングで誰でも変われます。</p>
+      </div>
+    </div>
+
+    <div class="ba-grid">
+
+      <!-- カード1 -->
+      <div class="ba-card">
+        <div class="ba-images">
+          <div class="ba-image-box">
+            <span class="ba-label ba-label-before">BEFORE</span>
+            Before写真
+          </div>
+          <div class="ba-arrow">→</div>
+          <div class="ba-image-box">
+            <span class="ba-label ba-label-after">AFTER</span>
+            After写真
+          </div>
+        </div>
+        <div class="ba-info">
+          <div class="ba-meta">
+            <span class="ba-meta-tag">20代</span>
+            <span class="ba-meta-tag">恋愛経験ゼロ</span>
+          </div>
+          <p class="ba-desc">何から始めればいいか分からなかった状態から、正しいステップで最短で変化。</p>
+        </div>
+      </div>
+
+      <!-- カード2 -->
+      <div class="ba-card">
+        <div class="ba-images">
+          <div class="ba-image-box">
+            <span class="ba-label ba-label-before">BEFORE</span>
+            Before写真
+          </div>
+          <div class="ba-arrow">→</div>
+          <div class="ba-image-box">
+            <span class="ba-label ba-label-after">AFTER</span>
+            After写真
+          </div>
+        </div>
+        <div class="ba-info">
+          <div class="ba-meta">
+            <span class="ba-meta-tag">30代</span>
+            <span class="ba-meta-tag">コミュ障</span>
+          </div>
+          <p class="ba-desc">真性コミュ障から、ノンバーバルを習得して女性との会話に自信がついた。</p>
+        </div>
+      </div>
+
+      <!-- カード3 -->
+      <div class="ba-card">
+        <div class="ba-images">
+          <div class="ba-image-box">
+            <span class="ba-label ba-label-before">BEFORE</span>
+            Before写真
+          </div>
+          <div class="ba-arrow">→</div>
+          <div class="ba-image-box">
+            <span class="ba-label ba-label-after">AFTER</span>
+            After写真
+          </div>
+        </div>
+        <div class="ba-info">
+          <div class="ba-meta">
+            <span class="ba-meta-tag">30代</span>
+            <span class="ba-meta-tag">付き合えるが続かない</span>
+          </div>
+          <p class="ba-desc">付き合うまではいくが続かなかった原因を特定し、食いつきを高めるトレーニングで改善。</p>
+        </div>
+      </div>
+
+      <!-- カード4 -->
+      <div class="ba-card">
+        <div class="ba-images">
+          <div class="ba-image-box">
+            <span class="ba-label ba-label-before">BEFORE</span>
+            Before写真
+          </div>
+          <div class="ba-arrow">→</div>
+          <div class="ba-image-box">
+            <span class="ba-label ba-label-after">AFTER</span>
+            After写真
+          </div>
+        </div>
+        <div class="ba-info">
+          <div class="ba-meta">
+            <span class="ba-meta-tag">40代</span>
+            <span class="ba-meta-tag">理想の子を落としたい</span>
+          </div>
+          <p class="ba-desc">量のステージから質のステージへ。ハイレベルな女性の心を動かすスキルを習得。</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="load-more-wrap">
+      <a href="#" class="btn btn-outline-lg">もっと見る（全32件）</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  SECTION 4: 中間CTA（数値バナー）
+  目的: スクロール中の離脱を防ぎ、実績数値で信頼を強化
+============================================================= -->
+<section class="section section-dark">
+  <div class="numbers-banner">
+    <div class="number-item">
+      <span class="num">13年</span>
+      <span class="num-label">活動歴</span>
+    </div>
+    <div class="number-item">
+      <span class="num">1,200+</span>
+      <span class="num-label">ゲット数</span>
+    </div>
+    <div class="number-item">
+      <span class="num">1,500+</span>
+      <span class="num-label">直接指導人数</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  SECTION 5: 参加者の声（Before/After付き）
+  目的: 見た目の変化＋実際の成果（彼女ゲット）を紐づけて説得力を最大化
+  Before/After写真と体験談を左右交互に配置
+============================================================= -->
+<section class="section section-light">
+  <div class="section-container">
+    <div class="section-title">
+      <p class="tagline">VOICE</p>
+      <div class="section-heading center">
+        <h2>受講生の声</h2>
+        <p>正しいトレーニングで、見た目も内面も変わった。<br>受講生のリアルな成果をご本人の言葉で紹介します。</p>
+      </div>
+    </div>
+
+    <div class="voice-list">
+
+      <!-- 声1: 左にBA写真、右にテキスト -->
+      <div class="voice-item">
+        <div class="voice-ba">
+          <div class="voice-ba-pair">
+            <div class="voice-ba-img">Before写真</div>
+            <div class="voice-ba-img">After写真</div>
+          </div>
+          <div class="voice-ba-labels">
+            <span class="voice-ba-label voice-ba-label-b">BEFORE</span>
+            <span class="voice-ba-label voice-ba-label-a">AFTER</span>
+          </div>
+        </div>
+        <div class="voice-content">
+          <span class="voice-date">受講生インタビュー</span>
+          <div class="voice-profile">
+            <span class="voice-profile-tag">大逆転</span>
+            <span class="voice-profile-info">33歳 コミュ障</span>
+          </div>
+          <h3 class="voice-headline">33歳童貞・真性コミュ障から、3ヵ月で人生が変わった。</h3>
+          <p class="voice-text">
+            対人全般が苦手で、女性との会話なんて夢のまた夢だった。
+            NLPとノンバーバルのトレーニングを繰り返し、
+            科学的に正しい方法で自分を変えることができました。
+            受講3ヵ月で歌舞伎町のキャバ嬢をゲットするまでに成長しました。
+          </p>
+          <div class="voice-result">
+            成果: 33歳童貞 → 3ヵ月でゲット成功
+          </div>
+        </div>
+      </div>
+
+      <!-- 声2: 右にBA写真、左にテキスト（交互配置） -->
+      <div class="voice-item">
+        <div class="voice-ba">
+          <div class="voice-ba-pair">
+            <div class="voice-ba-img">Before写真</div>
+            <div class="voice-ba-img">After写真</div>
+          </div>
+          <div class="voice-ba-labels">
+            <span class="voice-ba-label voice-ba-label-b">BEFORE</span>
+            <span class="voice-ba-label voice-ba-label-a">AFTER</span>
+          </div>
+        </div>
+        <div class="voice-content">
+          <span class="voice-date">受講生インタビュー</span>
+          <div class="voice-profile">
+            <span class="voice-profile-tag">半年で100ゲット</span>
+            <span class="voice-profile-info">20代後半</span>
+          </div>
+          <h3 class="voice-headline">半年で100ゲット。正しいトレーニングで圧倒的な結果を出せた。</h3>
+          <p class="voice-text">
+            自己流で努力しても全く結果が出なかった。
+            講座で「科学的に正しいトレーニングを繰り返し行う」ことの重要性を学び、
+            ノンバーバルと会話術を徹底的に磨いた結果、
+            半年で100人ゲットという圧倒的な成果を出せました。
+          </p>
+          <div class="voice-result">
+            成果: 半年で100ゲット達成
+          </div>
+        </div>
+      </div>
+
+      <!-- 声3 -->
+      <div class="voice-item">
+        <div class="voice-ba">
+          <div class="voice-ba-pair">
+            <div class="voice-ba-img">Before写真</div>
+            <div class="voice-ba-img">After写真</div>
+          </div>
+          <div class="voice-ba-labels">
+            <span class="voice-ba-label voice-ba-label-b">BEFORE</span>
+            <span class="voice-ba-label voice-ba-label-a">AFTER</span>
+          </div>
+        </div>
+        <div class="voice-content">
+          <span class="voice-date">受講生インタビュー</span>
+          <div class="voice-profile">
+            <span class="voice-profile-tag">仕事にも好影響</span>
+            <span class="voice-profile-info">30代 会社員</span>
+          </div>
+          <h3 class="voice-headline">モテ力を磨いたら、本業でも出世できた。</h3>
+          <p class="voice-text">
+            恋愛のためにNLPとノンバーバルを学び始めましたが、
+            対人スキルが向上したことで、仕事でも周囲からの評価が変わりました。
+            関わる人すべてを魅了する力は、恋愛だけでなく人生全体を変えてくれます。
+          </p>
+          <div class="voice-result">
+            成果: モテ力UP → 本業で出世・副業でも成果
+          </div>
+        </div>
+      </div>
+
+      <!-- 声4 -->
+      <div class="voice-item">
+        <div class="voice-ba">
+          <div class="voice-ba-pair">
+            <div class="voice-ba-img">Before写真</div>
+            <div class="voice-ba-img">After写真</div>
+          </div>
+          <div class="voice-ba-labels">
+            <span class="voice-ba-label voice-ba-label-b">BEFORE</span>
+            <span class="voice-ba-label voice-ba-label-a">AFTER</span>
+          </div>
+        </div>
+        <div class="voice-content">
+          <span class="voice-date">受講生インタビュー</span>
+          <div class="voice-profile">
+            <span class="voice-profile-tag">初心者から大逆転</span>
+            <span class="voice-profile-info">30代後半</span>
+          </div>
+          <h3 class="voice-headline">恋愛経験ゼロから、理想の女性と交際スタート。</h3>
+          <p class="voice-text">
+            恋愛経験が無さ過ぎて何から始めればいいか分からなかった。
+            講座で出会い方・デートの仕方・付き合うまでの流れを
+            一から学び、経験ゼロでも最短で変われることを実感。
+            今では自分から積極的にアプローチできるようになりました。
+          </p>
+          <div class="voice-result">
+            成果: 恋愛経験ゼロ → 理想の女性と交際中
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="load-more-wrap" style="margin-top: 48px;">
+      <a href="#" class="btn btn-outline-lg">さらに読み込む</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  SECTION 6: 動画セクション
+  目的: テキスト＋写真だけでなく動画で臨場感を補強
+============================================================= -->
+<section class="section">
+  <div class="section-container">
+    <div class="section-title">
+      <p class="tagline">MOVIE</p>
+      <div class="section-heading center">
+        <h2>受講生インタビュー動画</h2>
+        <p>33歳童貞コミュ障が3ヵ月で大逆転したリアルなエピソードなど</p>
+      </div>
+    </div>
+    <div class="video-embed">
+      <!-- YouTube埋め込み予定 -->
+      動画プレーヤー
+    </div>
+    <a href="#" class="btn btn-outline-lg">YouTubeで他の動画も見る</a>
+  </div>
+</section>
+
+<!-- ============================================================
+  SECTION 7: CTA
+  目的: 最終コンバージョン誘導
+  体験会申込 ＋ LINE登録（無料）の2段階CTA
+============================================================= -->
+<section class="cta-section" id="cta">
+  <div class="cta-inner">
+    <h2>まずは無料体験会に<br>参加してみませんか？</h2>
+    <p>5,000人以上が受講した実績あるメソッド。<br>あなたの人生が変わるきっかけを体験してください。</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn btn-accent">無料体験会に申し込む</a>
+      <a href="#" class="btn btn-outline-lg" style="border-color: rgba(255,255,255,0.3); color: #fff;">LINE限定講座を受け取る</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  FOOTER
+============================================================= -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="navbar-logo">NLP錬愛術</div>
+    <div class="footer-links">
+      <a href="#">受講生の声</a>
+      <a href="#">講師紹介</a>
+      <a href="#">サービス内容</a>
+      <a href="#">体験会</a>
+      <a href="#">会社概要</a>
+      <a href="#">プライバシーポリシー</a>
+    </div>
+  </div>
+  <p class="footer-copy">&copy; 2026 NLP錬愛術 All rights reserved.</p>
+</footer>
+
+</body>
+</html>

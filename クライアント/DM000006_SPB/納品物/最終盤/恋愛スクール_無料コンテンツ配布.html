@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ページ構成案: 無料コンテンツ配布ページ（LINE導線集約型）</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue','Noto Sans JP',sans-serif;background:#1e272e;color:#1a1a1a;line-height:1.6}
+
+/* ===== PAGE HEADER (info bar) ===== */
+.page-header{background:#fff;padding:24px 40px;border-bottom:3px solid #2a2a2a;position:sticky;top:0;z-index:100}
+.page-header h1{font-size:18px;font-weight:700;margin-bottom:8px}
+.page-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:#555}
+.page-meta span{display:inline-flex;align-items:center;gap:6px}
+.meta-label{font-weight:700;color:#1a1a1a}
+
+/* ===== FIXED ITEMS BAR ===== */
+.fixed-items{background:#2a2a2a;color:rgba(255,255,255,.85);padding:20px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font-size:12px}
+.fixed-item{display:flex;flex-direction:column;gap:4px}
+.fixed-item .fi-label{font-weight:700;color:#6ba3b5;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.fixed-item .fi-value{line-height:1.5}
+
+/* ===== SECTION LIST ===== */
+.section-list{background:#fff;padding:16px 40px;border-bottom:1px solid #ddd;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.section-list .sl-label{font-size:12px;font-weight:700;color:#555;margin-right:8px}
+.sec-chip{font-size:11px;padding:4px 12px;border-radius:3px;font-weight:600;cursor:pointer;border:1px solid #ddd;background:#f5f5f5;color:#333;transition:all .15s}
+.sec-chip:hover{background:#6ba3b5;color:#fff;border-color:#6ba3b5}
+.sec-chip .chip-num{color:#6ba3b5;margin-right:4px}
+.sec-chip:hover .chip-num{color:#fff}
+
+/* ===== MAIN WIREFRAME ===== */
+.wireframe{max-width:960px;margin:0 auto;padding:40px 20px 80px}
+
+/* Section block */
+.wf-section{margin-bottom:2px;padding:40px;position:relative}
+.wf-section.bg-fv{background:#c8ccd3}
+.wf-section.bg-light{background:#6b7078}
+.wf-section.bg-dark{background:#4a4f56}
+.wf-section.bg-accent{background:#3d5a6e}
+.wf-section.bg-green{background:#2d6a4f}
+
+/* Section header */
+.sec-header{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.sec-num{width:32px;height:32px;border-radius:50%;background:#6ba3b5;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:.3px}
+.sec-anchor{font-size:11px;color:rgba(255,255,255,.45);margin-left:auto;font-family:monospace}
+.bg-fv .sec-name{color:#1a1a1a}
+.bg-fv .sec-anchor{color:rgba(0,0,0,.3)}
+
+/* Elements inside sections */
+.wf-elements{display:flex;flex-direction:column;gap:12px;padding-left:44px}
+
+/* Image placeholder */
+.el-img{background:#8db4c4;border-radius:6px;padding:20px 24px;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;min-height:60px}
+.el-img::before{content:'▣';font-size:18px;opacity:.7}
+.el-img.el-img-tall{min-height:120px}
+
+/* CTA button */
+.el-cta{display:inline-flex;align-items:center;gap:8px;background:#06c755;color:#fff;padding:10px 24px;border-radius:4px;font-size:13px;font-weight:700;cursor:default;max-width:fit-content}
+.el-cta .cta-arrow{font-size:11px;opacity:.7;margin-left:8px;font-weight:400}
+
+/* Sub CTA */
+.el-cta-sub{display:inline-flex;align-items:center;gap:8px;background:#4a5568;color:#fff;padding:10px 24px;border-radius:4px;font-size:13px;font-weight:700;cursor:default;max-width:fit-content}
+.el-cta-sub .cta-arrow{font-size:11px;opacity:.7;margin-left:8px;font-weight:400}
+
+/* CTA row */
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+
+/* Text box */
+.el-txt{background:rgba(255,255,255,.12);border:1.5px dashed rgba(255,255,255,.3);border-radius:4px;padding:14px 18px;color:rgba(255,255,255,.85);font-size:13px;line-height:1.7}
+.bg-fv .el-txt{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.15);color:rgba(0,0,0,.75)}
+.el-txt .txt-label{font-weight:700;color:rgba(255,255,255,.95);font-size:12px;margin-bottom:4px;display:block}
+.bg-fv .el-txt .txt-label{color:rgba(0,0,0,.85)}
+
+/* Card */
+.el-card{background:rgba(0,0,0,.2);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.el-card .card-title{font-weight:700;font-size:13px;color:rgba(255,255,255,.9)}
+.el-card .card-body{font-size:12px;color:rgba(255,255,255,.65);line-height:1.6}
+.el-card .card-dest{display:inline-flex;align-items:center;gap:4px;background:#06c755;color:#fff;padding:4px 12px;border-radius:3px;font-size:11px;font-weight:600;max-width:fit-content;margin-top:4px}
+
+/* Card row */
+.card-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+
+/* ===== THUMBNAIL GRID (LANY参考) ===== */
+.thumb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.thumb-card{background:rgba(0,0,0,.25);border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column}
+.thumb-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.thumb-img{background:#8db4c4;min-height:140px;display:flex;align-items:center;justify-content:center;padding:16px;color:#fff;font-size:12px;font-weight:600;text-align:center;position:relative}
+.thumb-img .thumb-badge{position:absolute;top:8px;left:8px;background:#06c755;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:.3px}
+.thumb-body{padding:14px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.thumb-tag{font-size:10px;font-weight:700;color:#6ba3b5;text-transform:uppercase;letter-spacing:.5px}
+.thumb-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);line-height:1.4}
+.thumb-desc{font-size:11px;color:rgba(255,255,255,.55);line-height:1.5}
+.thumb-cta{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:8px;font-size:11px;font-weight:700;color:#06c755}
+.thumb-cta::after{content:'→';opacity:.7}
+
+/* Step flow */
+.step-flow{display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;gap:16px;align-items:flex-start;position:relative;padding:20px 0}
+.step-item:not(:last-child)::after{content:'';position:absolute;left:15px;top:52px;bottom:0;width:2px;background:rgba(6,199,85,.4)}
+.step-marker{width:32px;height:32px;border-radius:50%;background:#06c755;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1}
+.step-content{flex:1;display:flex;flex-direction:column;gap:6px}
+.step-title{font-weight:700;font-size:14px;color:rgba(255,255,255,.95)}
+.step-desc{font-size:12px;color:rgba(255,255,255,.65);line-height:1.6}
+
+/* Mid CTA divider */
+.mid-cta-divider{border:2px dashed #06c755;border-radius:6px;padding:16px 20px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:8px}
+.mid-cta-label{font-size:11px;font-weight:700;color:#06c755;letter-spacing:.5px}
+
+/* LINE branding note */
+.line-note{display:flex;align-items:center;gap:8px;background:rgba(6,199,85,.15);border:1.5px solid rgba(6,199,85,.4);border-radius:4px;padding:10px 16px;color:rgba(255,255,255,.85);font-size:12px;font-weight:600}
+.line-note::before{content:'LINE';background:#06c755;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;flex-shrink:0}
+
+/* ===== CTA SUMMARY ===== */
+.cta-summary{background:#fff;padding:24px 40px;margin:0 auto;max-width:960px}
+.cta-summary h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.cta-table{width:100%;border-collapse:collapse;font-size:13px}
+.cta-table th{text-align:left;padding:8px 12px;background:#f5f5f5;border:1px solid #ddd;font-weight:700;font-size:12px}
+.cta-table td{padding:8px 12px;border:1px solid #ddd}
+.cta-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#06c755;margin-right:6px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .fixed-items{grid-template-columns:repeat(2,1fr)}
+  .wf-section{padding:24px 16px}
+  .wf-elements{padding-left:0}
+  .thumb-grid{grid-template-columns:repeat(2,1fr)}
+  .card-row{grid-template-columns:1fr}
+  .page-header{padding:16px 20px}
+  .fixed-items{padding:16px 20px}
+  .section-list{padding:12px 20px}
+  .wireframe{padding:20px 10px 60px}
+}
+@media(max-width:480px){
+  .thumb-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1>無料コンテンツ配布ページ（LINE導線集約型 / LANY参考レイアウト）</h1>
+  <div class="page-meta">
+    <span><span class="meta-label">テンプレート:</span> 無料コンテンツ配布型（サムネイルグリッド）</span>
+    <span><span class="meta-label">参考:</span> lany.co.jp/useful-materials</span>
+    <span><span class="meta-label">ページゴール:</span> LINE友だち追加（全CTAがLINEへ誘導）</span>
+    <span><span class="meta-label">作成日:</span> 2026-02-13</span>
+  </div>
+</div>
+
+<!-- FIXED ITEMS -->
+<div class="fixed-items">
+  <div class="fixed-item">
+    <span class="fi-label">ターゲット</span>
+    <span class="fi-value">恋愛に悩む男性（初心者 / 中級者 / 上級者）</span>
+  </div>
+  <div class="fixed-item">
+    <span class="fi-label">CV</span>
+    <span class="fi-value">LINE友だち追加（全クリック先 = LINE）</span>
+  </div>
+  <div class="fixed-item">
+    <span class="fi-label">差別化</span>
+    <span class="fi-value">NLP心理学・動物行動学・進化心理学・脳科学に基づく科学的メソッド</span>
+  </div>
+  <div class="fixed-item">
+    <span class="fi-label">認知経路</span>
+    <span class="fi-value">LP / YouTube / X / 検索 → このページ → LINE追加</span>
+  </div>
+</div>
+
+<!-- SECTION LIST (jump nav) -->
+<div class="section-list">
+  <span class="sl-label">セクション:</span>
+  <span class="sec-chip" onclick="document.getElementById('sec1').scrollIntoView({behavior:'smooth'})"><span class="chip-num">1</span>FV</span>
+  <span class="sec-chip" onclick="document.getElementById('sec2').scrollIntoView({behavior:'smooth'})"><span class="chip-num">2</span>特典一覧</span>
+  <span class="sec-chip" onclick="document.getElementById('sec3').scrollIntoView({behavior:'smooth'})"><span class="chip-num">3</span>登録→体験の流れ</span>
+  <span class="sec-chip" onclick="document.getElementById('sec4').scrollIntoView({behavior:'smooth'})"><span class="chip-num">4</span>最終CTA</span>
+</div>
+
+<!-- WIREFRAME -->
+<div class="wireframe">
+
+  <!-- ============================================================ -->
+  <!-- [1] FV（ファーストビュー） -->
+  <!-- ============================================================ -->
+  <div class="wf-section bg-fv" id="sec1">
+    <div class="sec-header">
+      <div class="sec-num">1</div>
+      <div class="sec-name">FV（ファーストビュー）</div>
+      <div class="sec-anchor">興味を引く</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-img el-img-tall">メインビジュアル画像（LINE特典のイメージ / 動画講座サムネイル群を背景にしたビジュアル）</div>
+      <div class="el-txt">
+        <span class="txt-label">キャッチコピー</span>
+        LINE友だち追加で、すべて無料で手に入る
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">サブコピー</span>
+        NLP心理学に基づく恋愛メソッドを動画講座・限定コラム・診断テストで今すぐ学べる。LINE登録だけで全コンテンツが解放される。
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">特典数の訴求（数値の権威付け）</span>
+        無料特典 7点セット ／ 動画講座 全4話 ／ 限定コラム配信 ／ 無料体験会への優先案内
+      </div>
+      <div class="el-cta">【LINE友だち追加で無料特典を受け取る】<span class="cta-arrow">→ LINE追加</span></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [2] 無料特典一覧（LANY参考: サムネイルグリッド） -->
+  <!-- ============================================================ -->
+  <div class="wf-section bg-dark" id="sec2">
+    <div class="sec-header">
+      <div class="sec-num">2</div>
+      <div class="sec-name">無料特典一覧</div>
+      <div class="sec-anchor">欲しくなる</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>
+        LINE登録で受け取れる無料コンテンツ
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">補足</span>
+        すべてLINE友だち追加で即座に受け取れる。気になるコンテンツをタップして、今すぐ登録しよう。
+      </div>
+
+      <div class="line-note">どのサムネイルをクリックしても、すべてLINE友だち追加画面に遷移する設計</div>
+
+      <!-- THUMBNAIL GRID (LANY参考: カード型サムネイル一覧) -->
+      <div class="thumb-grid">
+
+        <!-- 特典1: 動画講座 第一話 -->
+        <div class="thumb-card">
+          <div class="thumb-img">
+            <span class="thumb-badge">LINE限定</span>
+            ▣ 動画サムネイル<br>第一話
+          </div>
+          <div class="thumb-body">
+            <span class="thumb-tag">動画講座</span>
+            <span class="thumb-title">第一話：最強の心理技術 NLP</span>
+            <span class="thumb-desc">NLP心理学の全貌を解説。本当にいい子を落とせない・複数キープしたい男性必見。</span>
+            <span class="thumb-cta">LINE登録で視聴する</span>
+          </div>
+        </div>
+
+        <!-- 特典2: 動画講座 第二話 -->
+        <div class="thumb-card">
+          <div class="thumb-img">
+            <span class="thumb-badge">LINE限定</span>
+            ▣ 動画サムネイル<br>第二話
+          </div>
+          <div class="thumb-body">
+            <span class="thumb-tag">動画講座</span>
+            <span class="thumb-title">第二話：最強のトレーニング法</span>
+            <span class="thumb-desc">世の中の男性ほぼ全員が間違った努力をしている。科学的に正しいメソッドで確実に結果を出す。</span>
+            <span class="thumb-cta">LINE登録で視聴する</span>
+          </div>
+        </div>
+
+        <!-- 特典3: 動画講座 第三話 -->
+        <div class="thumb-card">
+          <div class="thumb-img">
+            <span class="thumb-badge">LINE限定</span>
+            ▣ 動画サムネイル<br>第三話
+          </div>
+          <div class="thumb-body">
+            <span class="thumb-tag">動画講座</span>
+            <span class="thumb-title">第三話：女を支配するノンバーバル</span>
+            <span class="thumb-desc">コミュ障でもモテる。非言語コミュニケーションで主導権を握る技術を公開。</span>
+            <span class="thumb-cta">LINE登録で視聴する</span>
+          </div>
+        </div>
+
+        <!-- 特典4: 動画講座 第四話 -->
+        <div class="thumb-card">
+          <div class="thumb-img">
+            <span class="thumb-badge">LINE限定</span>
+            ▣ 動画サムネイル<br>第四話
+          </div>
+          <div class="thumb-body">
+            <span class="thumb-tag">動画講座</span>
+            <span class="thumb-title">第四話：女を支配する技術 + 体験会案内</span>
+            <span class="thumb-desc">全体のおさらい＋実践テクニック。体験会限定でさらに深い内容を公開。</span>
+            <span class="thumb-cta">LINE登録で視聴する</span>
+          </div>
+        </div>
+
+        <!-- 特典5: NLPモテ診断 -->
+        <div class="thumb-card">
+          <div class="thumb-img">
+            <span class="thumb-badge">LINE限定</span>
+            ▣ 診断テスト<br>イメージ画像
+          </div>
+          <div class="thumb-body">
+            <span class="thumb-tag">診断テスト</span>
+            <span class="thumb-title">NLPモテ力診断テスト</span>
+            <span class="thumb-desc">LINEで簡単回答。あなたの恋愛力を科学的に分析し、改善ポイントを即フィードバック。</span>
+            <span class="thumb-cta">LINE登録で診断する</span>
+          </div>
+        </div>
+
+        <!-- 特典6: 限定コラム -->
+        <div class="thumb-card">
+          <div class="thumb-img">
+            <span class="thumb-badge">LINE限定</span>
+            ▣ コラム<br>イメージ画像
+          </div>
+          <div class="thumb-body">
+            <span class="thumb-tag">限定コラム</span>
+            <span class="thumb-title">「3秒ルール」実践マニュアル</span>
+            <span class="thumb-desc">いいと思った瞬間すぐ行動する。ためらう人生を終わらせる具体的ステップを配信。</span>
+            <span class="thumb-cta">LINE登録で読む</span>
+          </div>
+        </div>
+
+        <!-- 特典7: 受講生インタビュー -->
+        <div class="thumb-card">
+          <div class="thumb-img">
+            <span class="thumb-badge">LINE限定</span>
+            ▣ インタビュー動画<br>サムネイル
+          </div>
+          <div class="thumb-body">
+            <span class="thumb-tag">受講生の声</span>
+            <span class="thumb-title">33歳童貞 → 3ヵ月でキャバ嬢ゲット</span>
+            <span class="thumb-desc">真性コミュ障でも成果が出る証拠。対人全般の苦手克服から仕事での成果にも繋がった実話。</span>
+            <span class="thumb-cta">LINE登録で視聴する</span>
+          </div>
+        </div>
+
+        <!-- 特典8: 無料体験会 優先案内 -->
+        <div class="thumb-card">
+          <div class="thumb-img" style="background:#2d6a4f">
+            <span class="thumb-badge">優先案内</span>
+            ▣ 体験会<br>イメージ画像
+          </div>
+          <div class="thumb-body">
+            <span class="thumb-tag">体験会</span>
+            <span class="thumb-title">人数限定 無料トレーニング体験会</span>
+            <span class="thumb-desc">YouTubeやXでは公開できない内容を体験会限定で伝える。LINE登録者に優先案内。</span>
+            <span class="thumb-cta">LINE登録で優先案内を受ける</span>
+          </div>
+        </div>
+
+        <!-- 特典9: アルファ雄チェックリスト -->
+        <div class="thumb-card">
+          <div class="thumb-img">
+            <span class="thumb-badge">LINE限定</span>
+            ▣ チェックリスト<br>イメージ画像
+          </div>
+          <div class="thumb-body">
+            <span class="thumb-tag">PDF資料</span>
+            <span class="thumb-title">アルファ雄チェックリスト 50項目</span>
+            <span class="thumb-desc">動物行動学・進化心理学に基づく「女が本能的に惹かれる男」の条件を自己チェックできるリスト。</span>
+            <span class="thumb-cta">LINE登録でダウンロード</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 中間CTA -->
+      <div class="mid-cta-divider">
+        <span class="mid-cta-label">中間CTA</span>
+        <div class="el-cta">【LINE友だち追加で全特典を受け取る】<span class="cta-arrow">→ LINE追加</span></div>
+      </div>
+
+      <div class="el-txt">
+        <span class="txt-label">実装メモ</span>
+        各サムネイルカード全体を &lt;a href="LINE友だち追加URL"&gt; で囲む。<br>
+        どのカードをクリックしても同一のLINE友だち追加画面に遷移する。<br>
+        UTMパラメータで流入元を区別可能（例: ?utm_content=video1, ?utm_content=diagnosis 等）。
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [3] LINE登録から無料体験への流れ -->
+  <!-- ============================================================ -->
+  <div class="wf-section bg-light" id="sec3">
+    <div class="sec-header">
+      <div class="sec-num">3</div>
+      <div class="sec-name">LINE登録から無料体験への流れ</div>
+      <div class="sec-anchor">安心する → 行動する</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>
+        LINE登録から無料体験会までの流れ
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">補足</span>
+        たった3ステップで、すべての無料コンテンツと体験会にアクセスできる。
+      </div>
+
+      <!-- Step Flow -->
+      <div class="step-flow">
+
+        <!-- STEP 1 -->
+        <div class="step-item">
+          <div class="step-marker">1</div>
+          <div class="step-content">
+            <div class="step-title">LINE友だち追加（10秒で完了）</div>
+            <div class="step-desc">
+              このページのボタンをタップしてLINE友だち追加するだけ。登録直後に零時レイから挨拶メッセージが届き、その場で全特典が解放される。
+            </div>
+          </div>
+        </div>
+
+        <div class="el-img" style="margin-left:48px">画像: LINE友だち追加の画面キャプチャ / QRコード</div>
+        <div style="margin-left:48px">
+          <div class="el-cta">【LINE友だち追加】<span class="cta-arrow">→ LINE追加</span></div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-item">
+          <div class="step-marker">2</div>
+          <div class="step-content">
+            <div class="step-title">動画講座 全4話を受け取る（毎日19時配信）</div>
+            <div class="step-desc">
+              友だち追加した日から「0→100 NLP錬愛術」全4話が毎日19時に自動配信される。NLP心理学の基礎からノンバーバル技術まで、順番に学んでいく。診断テスト・限定コラム・チェックリストもLINE内で受け取れる。
+            </div>
+          </div>
+        </div>
+
+        <div class="el-txt" style="margin-left:48px">
+          <span class="txt-label">配信スケジュール</span>
+          Day 1：第一話「最強の心理技術 NLP」+ NLPモテ力診断テスト<br>
+          Day 2：第二話「最強のトレーニング法」+ 限定コラム配信<br>
+          Day 3：第三話「女を支配するノンバーバル」+ 受講生インタビュー<br>
+          Day 4：第四話「女を支配する技術」+ アルファ雄チェックリスト + 体験会案内
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step-item">
+          <div class="step-marker">3</div>
+          <div class="step-content">
+            <div class="step-title">人数限定の無料体験会に参加する</div>
+            <div class="step-desc">
+              動画講座の第四話で、人数限定のトレーニング体験会をご案内。LINE登録者は優先的に枠を確保できる。YouTubeやXでは決して公開できない内容を、体験会限定で伝える。活動歴13年・ゲット数1,200人以上の零時レイが直接指導。
+            </div>
+          </div>
+        </div>
+
+        <div class="el-img" style="margin-left:48px">画像: 体験会の風景 / セミナー風景</div>
+
+      </div>
+
+      <!-- 全体の流れを視覚的に -->
+      <div class="el-txt">
+        <span class="txt-label">フロー図（実装イメージ）</span>
+        LINE友だち追加 → 特典自動配信（4日間）→ 体験会案内 → 申込<br><br>
+        ポイント：すべてLINE内で完結する。ユーザーは友だち追加だけすれば、あとは自動で特典が届き、体験会の案内まで進む。
+      </div>
+
+      <div class="mid-cta-divider">
+        <span class="mid-cta-label">中間CTA</span>
+        <div class="el-cta">【LINE友だち追加で今すぐ始める】<span class="cta-arrow">→ LINE追加</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [4] 最終CTA -->
+  <!-- ============================================================ -->
+  <div class="wf-section bg-accent" id="sec4">
+    <div class="sec-header">
+      <div class="sec-num">4</div>
+      <div class="sec-name">最終CTA</div>
+      <div class="sec-anchor">行動する</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-img">CTA背景ビジュアル（自信に満ちた男性 / LINE登録を想起させるビジュアル）</div>
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>
+        無料でここまで学べるのは、今だけかもしれない
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">本文（緊急性 + 行動喚起）</span>
+        動画講座 全4話 ／ NLPモテ力診断 ／ 限定コラム ／ アルファ雄チェックリスト ／ 受講生インタビュー ／ 無料体験会の優先案内――これだけのコンテンツが、LINE友だち追加だけで手に入る。モテ磨きを後回しにすることが、どれほどの機会損失になるか。いいと思った瞬間にすぐ行動できる人だけが、チャンスをものにする。
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">特典まとめ（リスト表示）</span>
+        1. 動画講座「0→100 NLP錬愛術」全4話<br>
+        2. NLPモテ力診断テスト<br>
+        3. 「3秒ルール」実践マニュアル<br>
+        4. アルファ雄チェックリスト 50項目<br>
+        5. 受講生インタビュー動画<br>
+        6. LINE限定コラム配信<br>
+        7. 人数限定 無料体験会 優先案内
+      </div>
+      <div class="el-cta" style="font-size:15px;padding:14px 32px">【LINE友だち追加で全特典を無料で受け取る】<span class="cta-arrow">→ LINE追加</span></div>
+      <div class="line-note">登録は10秒で完了。解除はいつでもOK。</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA SUMMARY TABLE -->
+<div class="cta-summary">
+  <h3>CTA配置サマリー</h3>
+  <table class="cta-table">
+    <thead>
+      <tr><th>配置箇所</th><th>セクション</th><th>CTA内容</th><th>遷移先</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="cta-dot"></span>FV内</td><td>[1] ファーストビュー</td><td>LINE友だち追加で無料特典を受け取る</td><td>LINE追加</td></tr>
+      <tr><td><span class="cta-dot"></span>各サムネイル（9枚）</td><td>[2] 無料特典一覧</td><td>カード全体がクリッカブル → LINE追加</td><td>LINE追加</td></tr>
+      <tr><td><span class="cta-dot"></span>特典一覧後</td><td>[2] 無料特典一覧</td><td>LINE友だち追加で全特典を受け取る</td><td>LINE追加</td></tr>
+      <tr><td><span class="cta-dot"></span>STEP1内</td><td>[3] 登録→体験の流れ</td><td>LINE友だち追加</td><td>LINE追加</td></tr>
+      <tr><td><span class="cta-dot"></span>フロー後</td><td>[3] 登録→体験の流れ</td><td>LINE友だち追加で今すぐ始める</td><td>LINE追加</td></tr>
+      <tr><td><span class="cta-dot"></span>末尾（最大サイズ）</td><td>[4] 最終CTA</td><td>LINE友だち追加で全特典を無料で受け取る</td><td>LINE追加</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECTION-TO-FUNNEL MAPPING -->
+<div class="cta-summary" style="margin-top:2px">
+  <h3>セクション → ファネル対応</h3>
+  <table class="cta-table">
+    <thead>
+      <tr><th>セクション</th><th>ファネル段階</th><th>ユーザー心理</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>[1] FV</td><td>興味を引く</td><td>無料でこんなに？ → 全体像を把握</td></tr>
+      <tr><td>[2] 無料特典一覧</td><td>欲しくなる</td><td>サムネイルで中身がわかる → 一つでも気になったらLINE追加</td></tr>
+      <tr><td>[3] 登録→体験の流れ</td><td>安心する → 行動する</td><td>登録後どうなるか明確 → 不安なくLINE追加</td></tr>
+      <tr><td>[4] 最終CTA</td><td>行動する</td><td>特典リストを再確認 → 後回しにしない → 今すぐ登録</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- DESIGN NOTES -->
+<div class="cta-summary" style="margin-top:2px">
+  <h3>設計ポイント</h3>
+  <table class="cta-table">
+    <thead>
+      <tr><th>設計項目</th><th>詳細</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>LANY参考</td>
+        <td>lany.co.jp/useful-materials のサムネイルグリッド形式を採用。カード型で特典を一覧表示し、視覚的に「もらえるもの」が伝わる設計。</td>
+      </tr>
+      <tr>
+        <td>全クリックLINE誘導</td>
+        <td>サムネイルカード・CTAボタン・テキストリンク、すべてのクリック先をLINE友だち追加URLに統一。ユーザーがどこをタップしても迷わない。</td>
+      </tr>
+      <tr>
+        <td>UTM分離</td>
+        <td>各カードのリンクにUTMパラメータを付与し、どの特典が最も訴求力があるかを計測可能にする。</td>
+      </tr>
+      <tr>
+        <td>ステップフロー</td>
+        <td>「LINE登録 → 特典自動配信 → 体験会案内」の流れを明示し、登録後の不安を解消。bmen.jp/price参考のステップUI。</td>
+      </tr>
+      <tr>
+        <td>CTA色</td>
+        <td>全CTAをLINEブランドカラー（#06c755）で統一。ページ全体がLINEへの誘導であることを視覚的に示す。</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

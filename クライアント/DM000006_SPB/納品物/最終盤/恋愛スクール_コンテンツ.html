@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>動画と記事で学ぶ | ブライトフォーメン - NLP心理学で恋愛力を高める恋愛スクール</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Roboto:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #ffffff;
+      --color-fg: #ffffff;
+      --color-text: #000000;
+      --color-border: #000000;
+      --color-neutral-darkest: #000000;
+      --color-neutral-lightest: #eeeeee;
+      --color-white: #ffffff;
+      --padding-global: 64px;
+      --padding-section-medium: 80px;
+      --padding-section-large: 112px;
+      --border-width: 1px;
+      --font-h1: 56px;
+      --font-h2: 48px;
+      --font-h3: 40px;
+      --font-h4: 32px;
+      --font-h5: 24px;
+      --font-h6: 20px;
+      --font-text-large: 20px;
+      --font-text-medium: 18px;
+      --font-text-regular: 16px;
+      --font-text-small: 14px;
+      --max-width: 1280px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.5;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      display: flex; flex-direction: column; height: 72px;
+      align-items: center; justify-content: center;
+      padding: 0 var(--padding-global); width: 100%;
+    }
+    .navbar-container {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: var(--max-width);
+    }
+    .navbar-logo { font-size: 24px; font-weight: 700; letter-spacing: 0.02em; }
+    .navbar-right { display: flex; gap: 32px; align-items: center; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { font-size: var(--font-text-regular); font-weight: 400; }
+    .nav-links a:hover { opacity: 0.7; }
+    .nav-actions { display: flex; gap: 16px; align-items: center; }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+      font-size: var(--font-text-regular); font-weight: 400; cursor: pointer;
+      border: 1px solid var(--color-neutral-darkest);
+      background: transparent; color: var(--color-neutral-darkest);
+      padding: 8px 20px; transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.8; }
+    .btn-primary { background: var(--color-neutral-darkest); color: var(--color-white); }
+    .btn-lg { padding: 12px 24px; }
+    .btn-link {
+      display: inline-flex; gap: 8px; align-items: center;
+      color: var(--color-neutral-darkest); font-size: var(--font-text-regular);
+      background: none; border: none; cursor: pointer; padding: 0;
+    }
+    .btn-link:hover { opacity: 0.7; }
+    .btn-link .arrow { font-size: 20px; }
+
+    /* ===== SECTION COMMON ===== */
+    .section {
+      display: flex; flex-direction: column; align-items: center;
+      overflow: hidden; padding: var(--padding-section-large) var(--padding-global); width: 100%;
+    }
+    .section-container {
+      display: flex; flex-direction: column; gap: 80px;
+      align-items: center; max-width: var(--max-width); width: 100%;
+    }
+    .section-title {
+      display: flex; flex-direction: column; gap: 16px;
+      align-items: center; max-width: 768px; width: 100%; text-align: center;
+    }
+    .tagline { font-size: 16px; font-weight: 600; line-height: 1.5; }
+
+    /* ===== HEADER ===== */
+    .header-section {
+      display: flex; flex-direction: column; align-items: center;
+      overflow: hidden; padding: var(--padding-section-large) var(--padding-global); width: 100%;
+    }
+    .header-inner {
+      display: flex; flex-direction: column; gap: 32px;
+      align-items: center; max-width: 768px; width: 100%; text-align: center;
+    }
+    .header-inner h1 { font-size: var(--font-h1); font-weight: 700; line-height: 1.2; }
+    .header-inner p { font-size: var(--font-text-medium); line-height: 1.5; }
+    .header-actions { display: flex; gap: 16px; }
+
+    /* ===== BLOG SECTION ===== */
+    .blog-section {
+      display: flex; gap: 80px; align-items: flex-start; width: 100%;
+    }
+    .blog-sidebar {
+      flex: 1; display: flex; flex-direction: column; gap: 32px;
+      align-items: flex-start; min-width: 0;
+    }
+    .blog-sidebar-title {
+      display: flex; flex-direction: column; gap: 16px; width: 100%;
+    }
+    .blog-sidebar-title h2 {
+      font-size: var(--font-h2); font-weight: 700; line-height: 1.2;
+    }
+    .blog-sidebar-title p {
+      font-size: var(--font-text-medium); line-height: 1.5;
+    }
+    .blog-cards {
+      flex: 1; display: flex; flex-direction: column; gap: 64px;
+      min-width: 0;
+    }
+    .blog-card {
+      display: flex; gap: 32px; align-items: center; width: 100%;
+    }
+    .blog-card-image {
+      width: 197px; height: 197px; flex-shrink: 0;
+      background: var(--color-neutral-lightest); position: relative;
+    }
+    .blog-card-image-placeholder {
+      width: 100%; height: 100%; display: flex;
+      align-items: center; justify-content: center;
+      color: #999; font-size: 14px;
+    }
+    .blog-card-content {
+      flex: 1; display: flex; flex-direction: column; gap: 24px;
+      align-items: flex-start; min-width: 0;
+    }
+    .blog-card-meta {
+      display: flex; gap: 16px; align-items: center;
+    }
+    .blog-card-tag {
+      background: var(--color-neutral-lightest);
+      padding: 4px 8px; font-size: var(--font-text-small);
+      font-weight: 600;
+    }
+    .blog-card-time {
+      font-size: var(--font-text-small); font-weight: 600;
+    }
+    .blog-card-text {
+      display: flex; flex-direction: column; gap: 8px; width: 100%;
+    }
+    .blog-card-text h5 {
+      font-size: var(--font-h5); font-weight: 700; line-height: 1.4;
+    }
+    .blog-card-text p {
+      font-size: var(--font-text-regular); line-height: 1.5;
+    }
+
+    /* ===== GALLERY ===== */
+    .gallery-grid {
+      display: flex; flex-direction: column; gap: 32px; width: 100%;
+    }
+    .gallery-row {
+      display: flex; gap: 32px; width: 100%;
+    }
+    .gallery-item {
+      flex: 1; aspect-ratio: 1; position: relative;
+      background: var(--color-neutral-lightest); overflow: hidden;
+    }
+    .gallery-item-placeholder {
+      width: 100%; height: 100%; display: flex;
+      align-items: center; justify-content: center;
+      color: #999; font-size: 14px;
+    }
+
+    /* ===== CTA BOTTOM ===== */
+    .cta-card {
+      background: var(--color-fg); border: var(--border-width) solid var(--color-border);
+      display: flex; align-items: center; overflow: hidden; width: 100%;
+    }
+    .cta-content {
+      flex: 1; display: flex; flex-direction: column; gap: 32px;
+      align-items: flex-start; justify-content: center; padding: 48px;
+    }
+    .cta-content h2 { font-size: var(--font-h2); font-weight: 700; line-height: 1.2; }
+    .cta-content p { font-size: var(--font-text-medium); line-height: 1.5; }
+    .cta-actions { display: flex; gap: 16px; }
+    .cta-image {
+      flex: 1; align-self: stretch; position: relative; min-height: 300px;
+      background: var(--color-neutral-lightest);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      display: flex; flex-direction: column; align-items: center;
+      padding: var(--padding-section-medium) var(--padding-global); width: 100%;
+    }
+    .footer-container {
+      display: flex; flex-direction: column; gap: 80px;
+      max-width: var(--max-width); width: 100%;
+    }
+    .footer-content { display: flex; gap: 64px; width: 100%; }
+    .footer-left { flex: 1; display: flex; flex-direction: column; gap: 32px; }
+    .footer-logo { font-size: 24px; font-weight: 700; letter-spacing: 0.02em; }
+    .footer-address-block {
+      display: flex; flex-direction: column; gap: 24px;
+      font-size: var(--font-text-small); line-height: 1.5;
+    }
+    .footer-address-item { display: flex; flex-direction: column; gap: 4px; }
+    .footer-address-item .label { font-weight: 600; }
+    .footer-address-item .value { font-weight: 400; }
+    .footer-address-item a { text-decoration: underline; }
+    .footer-social { display: flex; gap: 12px; }
+    .footer-social a { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+    .footer-social svg { width: 18px; height: 18px; }
+    .footer-right { flex: 1; display: flex; gap: 24px; max-width: 400px; }
+    .footer-link-list { flex: 1; display: flex; flex-direction: column; }
+    .footer-link-list a {
+      display: block; padding: 8px 0; font-size: var(--font-text-small);
+      font-weight: 600; line-height: 1.5;
+    }
+    .footer-link-list a:hover { opacity: 0.7; }
+    .footer-credits { display: flex; flex-direction: column; gap: 32px; width: 100%; }
+    .footer-divider { width: 100%; height: 1px; background: var(--color-border); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      width: 100%; font-size: var(--font-text-small); line-height: 1.5;
+    }
+    .footer-bottom-links { display: flex; gap: 24px; }
+    .footer-bottom-links a { text-decoration: underline; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      :root {
+        --padding-global: 40px; --padding-section-large: 80px;
+        --font-h1: 42px; --font-h2: 36px; --font-h3: 32px; --font-h4: 26px;
+      }
+      .blog-section { flex-direction: column; gap: 48px; }
+      .blog-card { flex-direction: column; gap: 24px; }
+      .blog-card-image { width: 100%; height: auto; aspect-ratio: 16/9; }
+      .cta-card { flex-direction: column; }
+    }
+    @media (max-width: 768px) {
+      :root {
+        --padding-global: 20px; --padding-section-large: 60px;
+        --font-h1: 32px; --font-h2: 28px; --font-h3: 26px; --font-h4: 22px;
+      }
+      .nav-links { display: none; }
+      .gallery-row { flex-direction: column; }
+      .footer-content { flex-direction: column; gap: 40px; }
+      .footer-right { max-width: 100%; }
+      .footer-bottom { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-logo">Logo</div>
+      <div class="navbar-right">
+        <div class="nav-links">
+          <a href="#">当校について</a>
+          <a href="#">強みと特徴</a>
+          <a href="#">講師陣</a>
+          <a href="#">学習 &#9662;</a>
+        </div>
+        <div class="nav-actions">
+          <button class="btn">資料請求</button>
+          <button class="btn btn-primary">無料体験</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HEADER ===== -->
+  <section class="header-section">
+    <div class="header-inner">
+      <div style="display:flex;flex-direction:column;gap:16px;width:100%;">
+        <p class="tagline">学ぶ</p>
+        <div style="display:flex;flex-direction:column;gap:24px;width:100%;">
+          <h1>動画と記事で学ぶ</h1>
+          <p>恋愛心理学の基礎から実践的なテクニックまで、自分のペースで学べるコンテンツ</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary btn-lg">動画を見る</button>
+        <button class="btn btn-lg">記事を読む</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BLOG SECTION ===== -->
+  <section class="section">
+    <div style="max-width:var(--max-width);width:100%;">
+      <div class="blog-section">
+        <!-- Left: Section Title -->
+        <div class="blog-sidebar">
+          <div class="blog-sidebar-title">
+            <p class="tagline">記事</p>
+            <h2>恋愛心理学を深く理解する</h2>
+            <p>実践的なテクニックから心理学の基礎まで、段階的に学べます</p>
+          </div>
+          <button class="btn btn-lg">すべて見る</button>
+        </div>
+
+        <!-- Right: Article Cards -->
+        <div class="blog-cards">
+          <!-- Card 1 -->
+          <div class="blog-card">
+            <div class="blog-card-image">
+              <div class="blog-card-image-placeholder">Placeholder Image</div>
+            </div>
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-card-tag">心理学</span>
+                <span class="blog-card-time">8分で読める</span>
+              </div>
+              <div class="blog-card-text">
+                <h5>相手の心を開く会話の秘訣</h5>
+                <p>心理学に基づいた会話技法で、相手との距離を縮める方法を解説します</p>
+              </div>
+              <button class="btn-link">続きを読む <span class="arrow">&rsaquo;</span></button>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="blog-card">
+            <div class="blog-card-image">
+              <div class="blog-card-image-placeholder">Placeholder Image</div>
+            </div>
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-card-tag">テクニック</span>
+                <span class="blog-card-time">6分で読める</span>
+              </div>
+              <div class="blog-card-text">
+                <h5>初デートで失敗しない準備とは</h5>
+                <p>デート前の心構えから当日の行動まで、成功するための実践的なアドバイスです</p>
+              </div>
+              <button class="btn-link">続きを読む <span class="arrow">&rsaquo;</span></button>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="blog-card">
+            <div class="blog-card-image">
+              <div class="blog-card-image-placeholder">Placeholder Image</div>
+            </div>
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-card-tag">マインドセット</span>
+                <span class="blog-card-time">7分で読める</span>
+              </div>
+              <div class="blog-card-text">
+                <h5>自信を持つことが恋愛を変える理由</h5>
+                <p>自分自身への信頼が、相手にどう映るのか、その心理的メカニズムを紹介します</p>
+              </div>
+              <button class="btn-link">続きを読む <span class="arrow">&rsaquo;</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY / VIDEO SECTION ===== -->
+  <section class="section">
+    <div class="section-container">
+      <div style="display:flex;flex-direction:column;gap:24px;align-items:center;max-width:768px;width:100%;text-align:center;">
+        <h2 style="font-size:var(--font-h2);font-weight:700;line-height:1.2;">動画で学ぶ</h2>
+        <p style="font-size:var(--font-text-medium);line-height:1.5;">実際の場面で使える恋愛心理学の講座を動画で配信しています</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-row">
+          <div class="gallery-item">
+            <div class="gallery-item-placeholder">Placeholder Image</div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-item-placeholder">Placeholder Image</div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-item-placeholder">Placeholder Image</div>
+          </div>
+        </div>
+        <div class="gallery-row">
+          <div class="gallery-item">
+            <div class="gallery-item-placeholder">Placeholder Image</div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-item-placeholder">Placeholder Image</div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-item-placeholder">Placeholder Image</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="section">
+    <div style="max-width:var(--max-width);width:100%;">
+      <div class="cta-card">
+        <div class="cta-content">
+          <div style="display:flex;flex-direction:column;gap:24px;width:100%;">
+            <h2>次のステップへ進もう</h2>
+            <p>記事や動画で学んだ知識を、実践的な講座で深めることができます</p>
+          </div>
+          <div class="cta-actions">
+            <button class="btn btn-primary btn-lg">無料体験に申し込む</button>
+            <button class="btn btn-lg">詳しく見る</button>
+          </div>
+        </div>
+        <div class="cta-image">
+          <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#999;font-size:14px;">Placeholder Image</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <div class="footer-logo">Logo</div>
+          <div class="footer-address-block">
+            <div class="footer-address-item">
+              <span class="label">住所</span>
+              <span class="value">東京都渋谷区道玄坂1-2-3</span>
+            </div>
+            <div class="footer-address-item">
+              <span class="label">連絡先</span>
+              <span class="value">03-1234-5678</span>
+              <a href="mailto:info@brightformen.jp">info@brightformen.jp</a>
+            </div>
+          </div>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></a>
+            <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 110-4 2 2 0 010 4z"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.44 8.6.44 8.6.44s6.88 0 8.6-.44a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <div class="footer-link-list">
+            <a href="#">当校について</a>
+            <a href="#">選ばれる理由</a>
+            <a href="#">NLP心理学</a>
+            <a href="#">カリキュラム</a>
+            <a href="#">講師一覧</a>
+          </div>
+          <div class="footer-link-list">
+            <a href="#">よくある質問</a>
+            <a href="#">コンテンツ</a>
+            <a href="#">料金案内</a>
+            <a href="#">アクセス</a>
+            <a href="#">&copy; 2025 ブライトフォーメン。すべての権利を保有しています。</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-credits">
+        <div class="footer-divider"></div>
+        <div class="footer-bottom">
+          <span>プライバシーポリシー</span>
+          <div class="footer-bottom-links">
+            <a href="#">利用規約</a>
+            <a href="#">クッキー設定</a>
+            <a href="#">Cookies Settings</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

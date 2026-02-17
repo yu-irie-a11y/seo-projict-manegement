@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ページ構成案: サービス利用の流れ（LINE導線設計ベース）</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue','Noto Sans JP',sans-serif;background:#1e272e;color:#1a1a1a;line-height:1.6}
+
+/* ===== PAGE HEADER (info bar) ===== */
+.page-header{background:#fff;padding:24px 40px;border-bottom:3px solid #2a2a2a;position:sticky;top:0;z-index:100}
+.page-header h1{font-size:18px;font-weight:700;margin-bottom:8px}
+.page-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:#555}
+.page-meta span{display:inline-flex;align-items:center;gap:6px}
+.meta-label{font-weight:700;color:#1a1a1a}
+
+/* ===== FIXED ITEMS BAR ===== */
+.fixed-items{background:#2a2a2a;color:rgba(255,255,255,.85);padding:20px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font-size:12px}
+.fixed-item{display:flex;flex-direction:column;gap:4px}
+.fixed-item .fi-label{font-weight:700;color:#6ba3b5;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.fixed-item .fi-value{line-height:1.5}
+
+/* ===== SECTION LIST ===== */
+.section-list{background:#fff;padding:16px 40px;border-bottom:1px solid #ddd;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.section-list .sl-label{font-size:12px;font-weight:700;color:#555;margin-right:8px}
+.sec-chip{font-size:11px;padding:4px 12px;border-radius:3px;font-weight:600;cursor:pointer;border:1px solid #ddd;background:#f5f5f5;color:#333;transition:all .15s}
+.sec-chip:hover{background:#6ba3b5;color:#fff;border-color:#6ba3b5}
+.sec-chip .chip-num{color:#6ba3b5;margin-right:4px}
+.sec-chip:hover .chip-num{color:#fff}
+
+/* ===== MAIN WIREFRAME ===== */
+.wireframe{max-width:960px;margin:0 auto;padding:40px 20px 80px}
+
+/* Section block */
+.wf-section{margin-bottom:2px;padding:40px;position:relative}
+.wf-section.bg-fv{background:#c8ccd3}
+.wf-section.bg-light{background:#6b7078}
+.wf-section.bg-dark{background:#4a4f56}
+.wf-section.bg-accent{background:#3d5a6e}
+
+/* Section header */
+.sec-header{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.sec-num{width:32px;height:32px;border-radius:50%;background:#6ba3b5;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:.3px}
+.sec-anchor{font-size:11px;color:rgba(255,255,255,.45);margin-left:auto;font-family:monospace}
+.bg-fv .sec-name{color:#1a1a1a}
+.bg-fv .sec-anchor{color:rgba(0,0,0,.3)}
+
+/* Elements inside sections */
+.wf-elements{display:flex;flex-direction:column;gap:12px;padding-left:44px}
+
+/* Image placeholder */
+.el-img{background:#8db4c4;border-radius:6px;padding:20px 24px;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;min-height:60px}
+.el-img::before{content:'▣';font-size:18px;opacity:.7}
+.el-img.el-img-tall{min-height:120px}
+
+/* CTA button */
+.el-cta{display:inline-flex;align-items:center;gap:8px;background:#6ba3b5;color:#fff;padding:10px 24px;border-radius:4px;font-size:13px;font-weight:700;cursor:default;max-width:fit-content}
+.el-cta .cta-arrow{font-size:11px;opacity:.7;margin-left:8px;font-weight:400}
+
+/* Sub CTA */
+.el-cta-sub{display:inline-flex;align-items:center;gap:8px;background:#4a5568;color:#fff;padding:10px 24px;border-radius:4px;font-size:13px;font-weight:700;cursor:default;max-width:fit-content}
+.el-cta-sub .cta-arrow{font-size:11px;opacity:.7;margin-left:8px;font-weight:400}
+
+/* CTA row */
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+
+/* Text box */
+.el-txt{background:rgba(255,255,255,.12);border:1.5px dashed rgba(255,255,255,.3);border-radius:4px;padding:14px 18px;color:rgba(255,255,255,.85);font-size:13px;line-height:1.7}
+.bg-fv .el-txt{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.15);color:rgba(0,0,0,.75)}
+.el-txt .txt-label{font-weight:700;color:rgba(255,255,255,.95);font-size:12px;margin-bottom:4px;display:block}
+.bg-fv .el-txt .txt-label{color:rgba(0,0,0,.85)}
+
+/* Card */
+.el-card{background:rgba(0,0,0,.2);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.el-card .card-title{font-weight:700;font-size:13px;color:rgba(255,255,255,.9)}
+.el-card .card-body{font-size:12px;color:rgba(255,255,255,.65);line-height:1.6}
+.el-card .card-dest{display:inline-flex;align-items:center;gap:4px;background:#8db4c4;color:#fff;padding:4px 12px;border-radius:3px;font-size:11px;font-weight:600;max-width:fit-content;margin-top:4px}
+
+/* Card row */
+.card-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+
+/* Calendar placeholder */
+.el-calendar{background:rgba(0,0,0,.2);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.cal-header{display:flex;justify-content:space-between;align-items:center;color:rgba(255,255,255,.9);font-weight:700;font-size:14px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-day-label{text-align:center;font-size:10px;font-weight:700;color:rgba(255,255,255,.5);padding:4px}
+.cal-day{text-align:center;font-size:12px;color:rgba(255,255,255,.6);padding:8px 4px;border-radius:4px;background:rgba(0,0,0,.15)}
+.cal-day.available{background:rgba(107,163,181,.35);color:#fff;font-weight:600;cursor:pointer}
+.cal-day.full{background:rgba(255,80,80,.2);color:rgba(255,255,255,.4);text-decoration:line-through}
+.cal-legend{display:flex;gap:16px;font-size:10px;color:rgba(255,255,255,.5)}
+.cal-legend-item{display:flex;align-items:center;gap:4px}
+.cal-legend-dot{width:8px;height:8px;border-radius:2px}
+.cal-legend-dot.dot-available{background:rgba(107,163,181,.6)}
+.cal-legend-dot.dot-full{background:rgba(255,80,80,.3)}
+
+/* Schedule table (bmen.jp/price style) */
+.schedule-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}
+.schedule-table th{text-align:center;padding:10px 8px;background:rgba(0,0,0,.3);color:rgba(255,255,255,.7);font-weight:700;font-size:11px;border:1px solid rgba(255,255,255,.1)}
+.schedule-table td{text-align:center;padding:10px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65);font-size:12px}
+.schedule-table .status-open{color:#6ba3b5;font-weight:600}
+.schedule-table .status-few{color:#e0a040;font-weight:600}
+.schedule-table .status-full{color:rgba(255,255,255,.3)}
+.schedule-table .date-cell{font-weight:700;color:rgba(255,255,255,.85);text-align:left;padding-left:14px}
+
+/* Step flow */
+.step-flow{display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;gap:16px;align-items:flex-start;position:relative;padding:20px 0}
+.step-item:not(:last-child)::after{content:'';position:absolute;left:15px;top:52px;bottom:0;width:2px;background:rgba(107,163,181,.4)}
+.step-marker{width:32px;height:32px;border-radius:50%;background:#6ba3b5;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1}
+.step-content{flex:1;display:flex;flex-direction:column;gap:6px}
+.step-title{font-weight:700;font-size:14px;color:rgba(255,255,255,.95)}
+.step-desc{font-size:12px;color:rgba(255,255,255,.65);line-height:1.6}
+
+/* FAQ */
+.faq-item-wf{background:rgba(0,0,0,.2);border-radius:6px;padding:16px 20px;display:flex;flex-direction:column;gap:8px}
+.faq-q{font-weight:700;font-size:13px;color:rgba(255,255,255,.9);display:flex;align-items:center;gap:8px}
+.faq-q::before{content:'Q';background:#6ba3b5;color:#fff;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.faq-a{font-size:12px;color:rgba(255,255,255,.65);line-height:1.6;padding-left:30px}
+
+/* Mid CTA divider */
+.mid-cta-divider{border:2px dashed #6ba3b5;border-radius:6px;padding:16px 20px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:8px}
+.mid-cta-label{font-size:11px;font-weight:700;color:#6ba3b5;letter-spacing:.5px}
+
+/* Campaign box */
+.campaign-box{background:rgba(107,163,181,.15);border:2px solid #6ba3b5;border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center}
+.campaign-price-old{font-size:14px;color:rgba(255,255,255,.4);text-decoration:line-through}
+.campaign-price-new{font-size:24px;font-weight:700;color:#fff}
+.campaign-note{font-size:11px;color:rgba(255,255,255,.5)}
+
+/* ===== CTA SUMMARY ===== */
+.cta-summary{background:#fff;padding:24px 40px;margin:0 auto;max-width:960px}
+.cta-summary h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.cta-table{width:100%;border-collapse:collapse;font-size:13px}
+.cta-table th{text-align:left;padding:8px 12px;background:#f5f5f5;border:1px solid #ddd;font-weight:700;font-size:12px}
+.cta-table td{padding:8px 12px;border:1px solid #ddd}
+.cta-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#6ba3b5;margin-right:6px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .fixed-items{grid-template-columns:repeat(2,1fr)}
+  .wf-section{padding:24px 16px}
+  .wf-elements{padding-left:0}
+  .card-row{grid-template-columns:1fr}
+  .cal-grid{gap:2px}
+  .cal-day{padding:6px 2px;font-size:10px}
+  .page-header{padding:16px 20px}
+  .fixed-items{padding:16px 20px}
+  .section-list{padding:12px 20px}
+  .wireframe{padding:20px 10px 60px}
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1>サービス利用の流れ（LINE導線設計ベース）</h1>
+  <div class="page-meta">
+    <span><span class="meta-label">テンプレート:</span> サービス利用フロー型</span>
+    <span><span class="meta-label">参考:</span> bmen.jp/price</span>
+    <span><span class="meta-label">ページゴール:</span> LINE友だち追加 → 体験会申込</span>
+    <span><span class="meta-label">作成日:</span> 2026-02-13</span>
+  </div>
+</div>
+
+<!-- FIXED ITEMS -->
+<div class="fixed-items">
+  <div class="fixed-item">
+    <span class="fi-label">ターゲット</span>
+    <span class="fi-value">恋愛に悩む男性（初心者 / 中級者 / 上級者）</span>
+  </div>
+  <div class="fixed-item">
+    <span class="fi-label">CV</span>
+    <span class="fi-value">LINE友だち追加 → 体験会申込（utage LP）</span>
+  </div>
+  <div class="fixed-item">
+    <span class="fi-label">差別化</span>
+    <span class="fi-value">NLP心理学・動物行動学・進化心理学・脳科学に基づく科学的メソッド</span>
+  </div>
+  <div class="fixed-item">
+    <span class="fi-label">認知経路</span>
+    <span class="fi-value">LP → このページ（利用の流れ確認）→ LINE追加 or 体験会申込</span>
+  </div>
+</div>
+
+<!-- SECTION LIST (jump nav) -->
+<div class="section-list">
+  <span class="sl-label">セクション:</span>
+  <span class="sec-chip" onclick="document.getElementById('sec1').scrollIntoView({behavior:'smooth'})"><span class="chip-num">1</span>ヘッダー</span>
+  <span class="sec-chip" onclick="document.getElementById('sec2').scrollIntoView({behavior:'smooth'})"><span class="chip-num">2</span>3ステップ</span>
+  <span class="sec-chip" onclick="document.getElementById('sec3').scrollIntoView({behavior:'smooth'})"><span class="chip-num">3</span>体験会スケジュール</span>
+  <span class="sec-chip" onclick="document.getElementById('sec4').scrollIntoView({behavior:'smooth'})"><span class="chip-num">4</span>FAQ</span>
+  <span class="sec-chip" onclick="document.getElementById('sec5').scrollIntoView({behavior:'smooth'})"><span class="chip-num">5</span>最終CTA</span>
+</div>
+
+<!-- WIREFRAME -->
+<div class="wireframe">
+
+  <!-- ============================================================ -->
+  <!-- [1] ヘッダー（ページ導入） -->
+  <!-- ============================================================ -->
+  <div class="wf-section bg-fv" id="sec1">
+    <div class="sec-header">
+      <div class="sec-num">1</div>
+      <div class="sec-name">ヘッダー</div>
+      <div class="sec-anchor">興味を引く</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-img el-img-tall">ヘッダービジュアル（トレーニング風景 / ステップアップを想起させるイメージ）</div>
+      <div class="el-txt">
+        <span class="txt-label">タグライン</span>
+        始まり
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>
+        三つのステップ
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">リード文</span>
+        LINE友だち追加から動画講座、そして【要確認: 無料 or 有料？】体験会へ。「順序を間違えると遠回りする」――だから基礎から始め、少しずつレベルを上げていく
+      </div>
+      <div class="cta-row">
+        <div class="el-cta">【LINE友だち追加】<span class="cta-arrow">→ LINE追加</span></div>
+        <div class="el-cta-sub">【【要確認: 無料 or 有料？】体験会に申し込む】<span class="cta-arrow">→ utage LP</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [2] 三つのステップ（利用の流れ） -->
+  <!-- ============================================================ -->
+  <div class="wf-section bg-light" id="sec2">
+    <div class="sec-header">
+      <div class="sec-num">2</div>
+      <div class="sec-name">三つのステップで始まる</div>
+      <div class="sec-anchor">理解する</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>
+        三つのステップで始まる
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">補足</span>
+        LINE友だち追加から動画講座、そして【要確認: 無料 or 有料？】体験会へ。「順序を間違えると遠回りする」――だから基礎から始め、少しずつレベルを上げていく
+      </div>
+
+      <!-- Step Flow (bmen.jp/price参考: フロー形式) -->
+      <div class="step-flow">
+
+        <!-- STEP 1 -->
+        <div class="step-item">
+          <div class="step-marker">1</div>
+          <div class="step-content">
+            <div class="step-title">LINE友だち追加で動画講座を受け取る</div>
+            <div class="step-desc">
+              友だち追加すると、すぐに零時レイから挨拶メッセージが届く。その日からLINE限定講座「0→100 NLP錬愛術」全4話が毎日19時に配信される。
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 1 detail -->
+        <div class="el-txt" style="margin-left:48px">
+          <span class="txt-label">動画講座の内容（全4話 / 毎日19時配信）</span>
+          第一話：最強の心理技術 NLP<br>
+          第二話：最強のトレーニング法<br>
+          第三話：女を支配するノンバーバル<br>
+          第四話：女を支配する技術 ＋ 体験会オファー【要確認: ソースは「体験会オファー」。表現を変えるか？】
+        </div>
+        <div class="el-img" style="margin-left:48px">画像: LINE登録画面 / 友だち追加QRコード</div>
+        <div style="margin-left:48px">
+          <div class="el-cta">【LINE友だち追加】<span class="cta-arrow">→ LINE追加</span></div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-item">
+          <div class="step-marker">2</div>
+          <div class="step-content">
+            <div class="step-title">動画講座で基礎を学ぶ</div>
+            <div class="step-desc">
+              全4話の動画講座で、NLP心理学の基礎からノンバーバル（非言語コミュニケーション）の技術まで順番に学んでいく。「モテの習得は自動車教習所に行くようなもの。科学的に正しいトレーニングを繰り返し行えば、確実に結果が出る。」
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 detail -->
+        <div class="el-txt" style="margin-left:48px">
+          <span class="txt-label">フォローアップ配信</span>
+          動画視聴後には受講生インタビューや実績メッセージも届く。33歳童貞から3ヵ月で成果を出した受講生の声など、社会的証明で安心して次のステップに進める。
+        </div>
+        <div class="el-img" style="margin-left:48px">画像: 動画講座のサムネイル / 講座の画面キャプチャ</div>
+
+        <!-- STEP 3 -->
+        <div class="step-item">
+          <div class="step-marker">3</div>
+          <div class="step-content">
+            <div class="step-title">人数限定の【要確認: 無料 or 有料？】体験会に参加する</div>
+            <div class="step-desc">
+              動画講座で基礎を学んだ後、人数限定のトレーニング体験会に参加する。YouTubeやXでは決して公開できない内容を、体験会限定でお伝えする。活動歴約13年・ゲット数1,200人以上・講座受講者5,000人以上・直接指導人数1,500人以上の零時レイが直接指導。
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 detail -->
+        <div class="el-img" style="margin-left:48px">画像: 体験会の風景 / セミナー風景</div>
+        <div style="margin-left:48px">
+          <div class="cta-row">
+            <div class="el-cta">【【要確認: 無料 or 有料？】体験会に申し込む】<span class="cta-arrow">→ utage LP</span></div>
+            <div class="el-cta-sub">【体験会の詳細を見る】<span class="cta-arrow">→ #スケジュール</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [3] 体験会スケジュール / カレンダー (bmen.jp/price参考) -->
+  <!-- ============================================================ -->
+  <div class="wf-section bg-dark" id="sec3">
+    <div class="sec-header">
+      <div class="sec-num">3</div>
+      <div class="sec-name">体験会スケジュール</div>
+      <div class="sec-anchor">申し込む</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>
+        【要確認: 無料 or 有料？】体験会 開催スケジュール
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">補足</span>
+        人数限定【要確認: 完全予約制？ソースに記載なし】。LINE動画講座を視聴した方に優先案内。
+      </div>
+
+      <!-- Calendar UI (月表示) -->
+      <div class="el-calendar">
+        <div class="cal-header">
+          <span>◀</span>
+          <span>2026年 3月</span>
+          <span>▶</span>
+        </div>
+        <div class="cal-grid">
+          <div class="cal-day-label">日</div>
+          <div class="cal-day-label">月</div>
+          <div class="cal-day-label">火</div>
+          <div class="cal-day-label">水</div>
+          <div class="cal-day-label">木</div>
+          <div class="cal-day-label">金</div>
+          <div class="cal-day-label">土</div>
+          <div class="cal-day">1</div>
+          <div class="cal-day">2</div>
+          <div class="cal-day">3</div>
+          <div class="cal-day">4</div>
+          <div class="cal-day available">5</div>
+          <div class="cal-day">6</div>
+          <div class="cal-day available">7</div>
+          <div class="cal-day">8</div>
+          <div class="cal-day">9</div>
+          <div class="cal-day">10</div>
+          <div class="cal-day">11</div>
+          <div class="cal-day available">12</div>
+          <div class="cal-day">13</div>
+          <div class="cal-day full">14</div>
+          <div class="cal-day">15</div>
+          <div class="cal-day">16</div>
+          <div class="cal-day">17</div>
+          <div class="cal-day">18</div>
+          <div class="cal-day available">19</div>
+          <div class="cal-day">20</div>
+          <div class="cal-day available">21</div>
+          <div class="cal-day">22</div>
+          <div class="cal-day">23</div>
+          <div class="cal-day">24</div>
+          <div class="cal-day">25</div>
+          <div class="cal-day available">26</div>
+          <div class="cal-day">27</div>
+          <div class="cal-day full">28</div>
+          <div class="cal-day">29</div>
+          <div class="cal-day">30</div>
+          <div class="cal-day">31</div>
+        </div>
+        <div class="cal-legend">
+          <div class="cal-legend-item"><div class="cal-legend-dot dot-available"></div>空席あり</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot dot-full"></div>満席</div>
+        </div>
+      </div>
+
+      <!-- Time slot table (bmen.jp/price参考: 時間帯別空き状況) -->
+      <div class="el-txt">
+        <span class="txt-label">時間帯別 空き状況（bmen.jp/price参考レイアウト）</span>
+      </div>
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>10:00</th>
+            <th>13:00</th>
+            <th>16:30</th>
+            <th>19:00</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="date-cell">3/5（木）</td>
+            <td class="status-open">○ 空有</td>
+            <td class="status-open">○ 空有</td>
+            <td class="status-few">△ 残少</td>
+            <td class="status-full">－</td>
+          </tr>
+          <tr>
+            <td class="date-cell">3/7（土）</td>
+            <td class="status-open">○ 空有</td>
+            <td class="status-few">△ 残少</td>
+            <td class="status-full">－</td>
+            <td class="status-open">○ 空有</td>
+          </tr>
+          <tr>
+            <td class="date-cell">3/12（木）</td>
+            <td class="status-open">○ 空有</td>
+            <td class="status-open">○ 空有</td>
+            <td class="status-open">○ 空有</td>
+            <td class="status-few">△ 残少</td>
+          </tr>
+          <tr>
+            <td class="date-cell">3/14（土）</td>
+            <td class="status-full">－</td>
+            <td class="status-full">－</td>
+            <td class="status-full">－</td>
+            <td class="status-full">－</td>
+          </tr>
+          <tr>
+            <td class="date-cell">3/19（木）</td>
+            <td class="status-open">○ 空有</td>
+            <td class="status-open">○ 空有</td>
+            <td class="status-open">○ 空有</td>
+            <td class="status-open">○ 空有</td>
+          </tr>
+          <tr>
+            <td class="date-cell">3/21（土）</td>
+            <td class="status-open">○ 空有</td>
+            <td class="status-open">○ 空有</td>
+            <td class="status-few">△ 残少</td>
+            <td class="status-open">○ 空有</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Campaign Price 【要確認: 価格情報すべてソースに根拠なし。クライアントに確認必須】 -->
+      <div class="campaign-box">
+        <span class="campaign-note">体験会参加費【要確認: 無料 or 有料？ 通常価格の根拠なし】</span>
+        <span class="campaign-price-old">通常 ¥???【要確認】</span>
+        <span class="campaign-price-new">→ ¥???【要確認】</span>
+        <span class="campaign-note">LINE動画講座を視聴した方限定</span>
+      </div>
+
+      <div class="el-txt">
+        <span class="txt-label">フォーム要素</span>
+        日程選択 → 時間帯選択 → 名前・メールアドレス・LINE ID → 申込ボタン<br>
+        ※ 実装時は utage-system.com の申込フォーム埋め込み or リンクを想定
+      </div>
+      <div class="el-cta">【この日程で体験会に申し込む】<span class="cta-arrow">→ utage LP</span></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [4] FAQ -->
+  <!-- ============================================================ -->
+  <div class="wf-section bg-light" id="sec4">
+    <div class="sec-header">
+      <div class="sec-num">4</div>
+      <div class="sec-name">よくある質問</div>
+      <div class="sec-anchor">安心する</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>
+        質問
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">補足</span>
+        学びの流れで浮かぶ疑問に、ここで答える。
+      </div>
+
+      <div class="faq-item-wf">
+        <div class="faq-q">LINE登録後、すぐに講座は始まるか</div>
+        <div class="faq-a">登録直後に挨拶メッセージが届き、その日から「0→100 NLP錬愛術」第一話が配信される。全4話が毎日19時に届くので、すぐに学び始められる。</div>
+      </div>
+
+      <div class="faq-item-wf">
+        <div class="faq-q">体験会の参加費はいくらか【要確認: 無料 or 有料？】</div>
+        <div class="faq-a">【要確認: 回答内容はクライアント確認後に記載】LINE動画講座を最後まで視聴した方に、人数限定でご案内している。YouTubeやXでは公開できない内容を体験できる場だ。</div>
+      </div>
+
+      <div class="faq-item-wf">
+        <div class="faq-q">恋愛経験ゼロでも大丈夫か</div>
+        <div class="faq-a">問題ない。受講生の中には33歳童貞からスタートし、3ヵ月で成果を出した方もいる。基礎から順番に進める設計になっているので、経験がなくても確実にステップアップできる。</div>
+      </div>
+
+      <div class="faq-item-wf">
+        <div class="faq-q">講座の期間はどのくらいか</div>
+        <div class="faq-a">LINE動画講座は4日間（毎日19時配信）。【要確認: 「体験会は1回完結」「その後の本講座は個別案内」→ ソースに記載なし。クライアント確認必須】</div>
+      </div>
+
+      <div class="faq-item-wf">
+        <div class="faq-q">体験会はオンラインでも参加できるか</div>
+        <div class="faq-a">【要確認: オンライン/対面の対応可否 → ソースに記載なし。クライアント確認必須】</div>
+      </div>
+
+      <div class="el-txt">
+        <span class="txt-label">サブ見出し</span>
+        他に質問があるか？ 遠慮なく問い合わせてほしい。
+      </div>
+      <div class="el-cta-sub">【お問い合わせ】<span class="cta-arrow">→ お問い合わせページ</span></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [5] 最終CTA -->
+  <!-- ============================================================ -->
+  <div class="wf-section bg-accent" id="sec5">
+    <div class="sec-header">
+      <div class="sec-num">5</div>
+      <div class="sec-name">最終CTA</div>
+      <div class="sec-anchor">行動する</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-img">CTA背景ビジュアル（自信に満ちた男性 / トレーニング風景）</div>
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>
+        まずはLINE友だち追加から始めよう
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">本文（LINE配信「3秒ルール」より）</span>
+        モテ磨きを後回しにすることが、どれほどの機会損失になるか。いいと思った瞬間にすぐ行動できる人だけが、チャンスをものにする。まずはLINE友だち追加で「0→100 NLP錬愛術」全4話を受け取ろう。
+      </div>
+      <div class="cta-row">
+        <div class="el-cta">【LINE友だち追加】<span class="cta-arrow">→ LINE追加</span></div>
+        <div class="el-cta-sub">【【要確認: 無料 or 有料？】体験会に申し込む】<span class="cta-arrow">→ utage LP</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA SUMMARY TABLE -->
+<div class="cta-summary">
+  <h3>CTA配置サマリー</h3>
+  <table class="cta-table">
+    <thead>
+      <tr><th>配置箇所</th><th>セクション</th><th>CTA内容</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="cta-dot"></span>ヘッダー内</td><td>[1] ヘッダー</td><td>LINE友だち追加 / 体験会申込</td></tr>
+      <tr><td><span class="cta-dot"></span>STEP1後</td><td>[2] 三つのステップ</td><td>LINE友だち追加</td></tr>
+      <tr><td><span class="cta-dot"></span>STEP3後</td><td>[2] 三つのステップ</td><td>体験会申込 / 詳細を見る</td></tr>
+      <tr><td><span class="cta-dot"></span>カレンダー</td><td>[3] 体験会スケジュール</td><td>体験会申込（→ utage LP）</td></tr>
+      <tr><td><span class="cta-dot"></span>末尾</td><td>[5] 最終CTA</td><td>LINE友だち追加 / 体験会申込</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECTION-TO-FUNNEL MAPPING -->
+<div class="cta-summary" style="margin-top:2px">
+  <h3>セクション → ファネル対応</h3>
+  <table class="cta-table">
+    <thead>
+      <tr><th>セクション</th><th>ファネル段階</th><th>ユーザー心理</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>[1] ヘッダー</td><td>興味を引く</td><td>どういう流れで進むのか知りたい</td></tr>
+      <tr><td>[2] 三つのステップ</td><td>理解する</td><td>LINE→動画→体験会の順番を理解 → 安心</td></tr>
+      <tr><td>[3] 体験会スケジュール</td><td>申し込む</td><td>いつ参加できるか → 空席を確認して即決</td></tr>
+      <tr><td>[4] FAQ</td><td>安心する</td><td>疑問を解消 → 不安をなくす</td></tr>
+      <tr><td>[5] 最終CTA</td><td>行動する</td><td>後回しにしない → 今すぐLINE追加 / 申込</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

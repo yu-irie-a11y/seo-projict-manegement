@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ページ構成案: NLP心理学と選ばれる理由</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue','Noto Sans JP',sans-serif;background:#1e272e;color:#1a1a1a;line-height:1.6}
+
+/* ===== PAGE HEADER (info bar) ===== */
+.page-header{background:#fff;padding:24px 40px;border-bottom:3px solid #2a2a2a;position:sticky;top:0;z-index:100}
+.page-header h1{font-size:18px;font-weight:700;margin-bottom:8px}
+.page-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:#555}
+.page-meta span{display:inline-flex;align-items:center;gap:6px}
+.meta-label{font-weight:700;color:#1a1a1a}
+
+/* ===== FIXED ITEMS BAR ===== */
+.fixed-items{background:#2a2a2a;color:rgba(255,255,255,.85);padding:20px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font-size:12px}
+.fixed-item{display:flex;flex-direction:column;gap:4px}
+.fixed-item .fi-label{font-weight:700;color:#6ba3b5;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.fixed-item .fi-value{line-height:1.5}
+
+/* ===== SECTION LIST ===== */
+.section-list{background:#fff;padding:16px 40px;border-bottom:1px solid #ddd;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.section-list .sl-label{font-size:12px;font-weight:700;color:#555;margin-right:8px}
+.sec-chip{font-size:11px;padding:4px 12px;border-radius:3px;font-weight:600;cursor:pointer;border:1px solid #ddd;background:#f5f5f5;color:#333;transition:all .15s}
+.sec-chip:hover{background:#6ba3b5;color:#fff;border-color:#6ba3b5}
+.sec-chip .chip-num{color:#6ba3b5;margin-right:4px}
+.sec-chip:hover .chip-num{color:#fff}
+
+/* ===== MAIN WIREFRAME ===== */
+.wireframe{max-width:960px;margin:0 auto;padding:40px 20px 80px}
+
+/* Section block */
+.wf-section{margin-bottom:2px;padding:40px;position:relative}
+.wf-section.bg-fv{background:#c8ccd3}
+.wf-section.bg-light{background:#6b7078}
+.wf-section.bg-dark{background:#4a4f56}
+
+/* Section header */
+.sec-header{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.sec-num{width:32px;height:32px;border-radius:50%;background:#6ba3b5;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:.3px}
+.sec-anchor{font-size:11px;color:rgba(255,255,255,.45);margin-left:auto;font-family:monospace}
+.bg-fv .sec-name{color:#1a1a1a}
+.bg-fv .sec-anchor{color:rgba(0,0,0,.3)}
+
+/* Elements inside sections */
+.wf-elements{display:flex;flex-direction:column;gap:12px;padding-left:44px}
+
+/* Image placeholder */
+.el-img{background:#8db4c4;border-radius:6px;padding:20px 24px;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;min-height:60px}
+.el-img::before{content:'▣';font-size:18px;opacity:.7}
+.el-img.el-img-tall{min-height:120px}
+
+/* CTA button */
+.el-cta{display:inline-flex;align-items:center;gap:8px;background:#6ba3b5;color:#fff;padding:10px 24px;border-radius:4px;font-size:13px;font-weight:700;cursor:default;max-width:fit-content}
+.el-cta .cta-arrow{font-size:11px;opacity:.7;margin-left:8px;font-weight:400}
+
+/* Sub CTA */
+.el-cta-sub{display:inline-flex;align-items:center;gap:8px;background:#4a5568;color:#fff;padding:10px 24px;border-radius:4px;font-size:13px;font-weight:700;cursor:default;max-width:fit-content}
+.el-cta-sub .cta-arrow{font-size:11px;opacity:.7;margin-left:8px;font-weight:400}
+
+/* CTA row */
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+
+/* Text box */
+.el-txt{background:rgba(255,255,255,.12);border:1.5px dashed rgba(255,255,255,.3);border-radius:4px;padding:14px 18px;color:rgba(255,255,255,.85);font-size:13px;line-height:1.7}
+.bg-fv .el-txt{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.15);color:rgba(0,0,0,.75)}
+.el-txt .txt-label{font-weight:700;color:rgba(255,255,255,.95);font-size:12px;margin-bottom:4px;display:block}
+.bg-fv .el-txt .txt-label{color:rgba(0,0,0,.85)}
+
+/* Heading text (short) */
+.el-txt-heading{font-weight:700;font-size:14px;color:rgba(255,255,255,.95)}
+.bg-fv .el-txt-heading{color:rgba(0,0,0,.85)}
+
+/* Link button */
+.el-link{display:inline-flex;align-items:center;gap:6px;border:1.5px solid rgba(255,255,255,.4);border-radius:4px;padding:8px 18px;color:rgba(255,255,255,.8);font-size:12px;font-weight:600;cursor:default;max-width:fit-content}
+.el-link .link-arrow{margin-left:4px;opacity:.6}
+
+/* Card */
+.el-card{background:rgba(0,0,0,.2);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.el-card .card-title{font-weight:700;font-size:13px;color:rgba(255,255,255,.9)}
+.el-card .card-body{font-size:12px;color:rgba(255,255,255,.65);line-height:1.6}
+.el-card .card-dest{display:inline-flex;align-items:center;gap:4px;background:#8db4c4;color:#fff;padding:4px 12px;border-radius:3px;font-size:11px;font-weight:600;max-width:fit-content;margin-top:4px}
+
+/* Card row */
+.card-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+
+/* Stat items */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.el-stat{background:rgba(0,0,0,.25);border-radius:4px;padding:16px 12px;text-align:center;display:flex;flex-direction:column;gap:4px}
+.el-stat .stat-num{font-size:20px;font-weight:700;color:#fff}
+.el-stat .stat-label{font-size:11px;color:rgba(255,255,255,.6)}
+
+/* Comparison box */
+.el-compare{border-radius:6px;overflow:hidden}
+.compare-row{padding:14px 18px;font-size:12px;line-height:1.6}
+.compare-bad{background:rgba(0,0,0,.3);color:rgba(255,255,255,.7)}
+.compare-good{background:rgba(107,163,181,.25);color:rgba(255,255,255,.9)}
+.compare-label{font-weight:700;font-size:12px;margin-bottom:4px;display:block}
+.compare-bad .compare-label{color:rgba(255,255,255,.5)}
+.compare-good .compare-label{color:#8db4c4}
+
+/* Skill grid */
+.skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.el-skill{background:rgba(0,0,0,.2);border-radius:4px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.el-skill .skill-name{font-weight:700;font-size:13px;color:rgba(255,255,255,.9)}
+.el-skill .skill-desc{font-size:11px;color:rgba(255,255,255,.55);line-height:1.5}
+
+/* Tab UI */
+.el-tab-bar{display:flex;gap:2px}
+.el-tab{flex:1;padding:10px 16px;text-align:center;font-size:12px;font-weight:700;background:rgba(0,0,0,.3);color:rgba(255,255,255,.5);border-radius:4px 4px 0 0;cursor:default}
+.el-tab.active{background:#6ba3b5;color:#fff}
+.tab-content{background:rgba(0,0,0,.15);border-radius:0 0 4px 4px;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.tab-item{font-size:12px;color:rgba(255,255,255,.7);line-height:1.6}
+.tab-item .tab-step{font-weight:700;color:rgba(255,255,255,.9);margin-bottom:2px;display:block}
+
+/* Mid CTA divider */
+.mid-cta-divider{border:2px dashed #6ba3b5;border-radius:6px;padding:16px 20px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:8px}
+.mid-cta-label{font-size:11px;font-weight:700;color:#6ba3b5;letter-spacing:.5px}
+
+/* Testimonial cards */
+.testimonial-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.el-testimonial{background:rgba(0,0,0,.2);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.testimonial-period{font-size:11px;font-weight:700;color:#6ba3b5}
+.testimonial-quote{font-size:12px;color:rgba(255,255,255,.7);line-height:1.6;font-style:italic}
+.testimonial-author{font-size:11px;color:rgba(255,255,255,.5);margin-top:auto}
+
+/* ===== CTA SUMMARY ===== */
+.cta-summary{background:#fff;padding:24px 40px;margin:0 auto;max-width:960px}
+.cta-summary h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.cta-table{width:100%;border-collapse:collapse;font-size:13px}
+.cta-table th{text-align:left;padding:8px 12px;background:#f5f5f5;border:1px solid #ddd;font-weight:700;font-size:12px}
+.cta-table td{padding:8px 12px;border:1px solid #ddd}
+.cta-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#6ba3b5;margin-right:6px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .fixed-items{grid-template-columns:repeat(2,1fr)}
+  .wf-section{padding:24px 16px}
+  .wf-elements{padding-left:0}
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+  .card-row{grid-template-columns:1fr}
+  .skill-grid{grid-template-columns:1fr}
+  .testimonial-row{grid-template-columns:1fr}
+  .page-header{padding:16px 20px}
+  .fixed-items{padding:16px 20px}
+  .section-list{padding:12px 20px}
+  .wireframe{padding:20px 10px 60px}
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1>NLP心理学と選ばれる理由（/nlp-strengths/）</h1>
+  <div class="page-meta">
+    <span><span class="meta-label">テンプレート:</span> 詳細コンテンツ型</span>
+    <span><span class="meta-label">ファネル:</span> 気になる → 比べる</span>
+    <span><span class="meta-label">ページゴール:</span> NLPの独自性を理解 → LINE友だち追加 or 無料体験</span>
+    <span><span class="meta-label">作成日:</span> 2026-02-13</span>
+  </div>
+</div>
+
+<!-- FIXED ITEMS -->
+<div class="fixed-items">
+  <div class="fixed-item">
+    <span class="fi-label">ターゲット</span>
+    <span class="fi-value">恋愛に悩む男性（初心者 / 中級者 / 上級者）</span>
+  </div>
+  <div class="fixed-item">
+    <span class="fi-label">CV</span>
+    <span class="fi-value">LINE友だち追加 → 無料体験会申込</span>
+  </div>
+  <div class="fixed-item">
+    <span class="fi-label">差別化</span>
+    <span class="fi-value">NLP心理学に基づく科学的・再現性のあるトレーニング</span>
+  </div>
+  <div class="fixed-item">
+    <span class="fi-label">認知経路</span>
+    <span class="fi-value">YouTube / X / 検索 / LINE → HP</span>
+  </div>
+</div>
+
+<!-- SECTION LIST (jump nav) -->
+<div class="section-list">
+  <span class="sl-label">セクション:</span>
+  <span class="sec-chip" onclick="document.getElementById('sec1').scrollIntoView({behavior:'smooth'})"><span class="chip-num">1</span>FV</span>
+  <span class="sec-chip" onclick="document.getElementById('sec2').scrollIntoView({behavior:'smooth'})"><span class="chip-num">2</span>実績</span>
+  <span class="sec-chip" onclick="document.getElementById('sec3').scrollIntoView({behavior:'smooth'})"><span class="chip-num">3</span>NLPとは</span>
+  <span class="sec-chip" onclick="document.getElementById('sec4').scrollIntoView({behavior:'smooth'})"><span class="chip-num">4</span>3つの理由</span>
+  <span class="sec-chip" onclick="document.getElementById('sec5').scrollIntoView({behavior:'smooth'})"><span class="chip-num">5</span>3つの柱</span>
+  <span class="sec-chip" onclick="document.getElementById('sec6').scrollIntoView({behavior:'smooth'})"><span class="chip-num">6</span>3つの変化</span>
+  <span class="sec-chip" onclick="document.getElementById('sec7').scrollIntoView({behavior:'smooth'})"><span class="chip-num">7</span>指導体制</span>
+  <span class="sec-chip" onclick="document.getElementById('sec8').scrollIntoView({behavior:'smooth'})"><span class="chip-num">8</span>受講生の声</span>
+  <span class="sec-chip" onclick="document.getElementById('sec9').scrollIntoView({behavior:'smooth'})"><span class="chip-num">9</span>CTA</span>
+</div>
+
+<!-- WIREFRAME -->
+<div class="wireframe">
+
+  <!-- [1] FV -->
+  <div class="wf-section bg-fv" id="sec1">
+    <div class="sec-header">
+      <div class="sec-num">1</div>
+      <div class="sec-name">FV（ファーストビュー）</div>
+      <div class="sec-anchor">気になる</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-txt">
+        <span class="txt-label">タグライン</span>
+        心理学
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>
+        NLP心理学で、恋愛を科学する
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">本文</span>
+        動物行動学・進化心理学・脳科学に基づく「科学的に正しいメソッド」。感覚やテクニック集ではなく、再現性のあるトレーニングで恋愛を変える。
+      </div>
+      <div class="cta-row">
+        <div class="el-cta">【無料体験に申し込む】<span class="cta-arrow">→ 体験会申込</span></div>
+        <div class="el-cta-sub">【詳しく見る】<span class="cta-arrow">→ #method</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- [2] 数字で見る実績 -->
+  <div class="wf-section bg-light" id="sec2">
+    <div class="sec-header">
+      <div class="sec-num">2</div>
+      <div class="sec-name">数字で見る実績</div>
+      <div class="sec-anchor">比べる</div>
+    </div>
+    <div class="wf-elements">
+      <div class="stat-row">
+        <div class="el-stat">
+          <span class="stat-num">13年</span>
+          <span class="stat-label">活動歴</span>
+        </div>
+        <div class="el-stat">
+          <span class="stat-num">1,200+</span>
+          <span class="stat-label">ゲット実績</span>
+        </div>
+        <div class="el-stat">
+          <span class="stat-num">5,000+</span>
+          <span class="stat-label">講座受講者</span>
+        </div>
+        <div class="el-stat">
+          <span class="stat-num">1,500+</span>
+          <span class="stat-label">直接指導人数</span>
+        </div>
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">補足</span>
+        動物行動学・進化心理学・脳科学に基づくアルファ雄の振る舞いを体系化。トレーニングで誰でも習得可能。
+      </div>
+    </div>
+  </div>
+
+  <!-- [3] NLPとは何か -->
+  <div class="wf-section bg-dark" id="sec3">
+    <div class="sec-header">
+      <div class="sec-num">3</div>
+      <div class="sec-name">NLPとは何か</div>
+      <div class="sec-anchor">#method ／ 気になる</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-img">NLP心理学の概念図 or トレーニング風景</div>
+      <div class="el-txt">
+        <span class="txt-label">タグライン</span>
+        実践的
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>
+        理論だけでなく現場で使える技術
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">本文</span>
+        NLPは脳の仕組みと潜在意識の影響を科学的に体系化した心理学。コミュニケーションを根本から変える実践的な方法論。再現性のあるトレーニングプログラムで誰もが確実にスキルアップできる。
+      </div>
+      <div class="el-compare">
+        <div class="compare-row compare-bad">
+          <span class="compare-label">一般的な恋愛コーチ</span>
+          感覚的なテクニック / 講師の経験則 / 再現性が低い / 人による
+        </div>
+        <div class="compare-row compare-good">
+          <span class="compare-label">ブライトフォーメン</span>
+          NLP心理学（神経言語プログラミング）/ 科学に基づく再現性のあるトレーニング / 誰でも習得可能なメソッド
+        </div>
+      </div>
+      <div class="el-link">「カリキュラムを見る」 → カリキュラムページ<span class="link-arrow">›</span></div>
+    </div>
+  </div>
+
+  <!-- [4] 選ばれる3つの理由 -->
+  <div class="wf-section bg-light" id="sec4">
+    <div class="sec-header">
+      <div class="sec-num">4</div>
+      <div class="sec-name">選ばれる3つの理由</div>
+      <div class="sec-anchor">比べる</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-txt">
+        <span class="txt-label">タグライン</span>実績
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>選ばれる三つの理由
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">補足</span>NLP認定トレーナーが、心理学に基づいた再現性のある方法を教える。
+      </div>
+      <div class="card-row">
+        <div class="el-card">
+          <div class="el-img" style="min-height:48px;padding:12px 16px;font-size:12px">授業・指導風景</div>
+          <span class="card-title">NLP心理学に基づいた確かな指導</span>
+          <span class="card-body">動物行動学・進化心理学・脳科学に基づくNLPの理論を恋愛コミュニケーションに応用。再現性のあるメソッドを提供。</span>
+          <span class="card-dest">詳しく見る → #skills</span>
+        </div>
+        <div class="el-card">
+          <div class="el-img" style="min-height:48px;padding:12px 16px;font-size:12px">個別指導風景</div>
+          <span class="card-title">受講生一人ひとりに向き合うサポート</span>
+          <span class="card-body">個別の課題に対応し、あなたのペースで学べる環境を整えている。</span>
+          <span class="card-dest">詳しく見る → #method-steps</span>
+        </div>
+        <div class="el-card">
+          <div class="el-img" style="min-height:48px;padding:12px 16px;font-size:12px">受講生の成果イメージ</div>
+          <span class="card-title">多くの受講生が人生を変えた実績</span>
+          <span class="card-body">メンタルブロックから解放され、魅力的な自信を手に入れた受講生たちの声が証拠。</span>
+          <span class="card-dest">受講生の声を見る → #testimonials</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- [5] NLPメソッドの3つの柱 -->
+  <div class="wf-section bg-dark" id="sec5">
+    <div class="sec-header">
+      <div class="sec-num">5</div>
+      <div class="sec-name">NLPメソッドの3つの柱</div>
+      <div class="sec-anchor">#skills ／ 気になる</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-img">トレーニング実施風景</div>
+      <div class="skill-grid">
+        <div class="el-skill">
+          <span class="skill-name">NLP心理学</span>
+          <span class="skill-desc">脳と心の仕組みを科学的に理解し、コミュニケーションを根本から変える心理学的アプローチ</span>
+        </div>
+        <div class="el-skill">
+          <span class="skill-name">科学的トレーニング</span>
+          <span class="skill-desc">科学的に正しいトレーニングを繰り返し行い、再現性のある方法でスキルを習得する</span>
+        </div>
+        <div class="el-skill">
+          <span class="skill-name">ノンバーバル</span>
+          <span class="skill-desc">姿勢・視線・声のトーンなど非言語コミュニケーションで初対面から主導権を握る技術を習得する</span>
+        </div>
+      </div>
+      <div class="el-link">「全スキルを見る」 → カリキュラムページ<span class="link-arrow">›</span></div>
+    </div>
+  </div>
+
+  <!-- [6] NLPで得られる3つの変化 + 中間CTA -->
+  <div class="wf-section bg-light" id="sec6">
+    <div class="sec-header">
+      <div class="sec-num">6</div>
+      <div class="sec-name">NLPで得られる3つの変化</div>
+      <div class="sec-anchor">比べる</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-img">変化を象徴するビジュアル</div>
+      <div class="el-card">
+        <span class="card-title">揺るぎない自信が生まれる</span>
+        <span class="card-body">コミュ障・非モテからでも大逆転できるメソッドでメンタルブロックを解除。どんな場面でも堂々と振る舞える自分に変わる。</span>
+      </div>
+      <div class="el-card">
+        <span class="card-title">人間関係が根本から変わる</span>
+        <span class="card-body">相手の無意識レベルの反応を理解し、本当の意味で「通じ合う」コミュニケーションが取れるようになる。</span>
+      </div>
+      <div class="el-card">
+        <span class="card-title">人生のあらゆる場面が動き出す</span>
+        <span class="card-body">恋愛だけでなく、仕事・プレゼン・チームマネジメント――人生全体を自分でデザインできるようになる。</span>
+      </div>
+      <div class="mid-cta-divider">
+        <span class="mid-cta-label">中間CTA</span>
+        <div class="el-cta">【無料体験に申し込む】<span class="cta-arrow">→ 体験会申込</span></div>
+        <div class="el-cta-sub">【LINE無料講座「0→100 NLP錬愛術」を受け取る】<span class="cta-arrow">→ LINE追加</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- [7] 独自の指導体制 -->
+  <div class="wf-section bg-dark" id="sec7">
+    <div class="sec-header">
+      <div class="sec-num">7</div>
+      <div class="sec-name">独自の指導体制</div>
+      <div class="sec-anchor">#method-steps ／ 安心する</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-txt">
+        <span class="txt-label">タグライン</span>システム
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>あなたのペースで学べる独自の指導体制
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">補足</span>講師と受講生が一対一で向き合う。あなたの人生に合わせた学習プランを作り、確実に目標へ導く。
+      </div>
+      <div class="el-img">指導体制イメージ</div>
+      <div>
+        <div class="el-tab-bar">
+          <div class="el-tab active">STEP1</div>
+          <div class="el-tab">STEP2</div>
+          <div class="el-tab">STEP3</div>
+        </div>
+        <div class="tab-content">
+          <div class="tab-item">
+            <span class="tab-step">STEP1: 心理学の基礎</span>
+            NLPの原理を学び、自分の思考パターンを認識する。
+          </div>
+          <div class="tab-item">
+            <span class="tab-step">STEP2: 実践的な技術</span>
+            学んだ知識を日常の恋愛コミュニケーションで即座に活用できる方法を習得する。
+          </div>
+          <div class="tab-item">
+            <span class="tab-step">STEP3: 継続的なサポート</span>
+            講座終了後も、成長を見守り新しい課題に対応する支援を続ける。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- [8] 受講生の声 -->
+  <div class="wf-section bg-light" id="sec8">
+    <div class="sec-header">
+      <div class="sec-num">8</div>
+      <div class="sec-name">受講生の声</div>
+      <div class="sec-anchor">#testimonials ／ 安心する</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>受講生の声
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">補足</span>NLPを学んだ後の変化
+      </div>
+      <div class="testimonial-row">
+        <div class="el-testimonial">
+          <span class="testimonial-period">受講3ヵ月</span>
+          <span class="testimonial-quote">「33歳童貞からのスタート。NLPトレーニングわずか3ヵ月で歌舞伎町のキャバ嬢をゲット。対人全般の苦手も克服でき、仕事でも成果が出始めました。」</span>
+          <span class="testimonial-author">名前 / 会社員、東京</span>
+        </div>
+        <div class="el-testimonial">
+          <span class="testimonial-period">受講6ヵ月</span>
+          <span class="testimonial-quote">「科学的に正しいトレーニングを繰り返すことで確実に結果が出た。ノンバーバルを身につけてからは、初対面でも主導権を握れるようになりました。」</span>
+          <span class="testimonial-author">名前 / 営業職、大阪 ※§2-3,§2-4の要素で構成。実素材に差替え要</span>
+        </div>
+        <div class="el-testimonial">
+          <span class="testimonial-period">受講1年</span>
+          <span class="testimonial-quote">「半年で100ゲットを達成。モテ力が追い風になって副業でも稼げるようになり、関わる人すべてを味方につけられるようになりました。」</span>
+          <span class="testimonial-author">名前 / 自営業、福岡 ※§3-2の成果例で構成。実素材に差替え要</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- [9] CTA -->
+  <div class="wf-section bg-dark" id="sec9">
+    <div class="sec-header">
+      <div class="sec-num">9</div>
+      <div class="sec-name">CTA（最終行動喚起）</div>
+      <div class="sec-anchor">申し込む</div>
+    </div>
+    <div class="wf-elements">
+      <div class="el-txt">
+        <span class="txt-label">見出し</span>今すぐ始める
+      </div>
+      <div class="el-txt">
+        <span class="txt-label">本文</span>
+        NLPの力を自分のものにして、脳と心の仕組みから人間関係を変える。まずは無料体験で、その変化を実感してください。
+      </div>
+      <div class="cta-row">
+        <div class="el-cta">【無料体験に申し込む】<span class="cta-arrow">→ 体験会申込</span></div>
+        <div class="el-cta-sub">【LINE無料講座「0→100 NLP錬愛術」を受け取る】<span class="cta-arrow">→ LINE追加</span></div>
+      </div>
+      <div class="el-img">トレーニング風景 or 成功イメージ</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA SUMMARY TABLE -->
+<div class="cta-summary">
+  <h3>CTA配置</h3>
+  <table class="cta-table">
+    <thead>
+      <tr><th>配置箇所</th><th>セクション</th><th>CTA内容</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="cta-dot"></span>FV内</td><td>[1] FV</td><td>無料体験 / 詳しく見る</td></tr>
+      <tr><td><span class="cta-dot"></span>中間</td><td>[6] 変化セクション後</td><td>無料体験 / LINE追加</td></tr>
+      <tr><td><span class="cta-dot"></span>末尾</td><td>[9] CTA</td><td>無料体験 / LINE追加</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
